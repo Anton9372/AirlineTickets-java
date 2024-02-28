@@ -1,6 +1,6 @@
-package Big.AirlineTickets.repository;
+package airline.tickets.repository;
 
-import Big.AirlineTickets.model.Ticket;
+import airline.tickets.model.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TicketsRepository extends JpaRepository<Ticket, Long> {

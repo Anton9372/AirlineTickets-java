@@ -1,9 +1,9 @@
-package Big.AirlineTickets.controller;
+package airline.tickets.controller;
 
-import Big.AirlineTickets.service.TicketsService;
+import airline.tickets.service.TicketsService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import Big.AirlineTickets.model.Ticket;
+import airline.tickets.model.Ticket;
 
 import java.util.List;
 

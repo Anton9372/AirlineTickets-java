@@ -1,10 +1,7 @@
-package Big.AirlineTickets.service;
+package airline.tickets.service;
 
-import Big.AirlineTickets.model.Ticket;
-import org.springframework.stereotype.Service;
+import airline.tickets.model.Ticket;
 
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.List;
 
 public interface TicketsService {
