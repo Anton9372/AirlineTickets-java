@@ -20,11 +20,11 @@ public class Flight {
     private LocalDateTime departureDateTime;
 
     @ManyToOne
-    @JoinColumn(name = "airlineId")
+    @JoinColumn(name = "airline_id")
     private Airline airline;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "flight_passenger", joinColumns = @JoinColumn(name = "flightId"),
-                inverseJoinColumns = @JoinColumn(name = "passengerId"))
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(name = "flight_passenger", joinColumns = @JoinColumn(name = "flight_id"),
+                inverseJoinColumns = @JoinColumn(name = "passenger_id"))
     private List<Passenger> passengers = new ArrayList<>();
 }

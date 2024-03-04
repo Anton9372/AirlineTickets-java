@@ -34,6 +34,17 @@ public class FlightController {
         return service.updateFlight(flight);
     }
 
+    @PutMapping("update_flight/{departureTown}/passenger/{passengerName}")
+    public Flight assignFlightToPassenger(@PathVariable String departureTown,
+                                          @PathVariable String passengerName) {
+        return service.assignFlightToPassenger(departureTown, passengerName);
+    }
+
+    @PutMapping("update_flight/{departureTown}/airline/{airlineName}")
+    public Flight assignFlightToAirline(@PathVariable String departureTown,
+                                          @PathVariable String airlineName) {
+        return service.assignFlightToAirline(departureTown, airlineName);
+    }
     @DeleteMapping("delete_flight/{departure_town}")
     public void deleteByDepartureTown(@PathVariable("departure_town") String departureTown) {
         service.deleteByDepartureTown(departureTown);

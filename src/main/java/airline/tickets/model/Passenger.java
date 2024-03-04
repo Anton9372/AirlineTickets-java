@@ -17,7 +17,7 @@ public class Passenger {
     private String name;
     private String passportNumber;
 
-    @ManyToMany(mappedBy = "passengers", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "passengers", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JsonIgnore
     private List<Flight> flights = new ArrayList<>();
 }
