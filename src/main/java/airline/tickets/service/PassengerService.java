@@ -1,6 +1,5 @@
 package airline.tickets.service;
 
-import airline.tickets.model.Flight;
 import airline.tickets.model.Passenger;
 
 import java.util.List;
