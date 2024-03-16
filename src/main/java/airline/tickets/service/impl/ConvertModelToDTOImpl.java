@@ -71,6 +71,6 @@ public class ConvertModelToDTOImpl implements ConvertModelToDTO {
     public <T, R> List<R> convertToDTOList(List<T> entities, Function<T, R> conversionFunction) {
         return entities.stream()
                 .map(conversionFunction)
-                .collect(Collectors.toList());
+                .toList();
     }
 }
