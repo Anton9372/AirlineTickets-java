@@ -1,5 +1,8 @@
 package airline.tickets.controller;
 
+import airline.tickets.dto.FlightDTO;
+import airline.tickets.dto.PassengerDTO;
+import airline.tickets.dto.ReservationDTO;
 import airline.tickets.model.Passenger;
 import airline.tickets.service.PassengerService;
 import lombok.AllArgsConstructor;
@@ -12,30 +15,40 @@ import java.util.List;
 @AllArgsConstructor
 public class PassengerController {
 
-    private final PassengerService service;
+    private final PassengerService passengerService;
 
     @GetMapping
-    public List<Passenger> findAllPassengers() {
-        return service.findAllPassengers();
+    public List<PassengerDTO> findAllPassengers() {
+        return passengerService.findAllPassengers();
     }
 
-    @PostMapping("save_passenger")
-    public Passenger savePassenger(@RequestBody Passenger passenger) {
-        return service.savePassenger(passenger);
+    @GetMapping("/{passenger_name}")
+    public List<PassengerDTO> findByName(@PathVariable("passenger_name") String passengerName) {
+        return passengerService.findByName(passengerName);
     }
 
-    @GetMapping("/{name}")
-    public Passenger findByName(@PathVariable("name") String name) {
-        return service.findByName(name);
+    @GetMapping("/{passenger_id}/flights")
+    public List<FlightDTO> findAllFlights(@PathVariable("passenger_id") Long passengerId) {
+        return passengerService.findAllFlights(passengerId);
     }
 
-    @PutMapping("update_passenger")
-    public Passenger updatePassenger(@RequestBody Passenger passenger) {
-        return service.updatePassenger(passenger);
+    @GetMapping("/{passenger_id}/reservations")
+    public List<ReservationDTO> findAllReservations(@PathVariable("passenger_id") Long passengerId) {
+        return passengerService.findAllReservations(passengerId);
     }
 
-    @DeleteMapping("delete_passenger/{name}")
-    public void deleteByName(@PathVariable("name") String name) {
-        service.deleteByName(name);
+    @PostMapping("/save_passenger")
+    public PassengerDTO savePassenger(@RequestBody Passenger passenger) {
+        return passengerService.saveOrUpdatePassenger(passenger);
+    }
+
+    @PutMapping("/update_passenger")
+    public PassengerDTO updatePassenger(@RequestBody Passenger passenger) {
+        return passengerService.saveOrUpdatePassenger(passenger);
+    }
+
+    @DeleteMapping("/delete_passenger/{passenger_id}")
+    public void deletePassenger(@PathVariable("passenger_id") Long passengerId) {
+        passengerService.deletePassenger(passengerId);
     }
 }

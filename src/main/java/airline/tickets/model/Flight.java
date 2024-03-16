@@ -13,7 +13,7 @@ import java.util.List;
 public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long flightId;
+    private Long id;
 
     private String departureTown;
     private String arrivalTown;
@@ -21,10 +21,14 @@ public class Flight {
 
     @ManyToOne
     @JoinColumn(name = "airline_id")
+    //@JsonIgnore
     private Airline airline;
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinTable(name = "flight_passenger", joinColumns = @JoinColumn(name = "flight_id"),
-                inverseJoinColumns = @JoinColumn(name = "passenger_id"))
+    @OneToMany(mappedBy = "flight")
+    private List<Ticket> tickets = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "flight_history", joinColumns = @JoinColumn(name = "flight_id"),
+            inverseJoinColumns = @JoinColumn(name = "passenger_id"))
     private List<Passenger> passengers = new ArrayList<>();
 }

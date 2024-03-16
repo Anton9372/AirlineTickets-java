@@ -12,12 +12,15 @@ import java.util.List;
 public class Passenger {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long passengerId;
+    private Long id;
 
     private String name;
     private String passportNumber;
 
-    @ManyToMany(mappedBy = "passengers", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToMany(mappedBy = "passengers")
     @JsonIgnore
     private List<Flight> flights = new ArrayList<>();
+
+    @OneToMany(mappedBy = "passenger")
+    private List<Reservation> reservations = new ArrayList<>();
 }

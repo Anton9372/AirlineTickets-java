@@ -1,9 +1,13 @@
 package airline.tickets.controller;
 
+import airline.tickets.dto.FlightDTO;
+import airline.tickets.dto.PassengerDTO;
+import airline.tickets.dto.TicketDTO;
+import airline.tickets.model.Ticket;
 import airline.tickets.service.FlightService;
+import airline.tickets.service.TicketService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import airline.tickets.model.Flight;
 
 import java.util.List;
 
@@ -12,41 +16,44 @@ import java.util.List;
 @AllArgsConstructor
 public class FlightController {
 
-    private final FlightService service;
+    private final FlightService flightService;
+
+    private final TicketService ticketService;
 
     @GetMapping
-    public List<Flight> findAllFlights() {
-        return service.findAllFlights();
+    public List<FlightDTO> findAllFlights() {
+        return flightService.findAllFlights();
     }
 
-    @PostMapping("save_flight")
-    public Flight saveFlight(@RequestBody Flight flight) {
-        return service.saveFlight(flight);
+    @GetMapping("/departure_town/{departure_town}")
+    public List<FlightDTO> findByDepartureTown(@PathVariable("departure_town") String departureTown) {
+        return flightService.findByDepartureTown(departureTown);
     }
 
-    @GetMapping("/{departure_town}")
-    public Flight findByDepartureTown(@PathVariable("departure_town") String departureTown) {
-        return service.findByDepartureTown(departureTown);
+    @GetMapping("/arrival_town/{arrival_town}")
+    public List<FlightDTO> findByArrivalTown(@PathVariable("arrival_town") String arrivalTown) {
+        return flightService.findByArrivalTown(arrivalTown);
     }
 
-    @PutMapping("update_flight")
-    public Flight updateFlight(@RequestBody Flight flight) {
-        return service.updateFlight(flight);
+    @GetMapping("/departure_town/{departure_town}/arrival_town/{arrival_town}")
+    public List<FlightDTO> findByDepartureTownAndArrivalTown(@PathVariable("departure_town") String departureTown,
+                                                             @PathVariable("arrival_town") String arrivalTown) {
+        return flightService.findByDepartureTownAndArrivalTown(departureTown, arrivalTown);
     }
 
-    @PutMapping("update_flight/{departureTown}/passenger/{passengerName}")
-    public Flight assignFlightToPassenger(@PathVariable String departureTown,
-                                          @PathVariable String passengerName) {
-        return service.assignFlightToPassenger(departureTown, passengerName);
+    @GetMapping("/{flight_id}/tickets")
+    public List<TicketDTO> findAllTickets(@PathVariable("flight_id") Long flightId) {
+        return flightService.findAllTickets(flightId);
     }
 
-    @PutMapping("update_flight/{departureTown}/airline/{airlineName}")
-    public Flight assignFlightToAirline(@PathVariable String departureTown,
-                                          @PathVariable String airlineName) {
-        return service.assignFlightToAirline(departureTown, airlineName);
+    @GetMapping("/{flight_id}/passengers")
+    public List<PassengerDTO> findAllPassengers(@PathVariable("flight_id") Long flightId) {
+        return flightService.findAllPassengers(flightId);
     }
-    @DeleteMapping("delete_flight/{departure_town}")
-    public void deleteByDepartureTown(@PathVariable("departure_town") String departureTown) {
-        service.deleteByDepartureTown(departureTown);
+
+    @PostMapping("/save_tickets/{flight_id}/{num}")
+    public List<TicketDTO> saveTickets(@RequestBody Ticket ticket, @PathVariable("flight_id") Long flightId,
+                                       @PathVariable("num") int numOfTickets) {
+        return ticketService.saveNumOfTickets(ticket, flightId, numOfTickets);
     }
 }

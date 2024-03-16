@@ -3,7 +3,8 @@ package airline.tickets.repository;
 import airline.tickets.model.Passenger;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface PassengerRepository extends JpaRepository<Passenger, Long> {
-    Passenger findByName(String name);
-    void deleteByName(String name);
+    List<Passenger> findByName(String name);
 }

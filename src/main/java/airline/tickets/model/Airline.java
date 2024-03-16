@@ -1,6 +1,5 @@
 package airline.tickets.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -12,11 +11,10 @@ import java.util.List;
 public class Airline {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long airlineId;
+    private Long id;
 
     private String name;
 
-    @OneToMany(mappedBy = "airline", cascade = {CascadeType.ALL})
-    @JsonIgnore
+    @OneToMany(mappedBy = "airline")
     private List<Flight> flights = new ArrayList<>();
 }
