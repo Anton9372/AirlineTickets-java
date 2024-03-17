@@ -1,5 +1,6 @@
 package airline.tickets.service.impl;
 
+import airline.tickets.cache.InMemoryCache;
 import airline.tickets.dto.TicketDTO;
 import airline.tickets.model.Flight;
 import airline.tickets.model.Ticket;
@@ -21,17 +22,31 @@ public class TicketServiceImpl implements TicketService {
     private final TicketRepository ticketRepository;
     private final FlightRepository flightRepository;
     private final ConvertModelToDTOImpl convertModelToDTO;
+    private final InMemoryCache<String, List<TicketDTO>> ticketCache;
 
     @Override
     public List<TicketDTO> findAllTickets() {
+        List<TicketDTO> cachedResult = ticketCache.get("allTickets");
+        if (cachedResult != null) {
+            return cachedResult;
+        }
         List<Ticket> ticketList = ticketRepository.findAll();
-        return convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
+        List<TicketDTO> result = convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
+        ticketCache.put("allTickets", result);
+        return result;
     }
 
     @Override
     public List<TicketDTO> findByFlightId(Long flightId) {
+        String cacheKey = "flightId_" + flightId;
+        List<TicketDTO> cachedResult = ticketCache.get(cacheKey);
+        if (cachedResult != null) {
+            return cachedResult;
+        }
         List<Ticket> ticketList = ticketRepository.findByFlightId(flightId);
-        return convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
+        List<TicketDTO> result = convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
+        ticketCache.put(cacheKey, result);
+        return result;
     }
 
     private List<TicketDTO> findTicketsByFlightList(List<Flight> flightList) {
@@ -42,19 +57,41 @@ public class TicketServiceImpl implements TicketService {
         return convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
     }
 
+
     @Override
     public List<TicketDTO> findByDepartureTown(String departureTown) {
-        return findTicketsByFlightList(flightRepository.findByDepartureTown(departureTown));
+        String cacheKey = "departureTown_" + departureTown;
+        List<TicketDTO> cachedResult = ticketCache.get(cacheKey);
+        if (cachedResult != null) {
+            return cachedResult;
+        }
+        List<TicketDTO> result = findTicketsByFlightList(flightRepository.findByDepartureTown(departureTown));
+        ticketCache.put(cacheKey, result);
+        return result;
     }
 
     @Override
     public List<TicketDTO> findByArrivalTown(String arrivalTown) {
-        return findTicketsByFlightList(flightRepository.findByArrivalTown(arrivalTown));
+        String cacheKey = "arrivalTown_" + arrivalTown;
+        List<TicketDTO> cachedResult = ticketCache.get(cacheKey);
+        if (cachedResult != null) {
+            return cachedResult;
+        }
+        List<TicketDTO> result = findTicketsByFlightList(flightRepository.findByArrivalTown(arrivalTown));
+        ticketCache.put(cacheKey, result);
+        return result;
     }
 
     @Override
     public List<TicketDTO> findByDepartureTownAndArrivalTown(String departureTown, String arrivalTown) {
-        return findTicketsByFlightList(flightRepository.findByDepartureTownAndArrivalTown(departureTown, arrivalTown));
+        String cacheKey = "departureTown_" + departureTown + "_arrivalTown_" + arrivalTown;
+        List<TicketDTO> cachedResult = ticketCache.get(cacheKey);
+        if (cachedResult != null) {
+            return cachedResult;
+        }
+        List<TicketDTO> result = findTicketsByFlightList(flightRepository.findByDepartureTownAndArrivalTown(departureTown, arrivalTown));
+        ticketCache.put(cacheKey, result);
+        return result;
     }
 
     @Override
