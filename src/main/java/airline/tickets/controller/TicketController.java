@@ -65,4 +65,9 @@ public class TicketController {
     public TicketDTO updateTicket(@RequestBody Ticket ticket, @PathVariable("flight_id") Long flightId) {
         return ticketService.saveOrUpdateTicket(ticket, flightId);
     }
+
+    @DeleteMapping("/delete_ticket/{ticket_id}")
+    public void deleteTicket(@PathVariable("ticket_id") Long ticketId) {
+        ticketService.deleteTicket(ticketId);
+    }
 }

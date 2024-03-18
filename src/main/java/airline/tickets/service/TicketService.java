@@ -23,4 +23,6 @@ public interface TicketService {
 
     List<TicketDTO> saveNumOfTickets(Ticket ticket, Long flightId, int numOfTickets);
 
+    void deleteTicket(Long ticketId);
+
 }
