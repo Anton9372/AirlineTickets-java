@@ -1,8 +1,11 @@
 package airline.tickets.service.impl;
 
+import airline.tickets.aspect.AspectAnnotation;
 import airline.tickets.dto.FlightDTO;
 import airline.tickets.dto.PassengerDTO;
 import airline.tickets.dto.ReservationDTO;
+import airline.tickets.exception.BadRequestException;
+import airline.tickets.exception.ResourceNotFoundException;
 import airline.tickets.model.Flight;
 import airline.tickets.model.Passenger;
 import airline.tickets.model.Reservation;
@@ -23,7 +26,10 @@ public class PassengerServiceImpl implements PassengerService {
 
     private final PassengerRepository passengerRepository;
     private final ReservationService reservationService;
+
     private final ConvertModelToDTOImpl convertModelToDTO;
+
+    private static final String NO_PASSENGER_EXIST = "No Passenger found with id: ";
 
     @Override
     public List<PassengerDTO> findAllPassengers() {
@@ -38,46 +44,45 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
-    public PassengerDTO saveOrUpdatePassenger(Passenger passenger) {
+    @AspectAnnotation
+    public PassengerDTO saveOrUpdatePassenger(Passenger passenger) throws BadRequestException {
+        if(passenger.getName() == null || passenger.getPassportNumber() == null) {
+            throw new BadRequestException("name and passportNumber must be provided");
+        }
         passengerRepository.save(passenger);
         return convertModelToDTO.passengerConversion(passenger);
     }
 
     @Override
-    public List<FlightDTO> findAllFlights(Long passengerId) {
-        Optional<Passenger> optionalPassenger = passengerRepository.findById(passengerId);
-        if (optionalPassenger.isPresent()) {
-            List<Flight> flightList = optionalPassenger.get().getFlights();
-            return convertModelToDTO.convertToDTOList(flightList, convertModelToDTO::flightConversion);
-        } else {
-            return Collections.emptyList();
-        }
+    @AspectAnnotation
+    public List<FlightDTO> findAllFlights(Long passengerId) throws ResourceNotFoundException {
+        Passenger passenger = passengerRepository.findById(passengerId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));
+        List<Flight> flightList = passenger.getFlights();
+        return convertModelToDTO.convertToDTOList(flightList, convertModelToDTO::flightConversion);
     }
 
     @Override
-    public List<ReservationDTO> findAllReservations(Long passengerId) {
-        Optional<Passenger> optionalPassenger = passengerRepository.findById(passengerId);
-        if (optionalPassenger.isPresent()) {
-            List<Reservation> reservationList = optionalPassenger.get().getReservations();
-            return convertModelToDTO.convertToDTOList(reservationList, convertModelToDTO::reservationConversion);
-        } else {
-            return Collections.emptyList();
-        }
+    @AspectAnnotation
+    public List<ReservationDTO> findAllReservations(Long passengerId) throws ResourceNotFoundException {
+        Passenger passenger = passengerRepository.findById(passengerId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));
+        List<Reservation> reservationList = passenger.getReservations();
+        return convertModelToDTO.convertToDTOList(reservationList, convertModelToDTO::reservationConversion);
     }
 
     @Override
-    public void deletePassenger(Long passengerId) {
-        Optional<Passenger> optionalPassenger = passengerRepository.findById(passengerId);
-        if (optionalPassenger.isPresent()) {
-            Passenger passenger = optionalPassenger.get();
-            List<Reservation> reservationList = passenger.getReservations();
-            Iterator<Reservation> iterator = reservationList.iterator();
-            while (iterator.hasNext()) {
-                Reservation reservation = iterator.next();
-                iterator.remove();
-                reservationService.deleteReservation(reservation.getId());
-            }
-            passengerRepository.delete(passenger);
+    @AspectAnnotation
+    public void deletePassenger(Long passengerId) throws ResourceNotFoundException {
+        Passenger passenger = passengerRepository.findById(passengerId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));
+        List<Reservation> reservationList = passenger.getReservations();
+        Iterator<Reservation> iterator = reservationList.iterator();
+        while (iterator.hasNext()) {
+            Reservation reservation = iterator.next();
+            iterator.remove();
+            reservationService.deleteReservation(reservation.getId());
         }
+        passengerRepository.delete(passenger);
     }
 }

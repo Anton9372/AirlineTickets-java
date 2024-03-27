@@ -1,7 +1,10 @@
 package airline.tickets.service.impl;
 
+import airline.tickets.aspect.AspectAnnotation;
 import airline.tickets.dto.AirlineDTO;
 import airline.tickets.dto.FlightDTO;
+import airline.tickets.exception.BadRequestException;
+import airline.tickets.exception.ResourceNotFoundException;
 import airline.tickets.model.Airline;
 import airline.tickets.model.Flight;
 import airline.tickets.repository.AirlineRepository;
@@ -18,7 +21,10 @@ import java.util.Optional;
 public class AirlineServiceImpl implements AirlineService {
 
     private final AirlineRepository airlineRepository;
+
     private final ConvertModelToDTOImpl convertModelToDTO;
+
+    private static final String NO_AIRLINE_EXIST = "No Airline found with name: ";
 
     @Override
     public List<AirlineDTO> findAllAirlines() {
@@ -27,30 +33,29 @@ public class AirlineServiceImpl implements AirlineService {
     }
 
     @Override
-    public Optional<AirlineDTO> findByName(String airlineName) {
-        Optional<Airline> optionalAirline = airlineRepository.findByName(airlineName);
-        if (optionalAirline.isPresent()) {
-            Airline airline = optionalAirline.get();
-            return Optional.of(convertModelToDTO.airlineConversion(airline));
-        } else {
-            return Optional.empty();
-        }
+    @AspectAnnotation
+    public Optional<AirlineDTO> findByName(String airlineName) throws ResourceNotFoundException {
+        Airline airline = airlineRepository.findByName(airlineName).
+                orElseThrow(() -> new ResourceNotFoundException(NO_AIRLINE_EXIST + airlineName));
+        return Optional.of(convertModelToDTO.airlineConversion(airline));
     }
 
     @Override
-    public AirlineDTO saveOrUpdateAirline(Airline airline) {
+    @AspectAnnotation
+    public AirlineDTO saveOrUpdateAirline(Airline airline) throws BadRequestException {
+        if(airline.getName() == null) {
+            throw new BadRequestException("No name provided");
+        }
         airlineRepository.save(airline);
         return convertModelToDTO.airlineConversion(airline);
     }
 
     @Override
-    public List<FlightDTO> findAllFlights(String airlineName) {
-        Optional<Airline> optionalAirline = airlineRepository.findByName(airlineName);
-        if (optionalAirline.isPresent()) {
-            List<Flight> flightList = optionalAirline.get().getFlights();
-            return convertModelToDTO.convertToDTOList(flightList, convertModelToDTO::flightConversion);
-        } else {
-            return Collections.emptyList();
-        }
+    @AspectAnnotation
+    public List<FlightDTO> findAllFlights(String airlineName) throws ResourceNotFoundException {
+        Airline airline = airlineRepository.findByName(airlineName).
+                orElseThrow(() -> new ResourceNotFoundException(NO_AIRLINE_EXIST + airlineName));
+        List<Flight> flightList = airline.getFlights();
+        return convertModelToDTO.convertToDTOList(flightList, convertModelToDTO::flightConversion);
     }
 }

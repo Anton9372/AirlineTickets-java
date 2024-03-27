@@ -1,6 +1,8 @@
 package airline.tickets.service.impl;
 
+import airline.tickets.aspect.AspectAnnotation;
 import airline.tickets.dto.ReservationDTO;
+import airline.tickets.exception.ResourceNotFoundException;
 import airline.tickets.model.Flight;
 import airline.tickets.model.Passenger;
 import airline.tickets.model.Reservation;
@@ -24,7 +26,13 @@ public class ReservationServiceImpl implements ReservationService {
     private final ReservationRepository reservationRepository;
     private final PassengerRepository passengerRepository;
     private final TicketRepository ticketRepository;
+
     private final ConvertModelToDTOImpl convertModelToDTO;
+
+    private static final String NO_PASSENGER_EXIST = "No Passenger found with id: ";
+    private static final String NO_TICKET_EXIST = "No Ticket found with id: ";
+
+    private static final String NO_RESERVATION_EXIST = "No Reservation found with id: ";
 
     @Override
     public List<ReservationDTO> findAllReservations() {
@@ -33,13 +41,20 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public List<ReservationDTO> findByPassengerId(Long passengerId) {
+    @AspectAnnotation
+    public List<ReservationDTO> findByPassengerId(Long passengerId) throws ResourceNotFoundException {
+        Passenger passenger = passengerRepository.findById(passengerId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));
         List<Reservation> reservationList = reservationRepository.findByPassengerId(passengerId);
         return convertModelToDTO.convertToDTOList(reservationList, convertModelToDTO::reservationConversion);
     }
 
     @Override
-    public Optional<ReservationDTO> findByTicketId(Long ticketId) {
+    @AspectAnnotation
+    public Optional<ReservationDTO> findByTicketId(Long ticketId) throws ResourceNotFoundException {
+        Ticket ticket = ticketRepository.findById(ticketId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_TICKET_EXIST + ticketId));
+
         Optional<Reservation> optionalReservation = reservationRepository.findByTicketId(ticketId);
         if (optionalReservation.isPresent()) {
             Reservation reservation = optionalReservation.get();
@@ -50,55 +65,53 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public ReservationDTO saveReservation(Long passengerId, Long ticketId) {
-        Optional<Passenger> optionalPassenger = passengerRepository.findById(passengerId);
-        Optional<Ticket> optionalTicket = ticketRepository.findById(ticketId);
-        if (optionalPassenger.isPresent() && optionalTicket.isPresent()) {
-            Passenger passenger = optionalPassenger.get();
-            Ticket ticket = optionalTicket.get();
-            Flight flight = ticket.getFlight();
+    @AspectAnnotation
+    public ReservationDTO saveReservation(Long passengerId, Long ticketId) throws ResourceNotFoundException {
+        Passenger passenger = passengerRepository.findById(passengerId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));
+        Ticket ticket = ticketRepository.findById(ticketId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_TICKET_EXIST + ticketId));
 
-            ticket.setReserved(true);
+        Flight flight = ticket.getFlight();
 
-            Reservation reservation = new Reservation();
-            reservation.setTicket(ticket);
-            reservation.setPassenger(passenger);
-            reservationRepository.save(reservation);
+        ticket.setReserved(true);
 
-            List<Passenger> passengerList = flight.getPassengers();
-            passengerList.add(passenger);
-            flight.setPassengers(passengerList);
-            flightRepository.save(flight);
+        Reservation reservation = new Reservation();
+        reservation.setTicket(ticket);
+        reservation.setPassenger(passenger);
+        reservationRepository.save(reservation);
 
-            return convertModelToDTO.reservationConversion(reservation);
-        } else {
-            return null;
-        }
+        List<Passenger> passengerList = flight.getPassengers();
+        passengerList.add(passenger);
+        flight.setPassengers(passengerList);
+        flightRepository.save(flight);
+
+        return convertModelToDTO.reservationConversion(reservation);
     }
 
     @Override
-    public void deleteReservation(Long reservationId) {
-        Optional<Reservation> optionalReservation = reservationRepository.findById(reservationId);
-        if (optionalReservation.isPresent()) {
-            Reservation reservation = optionalReservation.get();
-            Ticket ticket = reservation.getTicket();
-            Passenger passenger = reservation.getPassenger();
-            Flight flight = ticket.getFlight();
+    @AspectAnnotation
+    public void deleteReservation(Long reservationId) throws ResourceNotFoundException {
+        Reservation reservation = reservationRepository.findById(reservationId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_RESERVATION_EXIST + reservationId));
 
-            ticket.setReserved(false);
-            ticketRepository.save(ticket);
+        Ticket ticket = reservation.getTicket();
+        Passenger passenger = reservation.getPassenger();
+        Flight flight = ticket.getFlight();
 
-            List<Reservation> reservationList = passenger.getReservations();
-            reservationList.remove(reservation);
-            passenger.setReservations(reservationList);
-            passengerRepository.save(passenger);
+        ticket.setReserved(false);
+        ticketRepository.save(ticket);
 
-            List<Passenger> passengerList = flight.getPassengers();
-            passengerList.remove(passenger);
-            flight.setPassengers(passengerList);
-            flightRepository.save(flight);
+        List<Reservation> reservationList = passenger.getReservations();
+        reservationList.remove(reservation);
+        passenger.setReservations(reservationList);
+        passengerRepository.save(passenger);
 
-            reservationRepository.delete(reservation);
-        }
+        List<Passenger> passengerList = flight.getPassengers();
+        passengerList.remove(passenger);
+        flight.setPassengers(passengerList);
+        flightRepository.save(flight);
+
+        reservationRepository.delete(reservation);
     }
 }

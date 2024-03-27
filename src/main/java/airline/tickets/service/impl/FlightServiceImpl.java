@@ -1,8 +1,11 @@
 package airline.tickets.service.impl;
 
+import airline.tickets.aspect.AspectAnnotation;
 import airline.tickets.dto.FlightDTO;
 import airline.tickets.dto.PassengerDTO;
 import airline.tickets.dto.TicketDTO;
+import airline.tickets.exception.BadRequestException;
+import airline.tickets.exception.ResourceNotFoundException;
 import airline.tickets.model.Airline;
 import airline.tickets.model.Flight;
 import airline.tickets.model.Passenger;
@@ -23,10 +26,12 @@ import java.util.Optional;
 public class FlightServiceImpl implements FlightService {
 
     private final FlightRepository flightRepository;
-
     private final AirlineRepository airlineRepository;
 
     private final ConvertModelToDTOImpl convertModelToDTO;
+
+    private static final String NO_AIRLINE_EXIST = "No Airline found with name: ";
+    private static final String NO_FLIGHT_EXIST = "No Flight found with id: ";
 
     @Override
     public List<FlightDTO> findAllFlights() {
@@ -53,37 +58,35 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public FlightDTO saveOrUpdateFlight(Flight flight, String airlineName) {
-        Optional<Airline> optionalAirline = airlineRepository.findByName(airlineName);
-        if (optionalAirline.isPresent()) {
-            Airline airline = optionalAirline.get();
-            flight.setAirline(airline);
-            flightRepository.save(flight);
-            return convertModelToDTO.flightConversion(flight);
-        } else {
-            return null;
+    @AspectAnnotation
+    public FlightDTO saveOrUpdateFlight(Flight flight, String airlineName) throws ResourceNotFoundException,
+            BadRequestException {
+        Airline airline = airlineRepository.findByName(airlineName).
+                orElseThrow(() -> new ResourceNotFoundException(NO_AIRLINE_EXIST + airlineName));
+        if(flight.getDepartureTown() == null || flight.getArrivalTown() == null ||
+                flight.getDepartureDateTime() == null) {
+            throw new BadRequestException("departureTown, arrivalTown and departureDateTime must be provided");
         }
+        flight.setAirline(airline);
+        flightRepository.save(flight);
+        return convertModelToDTO.flightConversion(flight);
     }
 
     @Override
-    public List<TicketDTO> findAllTickets(Long flightId) {
-        Optional<Flight> optionalFlight = flightRepository.findById(flightId);
-        if (optionalFlight.isPresent()) {
-            List<Ticket> ticketList = optionalFlight.get().getTickets();
-            return convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
-        } else {
-            return Collections.emptyList();
-        }
+    @AspectAnnotation
+    public List<TicketDTO> findAllTickets(Long flightId) throws ResourceNotFoundException {
+        Flight flight = flightRepository.findById(flightId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_FLIGHT_EXIST + flightId));
+        List<Ticket> ticketList = flight.getTickets();
+        return convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
     }
 
     @Override
-    public List<PassengerDTO> findAllPassengers(Long flightId) {
-        Optional<Flight> optionalFlight = flightRepository.findById(flightId);
-        if (optionalFlight.isPresent()) {
-            List<Passenger> passengerList = optionalFlight.get().getPassengers();
-            return convertModelToDTO.convertToDTOList(passengerList, convertModelToDTO::passengerConversion);
-        } else {
-            return Collections.emptyList();
-        }
+    @AspectAnnotation
+    public List<PassengerDTO> findAllPassengers(Long flightId) throws ResourceNotFoundException {
+        Flight flight = flightRepository.findById(flightId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_FLIGHT_EXIST + flightId));
+        List<Passenger> passengerList = flight.getPassengers();
+        return convertModelToDTO.convertToDTOList(passengerList, convertModelToDTO::passengerConversion);
     }
 }

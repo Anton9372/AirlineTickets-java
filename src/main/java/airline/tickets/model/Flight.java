@@ -21,7 +21,6 @@ public class Flight {
 
     @ManyToOne
     @JoinColumn(name = "airline_id")
-    //@JsonIgnore
     private Airline airline;
 
     @OneToMany(mappedBy = "flight")

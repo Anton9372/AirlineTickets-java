@@ -23,8 +23,11 @@ public class TicketServiceImpl implements TicketService {
 
     private final TicketRepository ticketRepository;
     private final FlightRepository flightRepository;
+
     private final ReservationService reservationService;
+
     private final ConvertModelToDTOImpl convertModelToDTO;
+
     private final InMemoryCache<String, List<TicketDTO>> ticketCache;
 
     @Override
@@ -92,7 +95,8 @@ public class TicketServiceImpl implements TicketService {
         if (cachedResult != null) {
             return cachedResult;
         }
-        List<TicketDTO> result = findTicketsByFlightList(flightRepository.findByDepartureTownAndArrivalTown(departureTown, arrivalTown));
+        List<TicketDTO> result = findTicketsByFlightList(flightRepository.
+                findByDepartureTownAndArrivalTown(departureTown, arrivalTown));
         ticketCache.put(cacheKey, result);
         return result;
     }

@@ -18,3 +18,7 @@ public class Airline {
     @OneToMany(mappedBy = "airline")
     private List<Flight> flights = new ArrayList<>();
 }
+
+
+//прописать cascade = { CascadeType.MERGE, CascadeType.PERSIST },
+//            fetch = FetchType.LAZY)
