@@ -51,10 +51,10 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     @AspectAnnotation
     public Optional<ReservationDTO> findByTicketId(final Long ticketId) throws ResourceNotFoundException {
-        ticketRepository.findById(ticketId).
+        Ticket ticket = ticketRepository.findById(ticketId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_TICKET_EXIST + ticketId));
 
-        Optional<Reservation> optionalReservation = reservationRepository.findByTicketId(ticketId);
+        Optional<Reservation> optionalReservation = reservationRepository.findByTicketId(ticket.getId());
         if (optionalReservation.isPresent()) {
             Reservation reservation = optionalReservation.get();
             return Optional.of(convertModelToDTO.reservationConversion(reservation));
