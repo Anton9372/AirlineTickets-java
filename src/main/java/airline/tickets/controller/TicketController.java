@@ -1,13 +1,22 @@
 package airline.tickets.controller;
 
+import airline.tickets.aspect.AspectAnnotation;
 import airline.tickets.dto.TicketDTO;
 import airline.tickets.model.Ticket;
 import airline.tickets.service.TicketService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Tag(name = "TicketController")
 @RestController
 @RequestMapping("/api/v1/tickets")
 @AllArgsConstructor
@@ -21,6 +30,7 @@ public class TicketController {
     }
 
     @GetMapping("/flight_id/{flight_id}")
+    @AspectAnnotation
     public List<TicketDTO> findByFlightId(@PathVariable("flight_id") Long flightId) {
         return ticketService.findByFlightId(flightId);
     }
@@ -62,11 +72,13 @@ public class TicketController {
     }
 
     @PutMapping("/update_ticket/flight_id/{flight_id}")
+    @AspectAnnotation
     public TicketDTO updateTicket(@RequestBody Ticket ticket, @PathVariable("flight_id") Long flightId) {
         return ticketService.saveOrUpdateTicket(ticket, flightId);
     }
 
     @DeleteMapping("/delete_ticket/{ticket_id}")
+    @AspectAnnotation
     public void deleteTicket(@PathVariable("ticket_id") Long ticketId) {
         ticketService.deleteTicket(ticketId);
     }

@@ -12,7 +12,6 @@ import airline.tickets.service.AirlineService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +42,7 @@ public class AirlineServiceImpl implements AirlineService {
     @Override
     @AspectAnnotation
     public AirlineDTO saveOrUpdateAirline(Airline airline) throws BadRequestException {
-        if(airline.getName() == null) {
+        if (airline.getName() == null) {
             throw new BadRequestException("No name provided");
         }
         airlineRepository.save(airline);

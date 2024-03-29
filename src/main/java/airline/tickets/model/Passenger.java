@@ -17,10 +17,10 @@ public class Passenger {
     private String name;
     private String passportNumber;
 
-    @ManyToMany(mappedBy = "passengers")
+    @ManyToMany(mappedBy = "passengers", fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Flight> flights = new ArrayList<>();
 
-    @OneToMany(mappedBy = "passenger")
+    @OneToMany(mappedBy = "passenger", fetch = FetchType.EAGER)
     private List<Reservation> reservations = new ArrayList<>();
 }

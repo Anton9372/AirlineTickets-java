@@ -15,10 +15,8 @@ import airline.tickets.service.ReservationService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -46,7 +44,7 @@ public class PassengerServiceImpl implements PassengerService {
     @Override
     @AspectAnnotation
     public PassengerDTO saveOrUpdatePassenger(Passenger passenger) throws BadRequestException {
-        if(passenger.getName() == null || passenger.getPassportNumber() == null) {
+        if (passenger.getName() == null || passenger.getPassportNumber() == null) {
             throw new BadRequestException("name and passportNumber must be provided");
         }
         passengerRepository.save(passenger);

@@ -31,7 +31,6 @@ public class ReservationServiceImpl implements ReservationService {
 
     private static final String NO_PASSENGER_EXIST = "No Passenger found with id: ";
     private static final String NO_TICKET_EXIST = "No Ticket found with id: ";
-
     private static final String NO_RESERVATION_EXIST = "No Reservation found with id: ";
 
     @Override
@@ -45,7 +44,7 @@ public class ReservationServiceImpl implements ReservationService {
     public List<ReservationDTO> findByPassengerId(Long passengerId) throws ResourceNotFoundException {
         Passenger passenger = passengerRepository.findById(passengerId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));
-        List<Reservation> reservationList = reservationRepository.findByPassengerId(passengerId);
+        List<Reservation> reservationList = passenger.getReservations();
         return convertModelToDTO.convertToDTOList(reservationList, convertModelToDTO::reservationConversion);
     }
 

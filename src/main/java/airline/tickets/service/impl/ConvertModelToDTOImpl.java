@@ -1,7 +1,15 @@
 package airline.tickets.service.impl;
 
-import airline.tickets.dto.*;
-import airline.tickets.model.*;
+import airline.tickets.dto.AirlineDTO;
+import airline.tickets.dto.FlightDTO;
+import airline.tickets.dto.PassengerDTO;
+import airline.tickets.dto.ReservationDTO;
+import airline.tickets.dto.TicketDTO;
+import airline.tickets.model.Airline;
+import airline.tickets.model.Flight;
+import airline.tickets.model.Passenger;
+import airline.tickets.model.Reservation;
+import airline.tickets.model.Ticket;
 import airline.tickets.service.ConvertModelToDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

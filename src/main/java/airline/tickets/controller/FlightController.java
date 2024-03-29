@@ -1,23 +1,25 @@
 package airline.tickets.controller;
 
+import airline.tickets.aspect.AspectAnnotation;
 import airline.tickets.dto.FlightDTO;
 import airline.tickets.dto.PassengerDTO;
 import airline.tickets.dto.TicketDTO;
 import airline.tickets.model.Ticket;
 import airline.tickets.service.FlightService;
 import airline.tickets.service.TicketService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "FlightController")
 @RestController
 @RequestMapping("/api/v1/flights")
 @AllArgsConstructor
 public class FlightController {
 
     private final FlightService flightService;
-
     private final TicketService ticketService;
 
     @GetMapping
@@ -42,16 +44,19 @@ public class FlightController {
     }
 
     @GetMapping("/{flight_id}/tickets")
+    @AspectAnnotation
     public List<TicketDTO> findAllTickets(@PathVariable("flight_id") Long flightId) {
         return flightService.findAllTickets(flightId);
     }
 
     @GetMapping("/{flight_id}/passengers")
+    @AspectAnnotation
     public List<PassengerDTO> findAllPassengers(@PathVariable("flight_id") Long flightId) {
         return flightService.findAllPassengers(flightId);
     }
 
     @PostMapping("/save_tickets/{flight_id}/{num}")
+    @AspectAnnotation
     public List<TicketDTO> saveTickets(@RequestBody Ticket ticket, @PathVariable("flight_id") Long flightId,
                                        @PathVariable("num") int numOfTickets) {
         return ticketService.saveNumOfTickets(ticket, flightId, numOfTickets);

@@ -1,8 +1,11 @@
 package airline.tickets.service.impl;
 
+import airline.tickets.aspect.AspectAnnotation;
 import airline.tickets.cache.InMemoryCache;
 import airline.tickets.dto.ReservationDTO;
 import airline.tickets.dto.TicketDTO;
+import airline.tickets.exception.BadRequestException;
+import airline.tickets.exception.ResourceNotFoundException;
 import airline.tickets.model.Flight;
 import airline.tickets.model.Ticket;
 import airline.tickets.repository.FlightRepository;
@@ -13,7 +16,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +32,9 @@ public class TicketServiceImpl implements TicketService {
 
     private final InMemoryCache<String, List<TicketDTO>> ticketCache;
 
+    private static final String NO_TICKET_EXIST = "No Ticket found with id: ";
+    private static final String NO_FLIGHT_EXIST = "No Flight found with id: ";
+
     @Override
     public List<TicketDTO> findAllTickets() {
         List<TicketDTO> cachedResult = ticketCache.get("allTickets");
@@ -43,13 +48,16 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<TicketDTO> findByFlightId(Long flightId) {
+    @AspectAnnotation
+    public List<TicketDTO> findByFlightId(Long flightId) throws ResourceNotFoundException {
         String cacheKey = "flightId_" + flightId;
         List<TicketDTO> cachedResult = ticketCache.get(cacheKey);
         if (cachedResult != null) {
             return cachedResult;
         }
-        List<Ticket> ticketList = ticketRepository.findByFlightId(flightId);
+        Flight flight = flightRepository.findById(flightId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_FLIGHT_EXIST + flightId));
+        List<Ticket> ticketList = flight.getTickets();
         List<TicketDTO> result = convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
         ticketCache.put(cacheKey, result);
         return result;
@@ -62,7 +70,6 @@ public class TicketServiceImpl implements TicketService {
         }
         return convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
     }
-
 
     @Override
     public List<TicketDTO> findByDepartureTown(String departureTown) {
@@ -113,54 +120,57 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public TicketDTO saveOrUpdateTicket(Ticket ticket, Long flightId) {
-        Optional<Flight> optionalFlight = flightRepository.findById(flightId);
-        if (optionalFlight.isPresent()) {
-            Flight flight = optionalFlight.get();
-            ticket.setFlight(flight);
-            ticketRepository.save(ticket);
-            ticketCache.clear();
-            return convertModelToDTO.ticketConversion(ticket);
-        } else {
-            return null;
+    @AspectAnnotation
+    public TicketDTO saveOrUpdateTicket(Ticket ticket, Long flightId)
+            throws ResourceNotFoundException, BadRequestException {
+        Flight flight = flightRepository.findById(flightId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_FLIGHT_EXIST + flightId));
+        if (ticket.getPrice() == null) {
+            throw new BadRequestException("Price must be provided");
         }
+        ticket.setFlight(flight);
+        ticketRepository.save(ticket);
+        ticketCache.clear();
+        return convertModelToDTO.ticketConversion(ticket);
     }
 
     @Override
-    public List<TicketDTO> saveNumOfTickets(Ticket ticket, Long flightId, int numOfTickets) {
-        Optional<Flight> optionalFlight = flightRepository.findById(flightId);
-        if (optionalFlight.isPresent()) {
-            for (int i = 0; i < numOfTickets; i++) {
-                Ticket newTicket = new Ticket();
-                newTicket.setPrice(ticket.getPrice());
-                newTicket.setReserved(ticket.isReserved());
-                newTicket.setFlight(ticket.getFlight());
-                saveOrUpdateTicket(newTicket, flightId);
-            }
-            List<Ticket> ticketList = optionalFlight.get().getTickets();
-            ticketCache.clear();
-            return convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
-        } else {
-            return Collections.emptyList();
+    public List<TicketDTO> saveNumOfTickets(Ticket ticket, Long flightId, int numOfTickets)
+            throws ResourceNotFoundException, BadRequestException {
+        Flight flight = flightRepository.findById(flightId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_FLIGHT_EXIST + flightId));
+        if (ticket.getPrice() == null) {
+            throw new BadRequestException("Price must be provided");
         }
+        if (numOfTickets < 1) {
+            throw new BadRequestException("Num of tickets must be more than one");
+        }
+        for (int i = 0; i < numOfTickets; i++) {
+            Ticket newTicket = new Ticket();
+            newTicket.setPrice(ticket.getPrice());
+            newTicket.setReserved(ticket.isReserved());
+            newTicket.setFlight(ticket.getFlight());
+            saveOrUpdateTicket(newTicket, flightId);
+        }
+        List<Ticket> ticketList = flight.getTickets();
+        ticketCache.clear();
+        return convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
     }
 
     @Override
-    public void deleteTicket(Long ticketId) {
-        Optional<Ticket> optionalTicket = ticketRepository.findById(ticketId);
-        if (optionalTicket.isPresent()) {
-            Ticket ticket = optionalTicket.get();
-            if (ticket.isReserved()) {
-                Optional<ReservationDTO> optionalReservationDTO = reservationService.findByTicketId(ticketId);
-                optionalReservationDTO.ifPresent(reservationDTO -> reservationService.
-                        deleteReservation(reservationDTO.getId()));
-            }
-            Flight flight = ticket.getFlight();
-            List<Ticket> ticketList = flight.getTickets();
-            ticketList.remove(ticket);
-            flight.setTickets(ticketList);
-            ticketCache.clear();
-            ticketRepository.delete(ticket);
+    public void deleteTicket(Long ticketId) throws ResourceNotFoundException {
+        Ticket ticket = ticketRepository.findById(ticketId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_TICKET_EXIST + ticketId));
+        if (ticket.isReserved()) {
+            Optional<ReservationDTO> optionalReservationDTO = reservationService.findByTicketId(ticketId);
+            optionalReservationDTO.ifPresent(reservationDTO -> reservationService.
+                    deleteReservation(reservationDTO.getId()));
         }
+        Flight flight = ticket.getFlight();
+        List<Ticket> ticketList = flight.getTickets();
+        ticketList.remove(ticket);
+        flight.setTickets(ticketList);
+        ticketCache.clear();
+        ticketRepository.delete(ticket);
     }
 }

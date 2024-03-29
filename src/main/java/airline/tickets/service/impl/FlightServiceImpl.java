@@ -13,13 +13,10 @@ import airline.tickets.model.Ticket;
 import airline.tickets.repository.AirlineRepository;
 import airline.tickets.repository.FlightRepository;
 import airline.tickets.service.FlightService;
-import airline.tickets.service.ReservationService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -63,7 +60,7 @@ public class FlightServiceImpl implements FlightService {
             BadRequestException {
         Airline airline = airlineRepository.findByName(airlineName).
                 orElseThrow(() -> new ResourceNotFoundException(NO_AIRLINE_EXIST + airlineName));
-        if(flight.getDepartureTown() == null || flight.getArrivalTown() == null ||
+        if (flight.getDepartureTown() == null || flight.getArrivalTown() == null ||
                 flight.getDepartureDateTime() == null) {
             throw new BadRequestException("departureTown, arrivalTown and departureDateTime must be provided");
         }

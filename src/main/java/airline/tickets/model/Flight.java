@@ -23,10 +23,10 @@ public class Flight {
     @JoinColumn(name = "airline_id")
     private Airline airline;
 
-    @OneToMany(mappedBy = "flight")
+    @OneToMany(mappedBy = "flight", fetch = FetchType.EAGER)
     private List<Ticket> tickets = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "flight_history", joinColumns = @JoinColumn(name = "flight_id"),
             inverseJoinColumns = @JoinColumn(name = "passenger_id"))
     private List<Passenger> passengers = new ArrayList<>();

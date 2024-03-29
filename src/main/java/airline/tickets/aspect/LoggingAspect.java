@@ -5,8 +5,6 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
@@ -63,56 +61,3 @@ public class LoggingAspect {
     }
 
 }
-
-/*
-@Component
-@Aspect
-@Slf4j
-public class LoggingAspect {
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoggingAspect.class);
-
-    @Pointcut("execution(* airline.tickets.service.*.*(..))"
-            + " || execution(* airline.tickets.controller.*.*(..))"
-            + " || execution(* airline.tickets.cache.*.*(..))")
-    public void allMethods() {
-    }
-
-    @Pointcut("@annotation(AspectAnnotation)")
-    public void methodsWithAspectAnnotation() {
-
-    }
-
-    @Before("methodsWithAspectAnnotation()")
-    public void logMethodCall(JoinPoint joinPoint) {
-        Object[] args = joinPoint.getArgs();
-        String fullClassName = joinPoint.getSignature().getDeclaringTypeName();
-        String methodName = joinPoint.getSignature().getName();
-        LOGGER.info("Method called: {}.{} with args: {}", fullClassName, methodName, Arrays.toString(args));
-    }
-
-    @AfterReturning(pointcut = "methodsWithAspectAnnotation()", returning = "result")
-    public void logMethodReturn(JoinPoint joinPoint, Object result) {
-        String fullClassName = joinPoint.getSignature().getDeclaringTypeName();
-        String methodName = joinPoint.getSignature().getName();
-        LOGGER.info("Method return: {}.{} returned {}", fullClassName, methodName, result);
-    }
-
-    @AfterThrowing(pointcut = "allMethods()", throwing = "exception")
-    public void logException(JoinPoint joinPoint, Throwable exception) {
-        String fullClassName = joinPoint.getSignature().getDeclaringTypeName();
-        String methodName = joinPoint.getSignature().getName();
-        LOGGER.error("Exception in: {}.{} cause: {}", fullClassName, methodName, exception.getMessage());
-    }
-
-    @Around("methodsWithAspectAnnotation()")
-    public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
-        long start = System.currentTimeMillis();
-        Object proceed = joinPoint.proceed();
-        long executionTime = System.currentTimeMillis() - start;
-        String fullClassName = joinPoint.getSignature().getDeclaringTypeName();
-        String methodName = joinPoint.getSignature().getName();
-        LOGGER.info("Method: {}.{} executed in {}ms", fullClassName, methodName, executionTime);
-        return proceed;
-    }
-}
-*/
