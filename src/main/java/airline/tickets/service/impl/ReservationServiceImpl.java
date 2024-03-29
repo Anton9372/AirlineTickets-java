@@ -41,7 +41,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     @AspectAnnotation
-    public List<ReservationDTO> findByPassengerId(Long passengerId) throws ResourceNotFoundException {
+    public List<ReservationDTO> findByPassengerId(final Long passengerId) throws ResourceNotFoundException {
         Passenger passenger = passengerRepository.findById(passengerId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));
         List<Reservation> reservationList = passenger.getReservations();
@@ -50,8 +50,8 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     @AspectAnnotation
-    public Optional<ReservationDTO> findByTicketId(Long ticketId) throws ResourceNotFoundException {
-        Ticket ticket = ticketRepository.findById(ticketId).
+    public Optional<ReservationDTO> findByTicketId(final Long ticketId) throws ResourceNotFoundException {
+        ticketRepository.findById(ticketId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_TICKET_EXIST + ticketId));
 
         Optional<Reservation> optionalReservation = reservationRepository.findByTicketId(ticketId);
@@ -65,7 +65,8 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     @AspectAnnotation
-    public ReservationDTO saveReservation(Long passengerId, Long ticketId) throws ResourceNotFoundException {
+    public ReservationDTO saveReservation(final Long passengerId, final Long ticketId)
+            throws ResourceNotFoundException {
         Passenger passenger = passengerRepository.findById(passengerId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));
         Ticket ticket = ticketRepository.findById(ticketId).
@@ -90,7 +91,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     @AspectAnnotation
-    public void deleteReservation(Long reservationId) throws ResourceNotFoundException {
+    public void deleteReservation(final Long reservationId) throws ResourceNotFoundException {
         Reservation reservation = reservationRepository.findById(reservationId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_RESERVATION_EXIST + reservationId));
 

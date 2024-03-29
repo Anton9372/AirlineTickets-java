@@ -1,340 +1,417 @@
-2024-03-29 01:25:36.904 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
-2024-03-29 01:25:36.947 [main] INFO  a.tickets.AirlineTicketsApplication - Starting AirlineTicketsApplication using Java 17.0.10 with PID 8736 (D:\Учеба\4_sem\Java\AirlineTickets\target\classes started by Anton in D:\Учеба\4_sem\Java\AirlineTickets)
-2024-03-29 01:25:36.948 [main] INFO  a.tickets.AirlineTicketsApplication - No active profile set, falling back to 1 default profile: "default"
-2024-03-29 01:25:37.880 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-03-29 01:25:37.942 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 57 ms. Found 5 JPA repository interfaces.
-2024-03-29 01:25:38.522 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-03-29 01:25:38.529 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-03-29 01:25:38.530 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-03-29 01:25:38.530 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-03-29 01:25:38.573 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-03-29 01:25:38.573 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1580 ms
-2024-03-29 01:25:38.709 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-03-29 01:25:38.746 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2024-03-29 01:25:38.777 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-03-29 01:25:38.926 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-03-29 01:25:38.943 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-03-29 01:25:39.078 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7b79ff1c
-2024-03-29 01:25:39.079 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-03-29 01:25:39.850 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-03-29 01:25:39.953 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-03-29 01:25:40.220 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2024-03-29 01:25:40.773 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-03-29 01:25:41.755 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-03-29 01:25:41.771 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-03-29 01:25:41.779 [main] INFO  a.tickets.AirlineTicketsApplication - Started AirlineTicketsApplication in 5.154 seconds (process running for 5.811)
-2024-03-29 01:26:03.519 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-03-29 01:26:03.521 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2024-03-29 01:26:03.523 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2024-03-29 01:27:06.173 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
-2024-03-29 01:27:06.225 [main] INFO  a.tickets.AirlineTicketsApplication - Starting AirlineTicketsApplication using Java 17.0.10 with PID 18872 (D:\Учеба\4_sem\Java\AirlineTickets\target\classes started by Anton in D:\Учеба\4_sem\Java\AirlineTickets)
-2024-03-29 01:27:06.226 [main] INFO  a.tickets.AirlineTicketsApplication - No active profile set, falling back to 1 default profile: "default"
-2024-03-29 01:27:06.880 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-03-29 01:27:06.952 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 65 ms. Found 5 JPA repository interfaces.
-2024-03-29 01:27:07.459 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-03-29 01:27:07.465 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-03-29 01:27:07.466 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-03-29 01:27:07.467 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-03-29 01:27:07.509 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-03-29 01:27:07.509 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1230 ms
-2024-03-29 01:27:07.655 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-03-29 01:27:07.751 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2024-03-29 01:27:07.778 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-03-29 01:27:07.921 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-03-29 01:27:07.937 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-03-29 01:27:08.066 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2dbf2da
-2024-03-29 01:27:08.067 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-03-29 01:27:08.867 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-03-29 01:27:08.960 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-03-29 01:27:09.216 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2024-03-29 01:27:10.595 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-03-29 01:27:10.609 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-03-29 01:27:10.618 [main] INFO  a.tickets.AirlineTicketsApplication - Started AirlineTicketsApplication in 4.714 seconds (process running for 5.456)
-2024-03-29 01:27:30.756 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-03-29 01:27:30.757 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2024-03-29 01:27:30.758 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2024-03-29 01:27:47.988 [http-nio-8080-exec-3] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.controller.AirlineController.findByName with args: [Belavia] 
-2024-03-29 01:27:47.989 [http-nio-8080-exec-3] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.service.impl.AirlineServiceImpl.findByName with args: [Belavia] 
-2024-03-29 01:27:48.101 [http-nio-8080-exec-3] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.service.impl.AirlineServiceImpl.findByName with args: [Belavia] returned: Optional[AirlineDTO(id=1, name=Belavia)]
-2024-03-29 01:27:48.101 [http-nio-8080-exec-3] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.service.impl.AirlineServiceImpl.findByName with args: [Belavia] in 112ms
-2024-03-29 01:27:48.101 [http-nio-8080-exec-3] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.controller.AirlineController.findByName with args: [Belavia] returned: Optional[AirlineDTO(id=1, name=Belavia)]
-2024-03-29 01:27:48.101 [http-nio-8080-exec-3] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.controller.AirlineController.findByName with args: [Belavia] in 115ms
-2024-03-29 01:27:54.927 [http-nio-8080-exec-9] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.controller.AirlineController.findByName with args: [Belavia111] 
-2024-03-29 01:27:54.928 [http-nio-8080-exec-9] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.service.impl.AirlineServiceImpl.findByName with args: [Belavia111] 
-2024-03-29 01:27:54.928 [http-nio-8080-exec-9] INFO  a.tickets.aspect.LoggingAspect - Exception in: airline.tickets.service.impl.AirlineServiceImpl.findByName with args: [Belavia111] cause: No Airline found with name: Belavia111
-2024-03-29 01:27:54.932 [http-nio-8080-exec-9] INFO  a.tickets.aspect.LoggingAspect - Exception in: airline.tickets.controller.AirlineController.findByName with args: [Belavia111] cause: No Airline found with name: Belavia111
-2024-03-29 01:28:13.988 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-03-29 01:28:13.989 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2024-03-29 01:28:13.991 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2024-03-29 01:33:52.767 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
-2024-03-29 01:33:52.812 [main] INFO  a.tickets.AirlineTicketsApplication - Starting AirlineTicketsApplication using Java 17.0.10 with PID 6304 (D:\Учеба\4_sem\Java\AirlineTickets\target\classes started by Anton in D:\Учеба\4_sem\Java\AirlineTickets)
-2024-03-29 01:33:52.813 [main] INFO  a.tickets.AirlineTicketsApplication - No active profile set, falling back to 1 default profile: "default"
-2024-03-29 01:33:53.457 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-03-29 01:33:53.515 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 52 ms. Found 5 JPA repository interfaces.
-2024-03-29 01:33:54.023 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-03-29 01:33:54.030 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-03-29 01:33:54.031 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-03-29 01:33:54.031 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-03-29 01:33:54.072 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-03-29 01:33:54.073 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1213 ms
-2024-03-29 01:33:54.213 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-03-29 01:33:54.251 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2024-03-29 01:33:54.281 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-03-29 01:33:54.426 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-03-29 01:33:54.450 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-03-29 01:33:54.675 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@21a5b599
-2024-03-29 01:33:54.676 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-03-29 01:33:55.464 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-03-29 01:33:55.555 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-03-29 01:33:55.804 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2024-03-29 01:33:57.100 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-03-29 01:33:57.115 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-03-29 01:33:57.123 [main] INFO  a.tickets.AirlineTicketsApplication - Started AirlineTicketsApplication in 4.638 seconds (process running for 5.32)
-2024-03-29 01:34:09.271 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-03-29 01:34:09.271 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2024-03-29 01:34:09.277 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2024-03-29 01:34:19.058 [http-nio-8080-exec-4] INFO  a.tickets.aspect.LoggingAspect - Exception in: airline.tickets.service.impl.TicketServiceImpl.findByDepartureTown with args: [Minsk] cause: failed to lazily initialize a collection of role: airline.tickets.model.Flight.tickets: could not initialize proxy - no Session
-2024-03-29 01:34:19.058 [http-nio-8080-exec-4] INFO  a.tickets.aspect.LoggingAspect - Exception in: airline.tickets.controller.TicketController.findUnreservedByDepartureTown with args: [Minsk] cause: failed to lazily initialize a collection of role: airline.tickets.model.Flight.tickets: could not initialize proxy - no Session
-2024-03-29 01:35:46.791 [http-nio-8080-exec-6] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.controller.AirlineController.findByName with args: [Belavia111] 
-2024-03-29 01:35:46.791 [http-nio-8080-exec-6] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.service.impl.AirlineServiceImpl.findByName with args: [Belavia111] 
-2024-03-29 01:35:46.799 [http-nio-8080-exec-6] INFO  a.tickets.aspect.LoggingAspect - Exception in: airline.tickets.service.impl.AirlineServiceImpl.findByName with args: [Belavia111] cause: No Airline found with name: Belavia111
-2024-03-29 01:35:46.799 [http-nio-8080-exec-6] INFO  a.tickets.aspect.LoggingAspect - Exception in: airline.tickets.controller.AirlineController.findByName with args: [Belavia111] cause: No Airline found with name: Belavia111
-2024-03-29 01:35:50.035 [http-nio-8080-exec-7] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.controller.AirlineController.findByName with args: [Belavia] 
-2024-03-29 01:35:50.035 [http-nio-8080-exec-7] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.service.impl.AirlineServiceImpl.findByName with args: [Belavia] 
-2024-03-29 01:35:50.040 [http-nio-8080-exec-7] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.service.impl.AirlineServiceImpl.findByName with args: [Belavia] returned: Optional[AirlineDTO(id=1, name=Belavia)]
-2024-03-29 01:35:50.043 [http-nio-8080-exec-7] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.service.impl.AirlineServiceImpl.findByName with args: [Belavia] in 7ms
-2024-03-29 01:35:50.043 [http-nio-8080-exec-7] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.controller.AirlineController.findByName with args: [Belavia] returned: Optional[AirlineDTO(id=1, name=Belavia)]
-2024-03-29 01:35:50.043 [http-nio-8080-exec-7] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.controller.AirlineController.findByName with args: [Belavia] in 8ms
-2024-03-29 01:35:54.226 [http-nio-8080-exec-8] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.controller.AirlineController.findAllFlights with args: [Belavia] 
-2024-03-29 01:35:54.227 [http-nio-8080-exec-8] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.service.impl.AirlineServiceImpl.findAllFlights with args: [Belavia] 
-2024-03-29 01:35:54.229 [http-nio-8080-exec-8] INFO  a.tickets.aspect.LoggingAspect - Exception in: airline.tickets.service.impl.AirlineServiceImpl.findAllFlights with args: [Belavia] cause: failed to lazily initialize a collection of role: airline.tickets.model.Airline.flights: could not initialize proxy - no Session
-2024-03-29 01:35:54.229 [http-nio-8080-exec-8] INFO  a.tickets.aspect.LoggingAspect - Exception in: airline.tickets.controller.AirlineController.findAllFlights with args: [Belavia] cause: failed to lazily initialize a collection of role: airline.tickets.model.Airline.flights: could not initialize proxy - no Session
-2024-03-29 01:36:50.547 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-03-29 01:36:50.548 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2024-03-29 01:36:50.552 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2024-03-29 01:37:25.855 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
-2024-03-29 01:37:25.901 [main] INFO  a.tickets.AirlineTicketsApplication - Starting AirlineTicketsApplication using Java 17.0.10 with PID 6816 (D:\Учеба\4_sem\Java\AirlineTickets\target\classes started by Anton in D:\Учеба\4_sem\Java\AirlineTickets)
-2024-03-29 01:37:25.903 [main] INFO  a.tickets.AirlineTicketsApplication - No active profile set, falling back to 1 default profile: "default"
-2024-03-29 01:37:26.565 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-03-29 01:37:26.625 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 54 ms. Found 5 JPA repository interfaces.
-2024-03-29 01:37:27.127 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-03-29 01:37:27.133 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-03-29 01:37:27.134 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-03-29 01:37:27.134 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-03-29 01:37:27.182 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-03-29 01:37:27.182 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1233 ms
-2024-03-29 01:37:27.320 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-03-29 01:37:27.359 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2024-03-29 01:37:27.386 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-03-29 01:37:27.530 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-03-29 01:37:27.548 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-03-29 01:37:27.691 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@35329a05
-2024-03-29 01:37:27.714 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-03-29 01:37:28.482 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-03-29 01:37:28.577 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-03-29 01:37:28.844 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2024-03-29 01:37:30.150 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-03-29 01:37:30.164 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-03-29 01:37:30.172 [main] INFO  a.tickets.AirlineTicketsApplication - Started AirlineTicketsApplication in 4.577 seconds (process running for 5.169)
-2024-03-29 01:37:38.301 [http-nio-8080-exec-3] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-03-29 01:37:38.301 [http-nio-8080-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2024-03-29 01:37:38.302 [http-nio-8080-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
-2024-03-29 01:37:42.454 [http-nio-8080-exec-4] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.controller.AirlineController.findByName with args: [Belavia] 
-2024-03-29 01:37:42.454 [http-nio-8080-exec-4] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.service.impl.AirlineServiceImpl.findByName with args: [Belavia] 
-2024-03-29 01:37:42.563 [http-nio-8080-exec-4] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.service.impl.AirlineServiceImpl.findByName with args: [Belavia] returned: Optional[AirlineDTO(id=1, name=Belavia)]
-2024-03-29 01:37:42.563 [http-nio-8080-exec-4] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.service.impl.AirlineServiceImpl.findByName with args: [Belavia] in 109ms
-2024-03-29 01:37:42.563 [http-nio-8080-exec-4] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.controller.AirlineController.findByName with args: [Belavia] returned: Optional[AirlineDTO(id=1, name=Belavia)]
-2024-03-29 01:37:42.563 [http-nio-8080-exec-4] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.controller.AirlineController.findByName with args: [Belavia] in 110ms
-2024-03-29 01:37:45.884 [http-nio-8080-exec-5] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.controller.AirlineController.findAllFlights with args: [Belavia] 
-2024-03-29 01:37:45.884 [http-nio-8080-exec-5] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.service.impl.AirlineServiceImpl.findAllFlights with args: [Belavia] 
-2024-03-29 01:37:45.895 [http-nio-8080-exec-5] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.service.impl.AirlineServiceImpl.findAllFlights with args: [Belavia] returned: [FlightDTO(id=1, departureTown=Minsk, arrivalTown=London, departureDateTime=2024-03-17T22:00, airlineName=Belavia), FlightDTO(id=2, departureTown=Minsk, arrivalTown=Paris, departureDateTime=2024-03-17T22:00, airlineName=Belavia), FlightDTO(id=3, departureTown=Paris, arrivalTown=Minsk, departureDateTime=2024-06-18T07:00, airlineName=Belavia)]
-2024-03-29 01:37:45.896 [http-nio-8080-exec-5] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.service.impl.AirlineServiceImpl.findAllFlights with args: [Belavia] in 12ms
-2024-03-29 01:37:45.896 [http-nio-8080-exec-5] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.controller.AirlineController.findAllFlights with args: [Belavia] returned: [FlightDTO(id=1, departureTown=Minsk, arrivalTown=London, departureDateTime=2024-03-17T22:00, airlineName=Belavia), FlightDTO(id=2, departureTown=Minsk, arrivalTown=Paris, departureDateTime=2024-03-17T22:00, airlineName=Belavia), FlightDTO(id=3, departureTown=Paris, arrivalTown=Minsk, departureDateTime=2024-06-18T07:00, airlineName=Belavia)]
-2024-03-29 01:37:45.896 [http-nio-8080-exec-5] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.controller.AirlineController.findAllFlights with args: [Belavia] in 12ms
-2024-03-29 01:38:26.603 [http-nio-8080-exec-10] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.controller.FlightController.findAllTickets with args: [1] 
-2024-03-29 01:38:26.603 [http-nio-8080-exec-10] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.service.impl.FlightServiceImpl.findAllTickets with args: [1] 
-2024-03-29 01:38:26.612 [http-nio-8080-exec-10] INFO  a.tickets.aspect.LoggingAspect - Exception in: airline.tickets.service.impl.FlightServiceImpl.findAllTickets with args: [1] cause: failed to lazily initialize a collection of role: airline.tickets.model.Flight.tickets: could not initialize proxy - no Session
-2024-03-29 01:38:26.612 [http-nio-8080-exec-10] INFO  a.tickets.aspect.LoggingAspect - Exception in: airline.tickets.controller.FlightController.findAllTickets with args: [1] cause: failed to lazily initialize a collection of role: airline.tickets.model.Flight.tickets: could not initialize proxy - no Session
-2024-03-29 01:38:35.589 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-03-29 01:38:35.592 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2024-03-29 01:38:35.592 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2024-03-29 01:39:04.213 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
-2024-03-29 01:39:04.256 [main] INFO  a.tickets.AirlineTicketsApplication - Starting AirlineTicketsApplication using Java 17.0.10 with PID 12212 (D:\Учеба\4_sem\Java\AirlineTickets\target\classes started by Anton in D:\Учеба\4_sem\Java\AirlineTickets)
-2024-03-29 01:39:04.257 [main] INFO  a.tickets.AirlineTicketsApplication - No active profile set, falling back to 1 default profile: "default"
-2024-03-29 01:39:04.895 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-03-29 01:39:04.947 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 47 ms. Found 5 JPA repository interfaces.
-2024-03-29 01:39:05.439 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-03-29 01:39:05.445 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-03-29 01:39:05.446 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-03-29 01:39:05.446 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-03-29 01:39:05.486 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-03-29 01:39:05.486 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1183 ms
-2024-03-29 01:39:05.616 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-03-29 01:39:05.650 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2024-03-29 01:39:05.676 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-03-29 01:39:05.828 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-03-29 01:39:05.845 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-03-29 01:39:05.987 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@d1f23a0
-2024-03-29 01:39:05.988 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-03-29 01:39:06.752 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-03-29 01:39:06.848 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-03-29 01:39:07.122 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2024-03-29 01:39:08.761 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-03-29 01:39:08.782 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-03-29 01:39:08.792 [main] INFO  a.tickets.AirlineTicketsApplication - Started AirlineTicketsApplication in 4.835 seconds (process running for 5.511)
-2024-03-29 01:39:19.024 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-03-29 01:39:19.024 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2024-03-29 01:39:19.028 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
-2024-03-29 01:39:25.633 [http-nio-8080-exec-5] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.controller.FlightController.findAllTickets with args: [1] 
-2024-03-29 01:39:25.641 [http-nio-8080-exec-5] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.service.impl.FlightServiceImpl.findAllTickets with args: [1] 
-2024-03-29 01:39:25.665 [http-nio-8080-exec-5] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.service.impl.FlightServiceImpl.findAllTickets with args: [1] returned: [TicketDTO(id=2, price=10, isReserved=false, flight=FlightDTO(id=1, departureTown=Minsk, arrivalTown=London, departureDateTime=2024-03-17T22:00, airlineName=Belavia))]
-2024-03-29 01:39:25.665 [http-nio-8080-exec-5] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.service.impl.FlightServiceImpl.findAllTickets with args: [1] in 24ms
-2024-03-29 01:39:25.665 [http-nio-8080-exec-5] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.controller.FlightController.findAllTickets with args: [1] returned: [TicketDTO(id=2, price=10, isReserved=false, flight=FlightDTO(id=1, departureTown=Minsk, arrivalTown=London, departureDateTime=2024-03-17T22:00, airlineName=Belavia))]
-2024-03-29 01:39:25.665 [http-nio-8080-exec-5] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.controller.FlightController.findAllTickets with args: [1] in 32ms
-2024-03-29 01:40:01.466 [http-nio-8080-exec-8] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.controller.FlightController.findAllPassengers with args: [1] 
-2024-03-29 01:40:01.466 [http-nio-8080-exec-8] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.service.impl.FlightServiceImpl.findAllPassengers with args: [1] 
-2024-03-29 01:40:01.483 [http-nio-8080-exec-8] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.service.impl.FlightServiceImpl.findAllPassengers with args: [1] returned: []
-2024-03-29 01:40:01.483 [http-nio-8080-exec-8] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.service.impl.FlightServiceImpl.findAllPassengers with args: [1] in 17ms
-2024-03-29 01:40:01.483 [http-nio-8080-exec-8] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.controller.FlightController.findAllPassengers with args: [1] returned: []
-2024-03-29 01:40:01.483 [http-nio-8080-exec-8] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.controller.FlightController.findAllPassengers with args: [1] in 17ms
-2024-03-29 01:40:08.651 [http-nio-8080-exec-9] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.controller.FlightController.findAllPassengers with args: [2] 
-2024-03-29 01:40:08.652 [http-nio-8080-exec-9] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.service.impl.FlightServiceImpl.findAllPassengers with args: [2] 
-2024-03-29 01:40:08.666 [http-nio-8080-exec-9] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.service.impl.FlightServiceImpl.findAllPassengers with args: [2] returned: [PassengerDTO(id=1, name=Anton Pavlovich, passportNumber=KANOkuIpEN0bd_6), PassengerDTO(id=3, name=Vladimir Putin, passportNumber=BkZoIO65BRSdEob)]
-2024-03-29 01:40:08.666 [http-nio-8080-exec-9] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.service.impl.FlightServiceImpl.findAllPassengers with args: [2] in 14ms
-2024-03-29 01:40:08.666 [http-nio-8080-exec-9] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.controller.FlightController.findAllPassengers with args: [2] returned: [PassengerDTO(id=1, name=Anton Pavlovich, passportNumber=KANOkuIpEN0bd_6), PassengerDTO(id=3, name=Vladimir Putin, passportNumber=BkZoIO65BRSdEob)]
-2024-03-29 01:40:08.666 [http-nio-8080-exec-9] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.controller.FlightController.findAllPassengers with args: [2] in 15ms
-2024-03-29 01:41:46.034 [http-nio-8080-exec-6] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.controller.PassengerController.findAllFlights with args: [1] 
-2024-03-29 01:41:46.036 [http-nio-8080-exec-6] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.service.impl.PassengerServiceImpl.findAllFlights with args: [1] 
-2024-03-29 01:41:46.105 [http-nio-8080-exec-6] INFO  a.tickets.aspect.LoggingAspect - Exception in: airline.tickets.service.impl.PassengerServiceImpl.findAllFlights with args: [1] cause: failed to lazily initialize a collection of role: airline.tickets.model.Passenger.flights: could not initialize proxy - no Session
-2024-03-29 01:41:46.105 [http-nio-8080-exec-6] INFO  a.tickets.aspect.LoggingAspect - Exception in: airline.tickets.controller.PassengerController.findAllFlights with args: [1] cause: failed to lazily initialize a collection of role: airline.tickets.model.Passenger.flights: could not initialize proxy - no Session
-2024-03-29 01:42:17.735 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-03-29 01:42:17.737 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2024-03-29 01:42:17.742 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2024-03-29 01:42:23.520 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
-2024-03-29 01:42:23.563 [main] INFO  a.tickets.AirlineTicketsApplication - Starting AirlineTicketsApplication using Java 17.0.10 with PID 14420 (D:\Учеба\4_sem\Java\AirlineTickets\target\classes started by Anton in D:\Учеба\4_sem\Java\AirlineTickets)
-2024-03-29 01:42:23.564 [main] INFO  a.tickets.AirlineTicketsApplication - No active profile set, falling back to 1 default profile: "default"
-2024-03-29 01:42:24.229 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-03-29 01:42:24.285 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 51 ms. Found 5 JPA repository interfaces.
-2024-03-29 01:42:24.787 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-03-29 01:42:24.794 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-03-29 01:42:24.795 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-03-29 01:42:24.796 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-03-29 01:42:24.838 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-03-29 01:42:24.887 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1278 ms
-2024-03-29 01:42:25.054 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-03-29 01:42:25.089 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2024-03-29 01:42:25.111 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-03-29 01:42:25.246 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-03-29 01:42:25.267 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-03-29 01:42:25.403 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6dcbbb49
-2024-03-29 01:42:25.404 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-03-29 01:42:26.176 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-03-29 01:42:26.265 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-03-29 01:42:26.529 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2024-03-29 01:42:27.824 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-03-29 01:42:27.838 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-03-29 01:42:27.846 [main] INFO  a.tickets.AirlineTicketsApplication - Started AirlineTicketsApplication in 4.592 seconds (process running for 5.257)
-2024-03-29 01:42:33.789 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-03-29 01:42:33.790 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2024-03-29 01:42:33.791 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2024-03-29 01:42:33.820 [http-nio-8080-exec-2] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.controller.PassengerController.findAllFlights with args: [1] 
-2024-03-29 01:42:33.820 [http-nio-8080-exec-2] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.service.impl.PassengerServiceImpl.findAllFlights with args: [1] 
-2024-03-29 01:42:33.963 [http-nio-8080-exec-2] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.service.impl.PassengerServiceImpl.findAllFlights with args: [1] returned: [FlightDTO(id=2, departureTown=Minsk, arrivalTown=Paris, departureDateTime=2024-03-17T22:00, airlineName=Belavia)]
-2024-03-29 01:42:33.963 [http-nio-8080-exec-2] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.service.impl.PassengerServiceImpl.findAllFlights with args: [1] in 143ms
-2024-03-29 01:42:33.963 [http-nio-8080-exec-2] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.controller.PassengerController.findAllFlights with args: [1] returned: [FlightDTO(id=2, departureTown=Minsk, arrivalTown=Paris, departureDateTime=2024-03-17T22:00, airlineName=Belavia)]
-2024-03-29 01:42:33.963 [http-nio-8080-exec-2] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.controller.PassengerController.findAllFlights with args: [1] in 144ms
-2024-03-29 01:42:40.057 [http-nio-8080-exec-3] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.controller.PassengerController.findAllFlights with args: [2] 
-2024-03-29 01:42:40.057 [http-nio-8080-exec-3] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.service.impl.PassengerServiceImpl.findAllFlights with args: [2] 
-2024-03-29 01:42:40.091 [http-nio-8080-exec-3] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.service.impl.PassengerServiceImpl.findAllFlights with args: [2] returned: [FlightDTO(id=3, departureTown=Paris, arrivalTown=Minsk, departureDateTime=2024-06-18T07:00, airlineName=Belavia)]
-2024-03-29 01:42:40.091 [http-nio-8080-exec-3] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.service.impl.PassengerServiceImpl.findAllFlights with args: [2] in 34ms
-2024-03-29 01:42:40.091 [http-nio-8080-exec-3] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.controller.PassengerController.findAllFlights with args: [2] returned: [FlightDTO(id=3, departureTown=Paris, arrivalTown=Minsk, departureDateTime=2024-06-18T07:00, airlineName=Belavia)]
-2024-03-29 01:42:40.091 [http-nio-8080-exec-3] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.controller.PassengerController.findAllFlights with args: [2] in 34ms
-2024-03-29 01:42:45.430 [http-nio-8080-exec-4] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.controller.PassengerController.findAllFlights with args: [3] 
-2024-03-29 01:42:45.430 [http-nio-8080-exec-4] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.service.impl.PassengerServiceImpl.findAllFlights with args: [3] 
-2024-03-29 01:42:45.463 [http-nio-8080-exec-4] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.service.impl.PassengerServiceImpl.findAllFlights with args: [3] returned: [FlightDTO(id=2, departureTown=Minsk, arrivalTown=Paris, departureDateTime=2024-03-17T22:00, airlineName=Belavia), FlightDTO(id=4, departureTown=Dubai, arrivalTown=Rome, departureDateTime=2024-06-18T07:00, airlineName=QatarAirways)]
-2024-03-29 01:42:45.463 [http-nio-8080-exec-4] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.service.impl.PassengerServiceImpl.findAllFlights with args: [3] in 33ms
-2024-03-29 01:42:45.463 [http-nio-8080-exec-4] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.controller.PassengerController.findAllFlights with args: [3] returned: [FlightDTO(id=2, departureTown=Minsk, arrivalTown=Paris, departureDateTime=2024-03-17T22:00, airlineName=Belavia), FlightDTO(id=4, departureTown=Dubai, arrivalTown=Rome, departureDateTime=2024-06-18T07:00, airlineName=QatarAirways)]
-2024-03-29 01:42:45.463 [http-nio-8080-exec-4] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.controller.PassengerController.findAllFlights with args: [3] in 33ms
-2024-03-29 01:42:51.921 [http-nio-8080-exec-5] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.controller.PassengerController.findAllReservations with args: [3] 
-2024-03-29 01:42:51.921 [http-nio-8080-exec-5] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.service.impl.PassengerServiceImpl.findAllReservations with args: [3] 
-2024-03-29 01:42:51.953 [http-nio-8080-exec-5] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.service.impl.PassengerServiceImpl.findAllReservations with args: [3] returned: [ReservationDTO(id=2, passenger=PassengerDTO(id=3, name=Vladimir Putin, passportNumber=BkZoIO65BRSdEob), ticket=TicketDTO(id=4, price=20, isReserved=true, flight=FlightDTO(id=2, departureTown=Minsk, arrivalTown=Paris, departureDateTime=2024-03-17T22:00, airlineName=Belavia))), ReservationDTO(id=4, passenger=PassengerDTO(id=3, name=Vladimir Putin, passportNumber=BkZoIO65BRSdEob), ticket=TicketDTO(id=8, price=40, isReserved=true, flight=FlightDTO(id=4, departureTown=Dubai, arrivalTown=Rome, departureDateTime=2024-06-18T07:00, airlineName=QatarAirways)))]
-2024-03-29 01:42:51.953 [http-nio-8080-exec-5] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.service.impl.PassengerServiceImpl.findAllReservations with args: [3] in 32ms
-2024-03-29 01:42:51.953 [http-nio-8080-exec-5] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.controller.PassengerController.findAllReservations with args: [3] returned: [ReservationDTO(id=2, passenger=PassengerDTO(id=3, name=Vladimir Putin, passportNumber=BkZoIO65BRSdEob), ticket=TicketDTO(id=4, price=20, isReserved=true, flight=FlightDTO(id=2, departureTown=Minsk, arrivalTown=Paris, departureDateTime=2024-03-17T22:00, airlineName=Belavia))), ReservationDTO(id=4, passenger=PassengerDTO(id=3, name=Vladimir Putin, passportNumber=BkZoIO65BRSdEob), ticket=TicketDTO(id=8, price=40, isReserved=true, flight=FlightDTO(id=4, departureTown=Dubai, arrivalTown=Rome, departureDateTime=2024-06-18T07:00, airlineName=QatarAirways)))]
-2024-03-29 01:42:51.953 [http-nio-8080-exec-5] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.controller.PassengerController.findAllReservations with args: [3] in 32ms
-2024-03-29 01:43:07.745 [http-nio-8080-exec-7] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.controller.TicketController.findByFlightId with args: [1] 
-2024-03-29 01:43:07.745 [http-nio-8080-exec-7] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.service.impl.TicketServiceImpl.findByFlightId with args: [1] 
-2024-03-29 01:43:07.773 [http-nio-8080-exec-7] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.service.impl.TicketServiceImpl.findByFlightId with args: [1] returned: [TicketDTO(id=2, price=10, isReserved=false, flight=FlightDTO(id=1, departureTown=Minsk, arrivalTown=London, departureDateTime=2024-03-17T22:00, airlineName=Belavia))]
-2024-03-29 01:43:07.774 [http-nio-8080-exec-7] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.service.impl.TicketServiceImpl.findByFlightId with args: [1] in 29ms
-2024-03-29 01:43:07.774 [http-nio-8080-exec-7] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.controller.TicketController.findByFlightId with args: [1] returned: [TicketDTO(id=2, price=10, isReserved=false, flight=FlightDTO(id=1, departureTown=Minsk, arrivalTown=London, departureDateTime=2024-03-17T22:00, airlineName=Belavia))]
-2024-03-29 01:43:07.774 [http-nio-8080-exec-7] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.controller.TicketController.findByFlightId with args: [1] in 29ms
-2024-03-29 01:43:11.161 [http-nio-8080-exec-8] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.controller.TicketController.findByFlightId with args: [3] 
-2024-03-29 01:43:11.163 [http-nio-8080-exec-8] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.service.impl.TicketServiceImpl.findByFlightId with args: [3] 
-2024-03-29 01:43:11.183 [http-nio-8080-exec-8] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.service.impl.TicketServiceImpl.findByFlightId with args: [3] returned: [TicketDTO(id=5, price=30, isReserved=false, flight=FlightDTO(id=3, departureTown=Paris, arrivalTown=Minsk, departureDateTime=2024-06-18T07:00, airlineName=Belavia)), TicketDTO(id=7, price=30, isReserved=false, flight=FlightDTO(id=3, departureTown=Paris, arrivalTown=Minsk, departureDateTime=2024-06-18T07:00, airlineName=Belavia)), TicketDTO(id=6, price=30, isReserved=true, flight=FlightDTO(id=3, departureTown=Paris, arrivalTown=Minsk, departureDateTime=2024-06-18T07:00, airlineName=Belavia))]
-2024-03-29 01:43:11.188 [http-nio-8080-exec-8] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.service.impl.TicketServiceImpl.findByFlightId with args: [3] in 25ms
-2024-03-29 01:43:11.188 [http-nio-8080-exec-8] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.controller.TicketController.findByFlightId with args: [3] returned: [TicketDTO(id=5, price=30, isReserved=false, flight=FlightDTO(id=3, departureTown=Paris, arrivalTown=Minsk, departureDateTime=2024-06-18T07:00, airlineName=Belavia)), TicketDTO(id=7, price=30, isReserved=false, flight=FlightDTO(id=3, departureTown=Paris, arrivalTown=Minsk, departureDateTime=2024-06-18T07:00, airlineName=Belavia)), TicketDTO(id=6, price=30, isReserved=true, flight=FlightDTO(id=3, departureTown=Paris, arrivalTown=Minsk, departureDateTime=2024-06-18T07:00, airlineName=Belavia))]
-2024-03-29 01:43:11.188 [http-nio-8080-exec-8] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.controller.TicketController.findByFlightId with args: [3] in 27ms
-2024-03-29 01:43:42.815 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-03-29 01:43:42.819 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2024-03-29 01:43:42.824 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2024-03-29 02:36:57.579 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
-2024-03-29 02:36:57.626 [main] INFO  a.tickets.AirlineTicketsApplication - Starting AirlineTicketsApplication using Java 17.0.10 with PID 3368 (D:\Учеба\4_sem\Java\AirlineTickets\target\classes started by Anton in D:\Учеба\4_sem\Java\AirlineTickets)
-2024-03-29 02:36:57.626 [main] INFO  a.tickets.AirlineTicketsApplication - No active profile set, falling back to 1 default profile: "default"
-2024-03-29 02:36:58.268 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-03-29 02:36:58.332 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 59 ms. Found 5 JPA repository interfaces.
-2024-03-29 02:36:58.843 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-03-29 02:36:58.850 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-03-29 02:36:58.851 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-03-29 02:36:58.851 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-03-29 02:36:58.892 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-03-29 02:36:58.893 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1225 ms
-2024-03-29 02:36:59.017 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-03-29 02:36:59.057 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2024-03-29 02:36:59.083 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-03-29 02:36:59.236 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-03-29 02:36:59.253 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-03-29 02:36:59.452 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7db162f2
-2024-03-29 02:36:59.453 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-03-29 02:37:00.242 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-03-29 02:37:00.352 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-03-29 02:37:00.590 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2024-03-29 02:37:01.893 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-03-29 02:37:01.908 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-03-29 02:37:01.917 [main] INFO  a.tickets.AirlineTicketsApplication - Started AirlineTicketsApplication in 4.65 seconds (process running for 5.322)
-2024-03-29 02:37:14.921 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-03-29 02:37:14.921 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2024-03-29 02:37:14.921 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
-2024-03-29 02:37:16.298 [http-nio-8080-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 879 ms
-2024-03-29 02:38:26.878 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-03-29 02:38:26.878 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2024-03-29 02:38:26.889 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2024-03-29 02:39:07.779 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
-2024-03-29 02:39:07.823 [main] INFO  a.tickets.AirlineTicketsApplication - Starting AirlineTicketsApplication using Java 17.0.10 with PID 14928 (D:\Учеба\4_sem\Java\AirlineTickets\target\classes started by Anton in D:\Учеба\4_sem\Java\AirlineTickets)
-2024-03-29 02:39:07.824 [main] INFO  a.tickets.AirlineTicketsApplication - No active profile set, falling back to 1 default profile: "default"
-2024-03-29 02:39:08.460 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-03-29 02:39:08.518 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 52 ms. Found 5 JPA repository interfaces.
-2024-03-29 02:39:09.009 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-03-29 02:39:09.016 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-03-29 02:39:09.017 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-03-29 02:39:09.018 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-03-29 02:39:09.063 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-03-29 02:39:09.064 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1199 ms
-2024-03-29 02:39:09.201 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-03-29 02:39:09.239 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2024-03-29 02:39:09.266 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-03-29 02:39:09.403 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-03-29 02:39:09.420 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-03-29 02:39:09.547 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5d800a56
-2024-03-29 02:39:09.548 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-03-29 02:39:10.272 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-03-29 02:39:10.369 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-03-29 02:39:10.634 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2024-03-29 02:39:12.172 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-03-29 02:39:12.196 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-03-29 02:39:12.206 [main] INFO  a.tickets.AirlineTicketsApplication - Started AirlineTicketsApplication in 4.682 seconds (process running for 5.281)
-2024-03-29 02:39:16.395 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-03-29 02:39:16.395 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2024-03-29 02:39:16.396 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
-2024-03-29 02:39:17.024 [http-nio-8080-exec-4] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 368 ms
-2024-03-29 02:40:12.189 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-03-29 02:40:12.191 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2024-03-29 02:40:12.195 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-03-29 23:25:23.253 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-03-29 23:25:23.296 [main] INFO  a.tickets.AirlineTicketsApplication - Starting AirlineTicketsApplication using Java 17.0.10 with PID 16068 (D:\Учеба\4_sem\Java\AirlineTickets\target\classes started by Anton in D:\Учеба\4_sem\Java\AirlineTickets)
+2024-03-29 23:25:23.297 [main] INFO  a.tickets.AirlineTicketsApplication - No active profile set, falling back to 1 default profile: "default"
+2024-03-29 23:25:23.973 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-29 23:25:24.033 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 55 ms. Found 5 JPA repository interfaces.
+2024-03-29 23:25:24.548 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-03-29 23:25:24.555 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-03-29 23:25:24.556 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-03-29 23:25:24.556 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-03-29 23:25:24.599 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-03-29 23:25:24.600 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1260 ms
+2024-03-29 23:25:24.744 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-29 23:25:24.785 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-03-29 23:25:24.815 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-03-29 23:25:24.956 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-29 23:25:24.975 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-03-29 23:25:25.104 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7db162f2
+2024-03-29 23:25:25.106 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-03-29 23:25:25.890 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-29 23:25:25.994 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-29 23:25:26.246 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-29 23:25:27.561 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-03-29 23:25:27.575 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2024-03-29 23:25:27.583 [main] INFO  a.tickets.AirlineTicketsApplication - Started AirlineTicketsApplication in 4.59 seconds (process running for 5.219)
+2024-03-29 23:25:32.467 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-03-29 23:25:32.467 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-03-29 23:25:32.468 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2024-03-29 23:25:39.146 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-03-29 23:25:39.146 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-03-29 23:25:39.151 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-03-29 23:26:02.275 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-03-29 23:26:02.324 [main] INFO  a.tickets.AirlineTicketsApplication - Starting AirlineTicketsApplication using Java 17.0.10 with PID 1356 (D:\Учеба\4_sem\Java\AirlineTickets\target\classes started by Anton in D:\Учеба\4_sem\Java\AirlineTickets)
+2024-03-29 23:26:02.325 [main] INFO  a.tickets.AirlineTicketsApplication - No active profile set, falling back to 1 default profile: "default"
+2024-03-29 23:26:03.006 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-29 23:26:03.070 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 59 ms. Found 5 JPA repository interfaces.
+2024-03-29 23:26:03.738 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-03-29 23:26:03.747 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-03-29 23:26:03.749 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-03-29 23:26:03.749 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-03-29 23:26:03.799 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-03-29 23:26:03.799 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1412 ms
+2024-03-29 23:26:03.995 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-29 23:26:04.047 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-03-29 23:26:04.075 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-03-29 23:26:04.242 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-29 23:26:04.261 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-03-29 23:26:04.390 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1a34a51e
+2024-03-29 23:26:04.391 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-03-29 23:26:05.429 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-29 23:26:05.543 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-29 23:26:05.839 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-29 23:26:07.260 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-03-29 23:26:07.275 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2024-03-29 23:26:07.283 [main] INFO  a.tickets.AirlineTicketsApplication - Started AirlineTicketsApplication in 5.296 seconds (process running for 5.955)
+2024-03-29 23:26:10.738 [http-nio-8080-exec-10] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-03-29 23:26:10.738 [http-nio-8080-exec-10] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-03-29 23:26:10.739 [http-nio-8080-exec-10] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2024-03-29 23:26:10.814 [http-nio-8080-exec-10] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.controller.AirlineController.saveAirline with args: [Airline(id=null, name=null, flights=[])] 
+2024-03-29 23:26:10.815 [http-nio-8080-exec-10] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.service.impl.AirlineServiceImpl.saveOrUpdateAirline with args: [Airline(id=null, name=null, flights=[])] 
+2024-03-29 23:26:10.816 [http-nio-8080-exec-10] INFO  a.tickets.aspect.LoggingAspect - Exception in: airline.tickets.service.impl.AirlineServiceImpl.saveOrUpdateAirline with args: [Airline(id=null, name=null, flights=[])] cause: No name provided
+2024-03-29 23:26:10.816 [http-nio-8080-exec-10] INFO  a.tickets.aspect.LoggingAspect - Exception in: airline.tickets.controller.AirlineController.saveAirline with args: [Airline(id=null, name=null, flights=[])] cause: No name provided
+2024-03-29 23:26:28.336 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-03-29 23:26:28.339 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-03-29 23:26:28.345 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-03-30 00:08:37.653 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-03-30 00:08:37.694 [main] INFO  a.tickets.AirlineTicketsApplication - Starting AirlineTicketsApplication using Java 17.0.10 with PID 12696 (D:\Учеба\4_sem\Java\AirlineTickets\target\classes started by Anton in D:\Учеба\4_sem\Java\AirlineTickets)
+2024-03-30 00:08:37.695 [main] INFO  a.tickets.AirlineTicketsApplication - No active profile set, falling back to 1 default profile: "default"
+2024-03-30 00:08:38.442 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-30 00:08:38.534 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 86 ms. Found 5 JPA repository interfaces.
+2024-03-30 00:08:39.126 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-03-30 00:08:39.136 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-03-30 00:08:39.138 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-03-30 00:08:39.139 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-03-30 00:08:39.200 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-03-30 00:08:39.200 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1462 ms
+2024-03-30 00:08:39.366 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-30 00:08:39.413 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-03-30 00:08:39.440 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-03-30 00:08:39.592 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-30 00:08:39.615 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-03-30 00:08:39.739 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@35e689a0
+2024-03-30 00:08:39.740 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-03-30 00:08:40.691 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-30 00:08:40.836 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-30 00:08:41.159 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-30 00:08:42.654 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-03-30 00:08:42.678 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2024-03-30 00:08:42.685 [main] INFO  a.tickets.AirlineTicketsApplication - Started AirlineTicketsApplication in 5.368 seconds (process running for 6.293)
+2024-03-30 00:08:49.829 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-03-30 00:08:49.829 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-03-30 00:08:49.830 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2024-03-30 00:09:03.278 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-03-30 00:09:03.278 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-03-30 00:09:03.285 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-03-30 00:12:07.553 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-03-30 00:12:07.596 [main] INFO  a.tickets.AirlineTicketsApplication - Starting AirlineTicketsApplication using Java 17.0.10 with PID 7380 (D:\Учеба\4_sem\Java\AirlineTickets\target\classes started by Anton in D:\Учеба\4_sem\Java\AirlineTickets)
+2024-03-30 00:12:07.597 [main] INFO  a.tickets.AirlineTicketsApplication - No active profile set, falling back to 1 default profile: "default"
+2024-03-30 00:12:08.239 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-30 00:12:08.301 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 54 ms. Found 5 JPA repository interfaces.
+2024-03-30 00:12:08.807 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-03-30 00:12:08.814 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-03-30 00:12:08.815 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-03-30 00:12:08.815 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-03-30 00:12:08.858 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-03-30 00:12:08.859 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1222 ms
+2024-03-30 00:12:08.993 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-30 00:12:09.031 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-03-30 00:12:09.077 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-03-30 00:12:09.234 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-30 00:12:09.253 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-03-30 00:12:09.386 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@d1f23a0
+2024-03-30 00:12:09.387 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-03-30 00:12:10.236 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-30 00:12:10.341 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-30 00:12:10.601 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-30 00:12:11.946 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-03-30 00:12:11.962 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2024-03-30 00:12:11.970 [main] INFO  a.tickets.AirlineTicketsApplication - Started AirlineTicketsApplication in 4.672 seconds (process running for 5.359)
+2024-03-30 00:12:16.822 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-03-30 00:12:16.823 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-03-30 00:12:16.824 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2024-03-30 00:14:44.095 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-03-30 00:14:44.095 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-03-30 00:14:44.103 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-03-30 00:14:52.678 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-03-30 00:14:52.720 [main] INFO  a.tickets.AirlineTicketsApplication - Starting AirlineTicketsApplication using Java 17.0.10 with PID 6000 (D:\Учеба\4_sem\Java\AirlineTickets\target\classes started by Anton in D:\Учеба\4_sem\Java\AirlineTickets)
+2024-03-30 00:14:52.721 [main] INFO  a.tickets.AirlineTicketsApplication - No active profile set, falling back to 1 default profile: "default"
+2024-03-30 00:14:53.360 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-30 00:14:53.439 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 73 ms. Found 5 JPA repository interfaces.
+2024-03-30 00:14:53.945 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-03-30 00:14:53.951 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-03-30 00:14:53.952 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-03-30 00:14:53.952 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-03-30 00:14:53.996 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-03-30 00:14:54.034 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1271 ms
+2024-03-30 00:14:54.182 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-30 00:14:54.224 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-03-30 00:14:54.245 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-03-30 00:14:54.385 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-30 00:14:54.409 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-03-30 00:14:54.530 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@35329a05
+2024-03-30 00:14:54.531 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-03-30 00:14:55.326 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-30 00:14:55.424 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-30 00:14:55.682 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-30 00:14:57.061 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-03-30 00:14:57.078 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2024-03-30 00:14:57.086 [main] INFO  a.tickets.AirlineTicketsApplication - Started AirlineTicketsApplication in 4.648 seconds (process running for 5.246)
+2024-03-30 00:15:01.249 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-03-30 00:15:01.249 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-03-30 00:15:01.250 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2024-03-30 00:15:10.367 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-03-30 00:15:10.368 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-03-30 00:15:10.375 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-03-30 00:15:22.002 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-03-30 00:15:22.050 [main] INFO  a.tickets.AirlineTicketsApplication - Starting AirlineTicketsApplication using Java 17.0.10 with PID 13912 (D:\Учеба\4_sem\Java\AirlineTickets\target\classes started by Anton in D:\Учеба\4_sem\Java\AirlineTickets)
+2024-03-30 00:15:22.051 [main] INFO  a.tickets.AirlineTicketsApplication - No active profile set, falling back to 1 default profile: "default"
+2024-03-30 00:15:22.744 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-30 00:15:22.807 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 58 ms. Found 5 JPA repository interfaces.
+2024-03-30 00:15:23.676 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-03-30 00:15:23.684 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-03-30 00:15:23.685 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-03-30 00:15:23.685 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-03-30 00:15:23.728 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-03-30 00:15:23.728 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1635 ms
+2024-03-30 00:15:23.866 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-30 00:15:23.911 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-03-30 00:15:23.946 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-03-30 00:15:24.097 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-30 00:15:24.114 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-03-30 00:15:24.238 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2976ca51
+2024-03-30 00:15:24.240 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-03-30 00:15:25.035 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-30 00:15:25.130 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-30 00:15:25.399 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-30 00:15:26.683 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-03-30 00:15:26.704 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2024-03-30 00:15:26.713 [main] INFO  a.tickets.AirlineTicketsApplication - Started AirlineTicketsApplication in 4.978 seconds (process running for 5.66)
+2024-03-30 00:15:50.934 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-03-30 00:15:50.939 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-03-30 00:15:50.940 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2024-03-30 00:16:20.687 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-03-30 00:16:20.689 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-03-30 00:16:20.692 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-03-30 00:17:59.620 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-03-30 00:17:59.665 [main] INFO  a.tickets.AirlineTicketsApplication - Starting AirlineTicketsApplication using Java 17.0.10 with PID 13012 (D:\Учеба\4_sem\Java\AirlineTickets\target\classes started by Anton in D:\Учеба\4_sem\Java\AirlineTickets)
+2024-03-30 00:17:59.666 [main] INFO  a.tickets.AirlineTicketsApplication - No active profile set, falling back to 1 default profile: "default"
+2024-03-30 00:18:00.363 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-30 00:18:00.425 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 55 ms. Found 5 JPA repository interfaces.
+2024-03-30 00:18:00.938 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-03-30 00:18:00.945 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-03-30 00:18:00.946 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-03-30 00:18:00.946 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-03-30 00:18:00.985 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-03-30 00:18:00.986 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1277 ms
+2024-03-30 00:18:01.129 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-30 00:18:01.175 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-03-30 00:18:01.204 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-03-30 00:18:01.349 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-30 00:18:01.365 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-03-30 00:18:01.500 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@69a90b81
+2024-03-30 00:18:01.501 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-03-30 00:18:02.282 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-30 00:18:02.372 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-30 00:18:02.637 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-30 00:18:03.971 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-03-30 00:18:03.985 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2024-03-30 00:18:03.993 [main] INFO  a.tickets.AirlineTicketsApplication - Started AirlineTicketsApplication in 4.638 seconds (process running for 5.282)
+2024-03-30 00:18:09.300 [http-nio-8080-exec-4] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-03-30 00:18:09.300 [http-nio-8080-exec-4] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-03-30 00:18:09.301 [http-nio-8080-exec-4] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2024-03-30 00:18:33.237 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-03-30 00:18:33.240 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-03-30 00:18:33.244 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-03-30 00:19:42.300 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-03-30 00:19:42.336 [main] INFO  a.tickets.AirlineTicketsApplication - Starting AirlineTicketsApplication using Java 17.0.10 with PID 7172 (D:\Учеба\4_sem\Java\AirlineTickets\target\classes started by Anton in D:\Учеба\4_sem\Java\AirlineTickets)
+2024-03-30 00:19:42.338 [main] INFO  a.tickets.AirlineTicketsApplication - No active profile set, falling back to 1 default profile: "default"
+2024-03-30 00:19:42.967 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-30 00:19:43.031 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 58 ms. Found 5 JPA repository interfaces.
+2024-03-30 00:19:43.530 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-03-30 00:19:43.536 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-03-30 00:19:43.538 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-03-30 00:19:43.538 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-03-30 00:19:43.579 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-03-30 00:19:43.579 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1201 ms
+2024-03-30 00:19:43.716 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-30 00:19:43.751 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-03-30 00:19:43.782 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-03-30 00:19:43.922 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-30 00:19:43.940 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-03-30 00:19:44.084 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7db162f2
+2024-03-30 00:19:44.085 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-03-30 00:19:44.870 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-30 00:19:44.982 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-30 00:19:45.258 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-30 00:19:46.659 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-03-30 00:19:46.675 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2024-03-30 00:19:46.682 [main] INFO  a.tickets.AirlineTicketsApplication - Started AirlineTicketsApplication in 4.646 seconds (process running for 5.274)
+2024-03-30 00:19:50.875 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-03-30 00:19:50.875 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-03-30 00:19:50.876 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2024-03-30 00:20:08.387 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-03-30 00:20:08.390 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-03-30 00:20:08.390 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-03-30 01:08:51.800 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-03-30 01:08:51.842 [main] INFO  a.tickets.AirlineTicketsApplication - Starting AirlineTicketsApplication using Java 17.0.10 with PID 2068 (D:\Учеба\4_sem\Java\AirlineTickets\target\classes started by Anton in D:\Учеба\4_sem\Java\AirlineTickets)
+2024-03-30 01:08:51.843 [main] INFO  a.tickets.AirlineTicketsApplication - No active profile set, falling back to 1 default profile: "default"
+2024-03-30 01:08:52.489 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-30 01:08:52.555 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 60 ms. Found 5 JPA repository interfaces.
+2024-03-30 01:08:53.062 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-03-30 01:08:53.069 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-03-30 01:08:53.070 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-03-30 01:08:53.070 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-03-30 01:08:53.109 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-03-30 01:08:53.110 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1217 ms
+2024-03-30 01:08:53.246 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-30 01:08:53.281 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-03-30 01:08:53.311 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-03-30 01:08:53.458 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-30 01:08:53.475 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-03-30 01:08:53.604 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6b091a92
+2024-03-30 01:08:53.605 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-03-30 01:08:54.382 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-30 01:08:54.502 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-30 01:08:54.758 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-30 01:08:55.093 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'airlineController' defined in file [D:\Учеба\4_sem\Java\AirlineTickets\target\classes\airline\tickets\controller\AirlineController.class]: Could not generate CGLIB subclass of class airline.tickets.controller.AirlineController: Common causes of this problem include using a final class or a non-visible class
+2024-03-30 01:08:55.094 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-03-30 01:08:55.096 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-03-30 01:08:55.101 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-03-30 01:08:55.101 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2024-03-30 01:08:55.111 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-03-30 01:08:55.198 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'airlineController' defined in file [D:\Учеба\4_sem\Java\AirlineTickets\target\classes\airline\tickets\controller\AirlineController.class]: Could not generate CGLIB subclass of class airline.tickets.controller.AirlineController: Common causes of this problem include using a final class or a non-visible class
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:959)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
+	at airline.tickets.AirlineTicketsApplication.main(AirlineTicketsApplication.java:12)
+Caused by: org.springframework.aop.framework.AopConfigException: Could not generate CGLIB subclass of class airline.tickets.controller.AirlineController: Common causes of this problem include using a final class or a non-visible class
+	at org.springframework.aop.framework.CglibAopProxy.buildProxy(CglibAopProxy.java:227)
+	at org.springframework.aop.framework.CglibAopProxy.getProxy(CglibAopProxy.java:160)
+	at org.springframework.aop.framework.ProxyFactory.getProxy(ProxyFactory.java:110)
+	at org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator.buildProxy(AbstractAutoProxyCreator.java:517)
+	at org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator.createProxy(AbstractAutoProxyCreator.java:464)
+	at org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator.wrapIfNecessary(AbstractAutoProxyCreator.java:369)
+	at org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator.postProcessAfterInitialization(AbstractAutoProxyCreator.java:318)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsAfterInitialization(AbstractAutowireCapableBeanFactory.java:438)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1789)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	... 15 common frames omitted
+Caused by: java.lang.IllegalArgumentException: Cannot subclass final class airline.tickets.controller.AirlineController
+	at org.springframework.cglib.proxy.Enhancer.generateClass(Enhancer.java:653)
+	at org.springframework.cglib.core.DefaultGeneratorStrategy.generate(DefaultGeneratorStrategy.java:26)
+	at org.springframework.cglib.core.ClassLoaderAwareGeneratorStrategy.generate(ClassLoaderAwareGeneratorStrategy.java:57)
+	at org.springframework.cglib.core.AbstractClassGenerator.generate(AbstractClassGenerator.java:366)
+	at org.springframework.cglib.proxy.Enhancer.generate(Enhancer.java:575)
+	at org.springframework.cglib.core.AbstractClassGenerator$ClassLoaderData.lambda$new$1(AbstractClassGenerator.java:107)
+	at org.springframework.cglib.core.internal.LoadingCache.lambda$createEntry$1(LoadingCache.java:52)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at org.springframework.cglib.core.internal.LoadingCache.createEntry(LoadingCache.java:57)
+	at org.springframework.cglib.core.internal.LoadingCache.get(LoadingCache.java:34)
+	at org.springframework.cglib.core.AbstractClassGenerator$ClassLoaderData.get(AbstractClassGenerator.java:130)
+	at org.springframework.cglib.core.AbstractClassGenerator.create(AbstractClassGenerator.java:317)
+	at org.springframework.cglib.proxy.Enhancer.createHelper(Enhancer.java:562)
+	at org.springframework.cglib.proxy.Enhancer.createClass(Enhancer.java:407)
+	at org.springframework.aop.framework.ObjenesisCglibAopProxy.createProxyClassAndInstance(ObjenesisCglibAopProxy.java:62)
+	at org.springframework.aop.framework.CglibAopProxy.buildProxy(CglibAopProxy.java:218)
+	... 24 common frames omitted
+2024-03-30 01:10:29.774 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-03-30 01:10:29.823 [main] INFO  a.tickets.AirlineTicketsApplication - Starting AirlineTicketsApplication using Java 17.0.10 with PID 15272 (D:\Учеба\4_sem\Java\AirlineTickets\target\classes started by Anton in D:\Учеба\4_sem\Java\AirlineTickets)
+2024-03-30 01:10:29.824 [main] INFO  a.tickets.AirlineTicketsApplication - No active profile set, falling back to 1 default profile: "default"
+2024-03-30 01:10:30.453 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-30 01:10:30.502 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 44 ms. Found 5 JPA repository interfaces.
+2024-03-30 01:10:30.983 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-03-30 01:10:30.989 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-03-30 01:10:30.990 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-03-30 01:10:30.991 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-03-30 01:10:31.034 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-03-30 01:10:31.034 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1168 ms
+2024-03-30 01:10:31.163 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-30 01:10:31.200 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-03-30 01:10:31.229 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-03-30 01:10:31.375 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-30 01:10:31.392 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-03-30 01:10:31.530 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6dcbbb49
+2024-03-30 01:10:31.531 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-03-30 01:10:32.322 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-30 01:10:32.417 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-30 01:10:32.694 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-30 01:10:34.058 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-03-30 01:10:34.071 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2024-03-30 01:10:34.081 [main] INFO  a.tickets.AirlineTicketsApplication - Started AirlineTicketsApplication in 4.573 seconds (process running for 5.145)
+2024-03-30 01:10:42.643 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-03-30 01:10:42.643 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-03-30 01:10:42.643 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2024-03-30 01:10:45.941 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-03-30 01:10:45.941 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-03-30 01:10:45.952 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-03-30 01:17:46.503 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-03-30 01:17:46.547 [main] INFO  a.tickets.AirlineTicketsApplication - Starting AirlineTicketsApplication using Java 17.0.10 with PID 15684 (D:\Учеба\4_sem\Java\AirlineTickets\target\classes started by Anton in D:\Учеба\4_sem\Java\AirlineTickets)
+2024-03-30 01:17:46.549 [main] INFO  a.tickets.AirlineTicketsApplication - No active profile set, falling back to 1 default profile: "default"
+2024-03-30 01:17:47.193 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-30 01:17:47.256 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 57 ms. Found 5 JPA repository interfaces.
+2024-03-30 01:17:47.763 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-03-30 01:17:47.770 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-03-30 01:17:47.771 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-03-30 01:17:47.771 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-03-30 01:17:47.811 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-03-30 01:17:47.811 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1217 ms
+2024-03-30 01:17:47.945 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-30 01:17:47.983 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-03-30 01:17:48.011 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-03-30 01:17:48.156 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-30 01:17:48.172 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-03-30 01:17:48.306 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6dcbbb49
+2024-03-30 01:17:48.307 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-03-30 01:17:49.081 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-30 01:17:49.176 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-30 01:17:49.421 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-30 01:17:50.712 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-03-30 01:17:50.726 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2024-03-30 01:17:50.735 [main] INFO  a.tickets.AirlineTicketsApplication - Started AirlineTicketsApplication in 4.481 seconds (process running for 5.066)
+2024-03-30 01:18:02.504 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-03-30 01:18:02.504 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-03-30 01:18:02.504 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2024-03-30 01:18:12.702 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-03-30 01:18:12.702 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-03-30 01:18:12.712 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-03-30 01:23:02.149 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-03-30 01:23:02.197 [main] INFO  a.tickets.AirlineTicketsApplication - Starting AirlineTicketsApplication using Java 17.0.10 with PID 10172 (D:\Учеба\4_sem\Java\AirlineTickets\target\classes started by Anton in D:\Учеба\4_sem\Java\AirlineTickets)
+2024-03-30 01:23:02.199 [main] INFO  a.tickets.AirlineTicketsApplication - No active profile set, falling back to 1 default profile: "default"
+2024-03-30 01:23:02.842 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-30 01:23:02.897 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 51 ms. Found 5 JPA repository interfaces.
+2024-03-30 01:23:03.388 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-03-30 01:23:03.395 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-03-30 01:23:03.396 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-03-30 01:23:03.396 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-03-30 01:23:03.436 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-03-30 01:23:03.437 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1190 ms
+2024-03-30 01:23:03.568 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-30 01:23:03.602 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-03-30 01:23:03.630 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-03-30 01:23:03.774 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-30 01:23:03.854 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-03-30 01:23:03.974 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@69a90b81
+2024-03-30 01:23:03.975 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-03-30 01:23:04.766 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-30 01:23:04.863 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-30 01:23:05.099 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-30 01:23:06.398 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-03-30 01:23:06.412 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2024-03-30 01:23:06.423 [main] INFO  a.tickets.AirlineTicketsApplication - Started AirlineTicketsApplication in 4.549 seconds (process running for 5.155)
+2024-03-30 01:23:15.776 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-03-30 01:23:15.776 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-03-30 01:23:15.777 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2024-03-30 01:23:15.848 [http-nio-8080-exec-2] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.controller.TicketController.findByFlightId with args: [3] 
+2024-03-30 01:23:15.849 [http-nio-8080-exec-2] INFO  a.tickets.aspect.LoggingAspect - Method called: airline.tickets.service.impl.TicketServiceImpl.findByFlightId with args: [3] 
+2024-03-30 01:23:16.027 [http-nio-8080-exec-2] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.service.impl.TicketServiceImpl.findByFlightId with args: [3] returned: [TicketDTO(id=5, price=30, isReserved=false, flight=FlightDTO(id=3, departureTown=Paris, arrivalTown=Minsk, departureDateTime=2024-06-18T07:00, airlineName=Belavia)), TicketDTO(id=7, price=30, isReserved=false, flight=FlightDTO(id=3, departureTown=Paris, arrivalTown=Minsk, departureDateTime=2024-06-18T07:00, airlineName=Belavia)), TicketDTO(id=6, price=30, isReserved=true, flight=FlightDTO(id=3, departureTown=Paris, arrivalTown=Minsk, departureDateTime=2024-06-18T07:00, airlineName=Belavia))]
+2024-03-30 01:23:16.092 [http-nio-8080-exec-2] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.service.impl.TicketServiceImpl.findByFlightId with args: [3] in 243ms
+2024-03-30 01:23:16.093 [http-nio-8080-exec-2] INFO  a.tickets.aspect.LoggingAspect - Method return: airline.tickets.controller.TicketController.findByFlightId with args: [3] returned: [TicketDTO(id=5, price=30, isReserved=false, flight=FlightDTO(id=3, departureTown=Paris, arrivalTown=Minsk, departureDateTime=2024-06-18T07:00, airlineName=Belavia)), TicketDTO(id=7, price=30, isReserved=false, flight=FlightDTO(id=3, departureTown=Paris, arrivalTown=Minsk, departureDateTime=2024-06-18T07:00, airlineName=Belavia)), TicketDTO(id=6, price=30, isReserved=true, flight=FlightDTO(id=3, departureTown=Paris, arrivalTown=Minsk, departureDateTime=2024-06-18T07:00, airlineName=Belavia))]
+2024-03-30 01:23:16.093 [http-nio-8080-exec-2] INFO  a.tickets.aspect.LoggingAspect - Method executed: airline.tickets.controller.TicketController.findByFlightId with args: [3] in 253ms
+2024-03-30 01:23:21.151 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-03-30 01:23:21.151 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-03-30 01:23:21.168 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

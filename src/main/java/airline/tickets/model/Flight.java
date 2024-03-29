@@ -1,6 +1,8 @@
 package airline.tickets.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -15,8 +17,11 @@ public class Flight {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String departureTown;
+    @NotBlank
     private String arrivalTown;
+    @NotNull
     private LocalDateTime departureDateTime;
 
     @ManyToOne

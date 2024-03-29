@@ -1,6 +1,8 @@
 package airline.tickets.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -10,8 +12,9 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private Long price;
-
+    @NotNull
     private boolean isReserved;
 
     @ManyToOne

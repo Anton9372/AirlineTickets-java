@@ -36,14 +36,14 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
-    public List<PassengerDTO> findByName(String name) {
+    public List<PassengerDTO> findByName(final String name) {
         List<Passenger> passengerList = passengerRepository.findByName(name);
         return convertModelToDTO.convertToDTOList(passengerList, convertModelToDTO::passengerConversion);
     }
 
     @Override
     @AspectAnnotation
-    public PassengerDTO saveOrUpdatePassenger(Passenger passenger) throws BadRequestException {
+    public PassengerDTO saveOrUpdatePassenger(final Passenger passenger) throws BadRequestException {
         if (passenger.getName() == null || passenger.getPassportNumber() == null) {
             throw new BadRequestException("name and passportNumber must be provided");
         }
@@ -53,7 +53,7 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     @AspectAnnotation
-    public List<FlightDTO> findAllFlights(Long passengerId) throws ResourceNotFoundException {
+    public List<FlightDTO> findAllFlights(final Long passengerId) throws ResourceNotFoundException {
         Passenger passenger = passengerRepository.findById(passengerId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));
         List<Flight> flightList = passenger.getFlights();
@@ -62,7 +62,7 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     @AspectAnnotation
-    public List<ReservationDTO> findAllReservations(Long passengerId) throws ResourceNotFoundException {
+    public List<ReservationDTO> findAllReservations(final Long passengerId) throws ResourceNotFoundException {
         Passenger passenger = passengerRepository.findById(passengerId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));
         List<Reservation> reservationList = passenger.getReservations();
@@ -71,7 +71,7 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     @AspectAnnotation
-    public void deletePassenger(Long passengerId) throws ResourceNotFoundException {
+    public void deletePassenger(final Long passengerId) throws ResourceNotFoundException {
         Passenger passenger = passengerRepository.findById(passengerId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));
         List<Reservation> reservationList = passenger.getReservations();

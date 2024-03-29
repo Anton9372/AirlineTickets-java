@@ -12,7 +12,7 @@ import java.util.Arrays;
 @Component
 @Aspect
 @Slf4j
-public class LoggingAspect {
+public final class LoggingAspect {
 
     @Pointcut("execution(* airline.tickets.service.*.*(..))"
             + " || execution(* airline.tickets.controller.*.*(..))")
@@ -25,22 +25,22 @@ public class LoggingAspect {
     }
 
     @Before("methodsWithAspectAnnotation()")
-    public void logMethodCall(JoinPoint joinPoint) {
+    public void logMethodCall(final JoinPoint joinPoint) {
         logInfo(joinPoint, "Method called");
     }
 
     @AfterReturning(pointcut = "methodsWithAspectAnnotation()", returning = "result")
-    public void logMethodReturn(JoinPoint joinPoint, Object result) {
+    public void logMethodReturn(final JoinPoint joinPoint, final Object result) {
         logInfo(joinPoint, "Method return", "returned: " + result);
     }
 
     @AfterThrowing(pointcut = "allMethods()", throwing = "exception")
-    public void logException(JoinPoint joinPoint, Throwable exception) {
+    public void logException(final JoinPoint joinPoint, final Throwable exception) {
         logInfo(joinPoint, "Exception in", "cause: " + exception.getMessage());
     }
 
     @Around("methodsWithAspectAnnotation()")
-    public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object logExecutionTime(final ProceedingJoinPoint joinPoint) throws Throwable {
         long start = System.currentTimeMillis();
         Object proceed = joinPoint.proceed();
         long executionTime = System.currentTimeMillis() - start;
@@ -48,7 +48,7 @@ public class LoggingAspect {
         return proceed;
     }
 
-    private void logInfo(JoinPoint joinPoint, String message, String additionalInfo) {
+    private void logInfo(final JoinPoint joinPoint, final String message, final String additionalInfo) {
         Object[] args = joinPoint.getArgs();
         String fullClassName = joinPoint.getSignature().getDeclaringTypeName();
         String methodName = joinPoint.getSignature().getName();
@@ -56,7 +56,7 @@ public class LoggingAspect {
                 additionalInfo);
     }
 
-    private void logInfo(JoinPoint joinPoint, String message) {
+    private void logInfo(final JoinPoint joinPoint, final String message) {
         logInfo(joinPoint, message, "");
     }
 

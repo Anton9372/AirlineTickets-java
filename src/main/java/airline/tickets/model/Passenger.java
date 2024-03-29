@@ -2,6 +2,7 @@ package airline.tickets.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -14,7 +15,9 @@ public class Passenger {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String name;
+    @NotBlank
     private String passportNumber;
 
     @ManyToMany(mappedBy = "passengers", fetch = FetchType.EAGER)

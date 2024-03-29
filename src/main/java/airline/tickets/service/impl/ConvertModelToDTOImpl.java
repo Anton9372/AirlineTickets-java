@@ -22,7 +22,7 @@ import java.util.function.Function;
 public class ConvertModelToDTOImpl implements ConvertModelToDTO {
 
     @Override
-    public AirlineDTO airlineConversion(Airline airline) {
+    public AirlineDTO airlineConversion(final Airline airline) {
         AirlineDTO airlineDTO = new AirlineDTO();
         airlineDTO.setId(airline.getId());
         airlineDTO.setName(airline.getName());
@@ -30,7 +30,7 @@ public class ConvertModelToDTOImpl implements ConvertModelToDTO {
     }
 
     @Override
-    public FlightDTO flightConversion(Flight flight) {
+    public FlightDTO flightConversion(final Flight flight) {
         FlightDTO flightDTO = new FlightDTO();
         flightDTO.setId(flight.getId());
         flightDTO.setDepartureTown(flight.getDepartureTown());
@@ -41,7 +41,7 @@ public class ConvertModelToDTOImpl implements ConvertModelToDTO {
     }
 
     @Override
-    public PassengerDTO passengerConversion(Passenger passenger) {
+    public PassengerDTO passengerConversion(final Passenger passenger) {
         PassengerDTO passengerDTO = new PassengerDTO();
         passengerDTO.setId(passenger.getId());
         passengerDTO.setName(passenger.getName());
@@ -50,7 +50,7 @@ public class ConvertModelToDTOImpl implements ConvertModelToDTO {
     }
 
     @Override
-    public ReservationDTO reservationConversion(Reservation reservation) {
+    public ReservationDTO reservationConversion(final Reservation reservation) {
         ReservationDTO reservationDTO = new ReservationDTO();
         reservationDTO.setId(reservation.getId());
 
@@ -63,7 +63,7 @@ public class ConvertModelToDTOImpl implements ConvertModelToDTO {
     }
 
     @Override
-    public TicketDTO ticketConversion(Ticket ticket) {
+    public TicketDTO ticketConversion(final Ticket ticket) {
         TicketDTO ticketDTO = new TicketDTO();
         ticketDTO.setId(ticket.getId());
         ticketDTO.setPrice(ticket.getPrice());
@@ -75,7 +75,7 @@ public class ConvertModelToDTOImpl implements ConvertModelToDTO {
     }
 
     @Override
-    public <T, R> List<R> convertToDTOList(List<T> entities, Function<T, R> conversionFunction) {
+    public <T, R> List<R> convertToDTOList(final List<T> entities, final Function<T, R> conversionFunction) {
         return entities.stream()
                 .map(conversionFunction)
                 .toList();

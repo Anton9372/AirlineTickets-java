@@ -33,7 +33,7 @@ public class AirlineServiceImpl implements AirlineService {
 
     @Override
     @AspectAnnotation
-    public Optional<AirlineDTO> findByName(String airlineName) throws ResourceNotFoundException {
+    public Optional<AirlineDTO> findByName(final String airlineName) throws ResourceNotFoundException {
         Airline airline = airlineRepository.findByName(airlineName).
                 orElseThrow(() -> new ResourceNotFoundException(NO_AIRLINE_EXIST + airlineName));
         return Optional.of(convertModelToDTO.airlineConversion(airline));
@@ -41,7 +41,7 @@ public class AirlineServiceImpl implements AirlineService {
 
     @Override
     @AspectAnnotation
-    public AirlineDTO saveOrUpdateAirline(Airline airline) throws BadRequestException {
+    public AirlineDTO saveOrUpdateAirline(final Airline airline) throws BadRequestException {
         if (airline.getName() == null) {
             throw new BadRequestException("No name provided");
         }
@@ -51,7 +51,7 @@ public class AirlineServiceImpl implements AirlineService {
 
     @Override
     @AspectAnnotation
-    public List<FlightDTO> findAllFlights(String airlineName) throws ResourceNotFoundException {
+    public List<FlightDTO> findAllFlights(final String airlineName) throws ResourceNotFoundException {
         Airline airline = airlineRepository.findByName(airlineName).
                 orElseThrow(() -> new ResourceNotFoundException(NO_AIRLINE_EXIST + airlineName));
         List<Flight> flightList = airline.getFlights();

@@ -37,31 +37,31 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public List<FlightDTO> findByDepartureTown(String departureTown) {
+    public List<FlightDTO> findByDepartureTown(final String departureTown) {
         List<Flight> flightList = flightRepository.findByDepartureTown(departureTown);
         return convertModelToDTO.convertToDTOList(flightList, convertModelToDTO::flightConversion);
     }
 
     @Override
-    public List<FlightDTO> findByArrivalTown(String arrivalTown) {
+    public List<FlightDTO> findByArrivalTown(final String arrivalTown) {
         List<Flight> flightList = flightRepository.findByArrivalTown(arrivalTown);
         return convertModelToDTO.convertToDTOList(flightList, convertModelToDTO::flightConversion);
     }
 
     @Override
-    public List<FlightDTO> findByDepartureTownAndArrivalTown(String departureTown, String arrivalTown) {
+    public List<FlightDTO> findByDepartureTownAndArrivalTown(final String departureTown, final String arrivalTown) {
         List<Flight> flightList = flightRepository.findByDepartureTownAndArrivalTown(departureTown, arrivalTown);
         return convertModelToDTO.convertToDTOList(flightList, convertModelToDTO::flightConversion);
     }
 
     @Override
     @AspectAnnotation
-    public FlightDTO saveOrUpdateFlight(Flight flight, String airlineName) throws ResourceNotFoundException,
+    public FlightDTO saveOrUpdateFlight(final Flight flight, final String airlineName) throws ResourceNotFoundException,
             BadRequestException {
         Airline airline = airlineRepository.findByName(airlineName).
                 orElseThrow(() -> new ResourceNotFoundException(NO_AIRLINE_EXIST + airlineName));
-        if (flight.getDepartureTown() == null || flight.getArrivalTown() == null ||
-                flight.getDepartureDateTime() == null) {
+        if (flight.getDepartureTown() == null || flight.getArrivalTown() == null
+                || flight.getDepartureDateTime() == null) {
             throw new BadRequestException("departureTown, arrivalTown and departureDateTime must be provided");
         }
         flight.setAirline(airline);
@@ -71,7 +71,7 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     @AspectAnnotation
-    public List<TicketDTO> findAllTickets(Long flightId) throws ResourceNotFoundException {
+    public List<TicketDTO> findAllTickets(final Long flightId) throws ResourceNotFoundException {
         Flight flight = flightRepository.findById(flightId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_FLIGHT_EXIST + flightId));
         List<Ticket> ticketList = flight.getTickets();
@@ -80,7 +80,7 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     @AspectAnnotation
-    public List<PassengerDTO> findAllPassengers(Long flightId) throws ResourceNotFoundException {
+    public List<PassengerDTO> findAllPassengers(final Long flightId) throws ResourceNotFoundException {
         Flight flight = flightRepository.findById(flightId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_FLIGHT_EXIST + flightId));
         List<Passenger> passengerList = flight.getPassengers();

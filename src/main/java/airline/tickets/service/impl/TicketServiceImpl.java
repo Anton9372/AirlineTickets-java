@@ -49,7 +49,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     @AspectAnnotation
-    public List<TicketDTO> findByFlightId(Long flightId) throws ResourceNotFoundException {
+    public List<TicketDTO> findByFlightId(final Long flightId) throws ResourceNotFoundException {
         String cacheKey = "flightId_" + flightId;
         List<TicketDTO> cachedResult = ticketCache.get(cacheKey);
         if (cachedResult != null) {
@@ -63,7 +63,7 @@ public class TicketServiceImpl implements TicketService {
         return result;
     }
 
-    private List<TicketDTO> findTicketsByFlightList(List<Flight> flightList) {
+    private List<TicketDTO> findTicketsByFlightList(final List<Flight> flightList) {
         List<Ticket> ticketList = new ArrayList<>();
         for (Flight flight : flightList) {
             ticketList.addAll(flight.getTickets());
@@ -72,7 +72,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<TicketDTO> findByDepartureTown(String departureTown) {
+    public List<TicketDTO> findByDepartureTown(final String departureTown) {
         String cacheKey = "departureTown_" + departureTown;
         List<TicketDTO> cachedResult = ticketCache.get(cacheKey);
         if (cachedResult != null) {
@@ -84,7 +84,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<TicketDTO> findByArrivalTown(String arrivalTown) {
+    public List<TicketDTO> findByArrivalTown(final String arrivalTown) {
         String cacheKey = "arrivalTown_" + arrivalTown;
         List<TicketDTO> cachedResult = ticketCache.get(cacheKey);
         if (cachedResult != null) {
@@ -96,7 +96,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<TicketDTO> findByDepartureTownAndArrivalTown(String departureTown, String arrivalTown) {
+    public List<TicketDTO> findByDepartureTownAndArrivalTown(final String departureTown, final String arrivalTown) {
         String cacheKey = "departureTown_" + departureTown + "_arrivalTown_" + arrivalTown;
         List<TicketDTO> cachedResult = ticketCache.get(cacheKey);
         if (cachedResult != null) {
@@ -109,7 +109,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<TicketDTO> findUnreserved(List<TicketDTO> ticketDTOList) {
+    public List<TicketDTO> findUnreserved(final List<TicketDTO> ticketDTOList) {
         List<TicketDTO> unreservedTicketDTOList = new ArrayList<>();
         for (TicketDTO ticketDTO : ticketDTOList) {
             if (!ticketDTO.isReserved()) {
@@ -121,7 +121,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     @AspectAnnotation
-    public TicketDTO saveOrUpdateTicket(Ticket ticket, Long flightId)
+    public TicketDTO saveOrUpdateTicket(final Ticket ticket, final Long flightId)
             throws ResourceNotFoundException, BadRequestException {
         Flight flight = flightRepository.findById(flightId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_FLIGHT_EXIST + flightId));
@@ -135,7 +135,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<TicketDTO> saveNumOfTickets(Ticket ticket, Long flightId, int numOfTickets)
+    public List<TicketDTO> saveNumOfTickets(final Ticket ticket, final Long flightId, final int numOfTickets)
             throws ResourceNotFoundException, BadRequestException {
         Flight flight = flightRepository.findById(flightId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_FLIGHT_EXIST + flightId));
@@ -158,7 +158,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public void deleteTicket(Long ticketId) throws ResourceNotFoundException {
+    public void deleteTicket(final Long ticketId) throws ResourceNotFoundException {
         Ticket ticket = ticketRepository.findById(ticketId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_TICKET_EXIST + ticketId));
         if (ticket.isReserved()) {

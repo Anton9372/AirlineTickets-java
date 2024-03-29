@@ -32,37 +32,39 @@ public class AirlineController {
 
     @GetMapping("/{airline_name}")
     @AspectAnnotation
-    public Optional<AirlineDTO> findByName(@Valid @PathVariable("airline_name") String airlineName) {
+    public Optional<AirlineDTO> findByName(@PathVariable("airline_name") final String airlineName) {
         return airlineService.findByName(airlineName);
     }
 
     @GetMapping("/{airline_name}/flights")
     @AspectAnnotation
-    public List<FlightDTO> findAllFlights(@PathVariable("airline_name") String airlineName) {
+    public List<FlightDTO> findAllFlights(@PathVariable("airline_name") final String airlineName) {
         return airlineService.findAllFlights(airlineName);
     }
 
     @PostMapping("/save_airline")
     @AspectAnnotation
-    public AirlineDTO saveAirline(@RequestBody Airline airline) throws BadRequestException {
+    public AirlineDTO saveAirline(@Valid @RequestBody final Airline airline) throws BadRequestException {
         return airlineService.saveOrUpdateAirline(airline);
     }
 
     @PostMapping("/{airline_name}/save_flight")
     @AspectAnnotation
-    public FlightDTO saveFlight(@RequestBody Flight flight, @PathVariable("airline_name") String airlineName) {
+    public FlightDTO saveFlight(@Valid @RequestBody final Flight flight,
+                                @PathVariable("airline_name") final String airlineName) {
         return flightService.saveOrUpdateFlight(flight, airlineName);
     }
 
     @PutMapping("/update_airline")
     @AspectAnnotation
-    public AirlineDTO updateAirline(@RequestBody Airline airline) {
+    public AirlineDTO updateAirline(@Valid @RequestBody final Airline airline) {
         return airlineService.saveOrUpdateAirline(airline);
     }
 
     @PutMapping("/{airline_name}/update_airline")
     @AspectAnnotation
-    public FlightDTO updateFlight(@RequestBody Flight flight, @PathVariable("airline_name") String airlineName) {
+    public FlightDTO updateFlight(@Valid @RequestBody final Flight flight,
+                                  @PathVariable("airline_name") final String airlineName) {
         return flightService.saveOrUpdateFlight(flight, airlineName);
     }
 }
