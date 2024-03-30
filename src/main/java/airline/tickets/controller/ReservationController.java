@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -46,6 +48,14 @@ public class ReservationController {
                                      @PathVariable("passenger_id") final Long passengerId) {
         return reservationService.saveReservation(passengerId, ticketId);
     }
+
+    @PostMapping("/booking/bulk/passenger_id/{passenger_id}")
+    @AspectAnnotation
+    public List<ReservationDTO> bookBulkTickets(@PathVariable("passenger_id") Long passengerId,
+                                                @RequestBody List<Long> ticketIds) {
+        return reservationService.saveBulkReservations(passengerId, ticketIds);
+    }
+
 
     @DeleteMapping("/cancel_booking/ticket_id/{ticket_id}")
     @AspectAnnotation

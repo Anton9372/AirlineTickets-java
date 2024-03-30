@@ -145,14 +145,15 @@ public class TicketServiceImpl implements TicketService {
         if (numOfTickets < 1) {
             throw new BadRequestException("Num of tickets must be more than one");
         }
+        List<Ticket> ticketList = new ArrayList<>();
         for (int i = 0; i < numOfTickets; i++) {
             Ticket newTicket = new Ticket();
             newTicket.setPrice(ticket.getPrice());
             newTicket.setReserved(ticket.isReserved());
             newTicket.setFlight(ticket.getFlight());
             saveOrUpdateTicket(newTicket, flightId);
+            ticketList.add(newTicket);
         }
-        List<Ticket> ticketList = flight.getTickets();
         ticketCache.clear();
         return convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
     }

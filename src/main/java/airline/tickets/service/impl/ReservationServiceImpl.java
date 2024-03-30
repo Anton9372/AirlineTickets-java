@@ -15,8 +15,10 @@ import airline.tickets.service.ReservationService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -75,6 +77,7 @@ public class ReservationServiceImpl implements ReservationService {
         Flight flight = ticket.getFlight();
 
         ticket.setReserved(true);
+        ticketRepository.save(ticket);
 
         Reservation reservation = new Reservation();
         reservation.setTicket(ticket);
@@ -87,6 +90,15 @@ public class ReservationServiceImpl implements ReservationService {
         flightRepository.save(flight);
 
         return convertModelToDTO.reservationConversion(reservation);
+    }
+
+    @Override
+    @AspectAnnotation
+    public List<ReservationDTO> saveBulkReservations(Long passengerId, List<Long> ticketIds)
+            throws ResourceNotFoundException {
+        return ticketIds.stream()
+                .map(ticketId -> saveReservation(passengerId, ticketId))
+                .collect(Collectors.toList());
     }
 
     @Override

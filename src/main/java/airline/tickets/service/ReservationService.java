@@ -16,5 +16,8 @@ public interface ReservationService {
 
     ReservationDTO saveReservation(Long passengerId, Long ticketId) throws ResourceNotFoundException;
 
+    List<ReservationDTO> saveBulkReservations(Long passengerId, List<Long> ticketIds)
+            throws ResourceNotFoundException;
+
     void deleteReservation(Long reservationId) throws ResourceNotFoundException;
 }

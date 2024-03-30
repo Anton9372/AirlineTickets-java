@@ -12,7 +12,7 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotNull
     private Long price;
     @NotNull
     private boolean isReserved;
