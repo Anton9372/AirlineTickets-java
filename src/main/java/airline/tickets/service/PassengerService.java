@@ -1,25 +1,78 @@
 package airline.tickets.service;
 
+import airline.tickets.aspect.AspectAnnotation;
 import airline.tickets.dto.FlightDTO;
 import airline.tickets.dto.PassengerDTO;
 import airline.tickets.dto.ReservationDTO;
 import airline.tickets.exception.BadRequestException;
 import airline.tickets.exception.ResourceNotFoundException;
+import airline.tickets.model.Flight;
 import airline.tickets.model.Passenger;
+import airline.tickets.model.Reservation;
+import airline.tickets.repository.PassengerRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.List;
 
-public interface PassengerService {
+@Service
+@AllArgsConstructor
+public class PassengerService {
 
-    List<PassengerDTO> findAllPassengers();
+    private final PassengerRepository passengerRepository;
+    private final ReservationService reservationService;
 
-    List<PassengerDTO> findByName(String name);
+    private final ConvertModelToDTO convertModelToDTO;
 
-    PassengerDTO saveOrUpdatePassenger(Passenger passenger) throws BadRequestException;
+    private static final String NO_PASSENGER_EXIST = "No Passenger found with id: ";
 
-    List<FlightDTO> findAllFlights(Long passengerId) throws ResourceNotFoundException;
+    public List<PassengerDTO> findAllPassengers() {
+        List<Passenger> passengerList = passengerRepository.findAll();
+        return convertModelToDTO.convertToDTOList(passengerList, convertModelToDTO::passengerConversion);
+    }
 
-    List<ReservationDTO> findAllReservations(Long passengerId) throws ResourceNotFoundException;
+    public List<PassengerDTO> findPassengerByName(final String name) {
+        List<Passenger> passengerList = passengerRepository.findByName(name);
+        return convertModelToDTO.convertToDTOList(passengerList, convertModelToDTO::passengerConversion);
+    }
 
-    void deletePassenger(Long passengerId) throws ResourceNotFoundException;
+    @AspectAnnotation
+    public PassengerDTO saveOrUpdatePassenger(final Passenger passenger) throws BadRequestException {
+        if (passenger.getName() == null || passenger.getPassportNumber() == null) {
+            throw new BadRequestException("name and passportNumber must be provided");
+        }
+        passengerRepository.save(passenger);
+        return convertModelToDTO.passengerConversion(passenger);
+    }
+
+    @AspectAnnotation
+    public List<FlightDTO> findAllPassengerFlights(final Long passengerId) throws ResourceNotFoundException {
+        Passenger passenger = passengerRepository.findById(passengerId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));
+        List<Flight> flightList = passenger.getFlights();
+        return convertModelToDTO.convertToDTOList(flightList, convertModelToDTO::flightConversion);
+    }
+
+    @AspectAnnotation
+    public List<ReservationDTO> findAllPassengerReservations(final Long passengerId) throws ResourceNotFoundException {
+        Passenger passenger = passengerRepository.findById(passengerId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));
+        List<Reservation> reservationList = passenger.getReservations();
+        return convertModelToDTO.convertToDTOList(reservationList, convertModelToDTO::reservationConversion);
+    }
+
+    @AspectAnnotation
+    public void deletePassenger(final Long passengerId) throws ResourceNotFoundException {
+        Passenger passenger = passengerRepository.findById(passengerId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));
+        List<Reservation> reservationList = passenger.getReservations();
+        Iterator<Reservation> iterator = reservationList.iterator();
+        while (iterator.hasNext()) {
+            Reservation reservation = iterator.next();
+            iterator.remove();
+            reservationService.deleteReservation(reservation.getId());
+        }
+        passengerRepository.delete(passenger);
+    }
 }

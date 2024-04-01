@@ -4,6 +4,7 @@ import airline.tickets.aspect.AspectAnnotation;
 import airline.tickets.dto.TicketDTO;
 import airline.tickets.model.Ticket;
 import airline.tickets.service.TicketService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -25,53 +26,65 @@ public class TicketController {
 
     private final TicketService ticketService;
 
+    @Operation(summary = "Просмотр всех билетов")
     @GetMapping
     public List<TicketDTO> findAllTickets() {
         return ticketService.findAllTickets();
     }
 
+    @Operation(summary = "Просмотр всех билетов рейса")
     @GetMapping("/flight_id/{flight_id}")
     @AspectAnnotation
-    public List<TicketDTO> findByFlightId(@PathVariable("flight_id") final Long flightId) {
-        return ticketService.findByFlightId(flightId);
+    public List<TicketDTO> findTicketsByFlightId(@PathVariable("flight_id") final Long flightId) {
+        return ticketService.findTicketsByFlightId(flightId);
     }
 
+    @Operation(summary = "Просмотр всех билетов по городу отправления")
     @GetMapping("/departure_town/{departure_town}")
-    public List<TicketDTO> findByDepartureTown(@PathVariable("departure_town") final String departureTown) {
-        return ticketService.findByDepartureTown(departureTown);
+    public List<TicketDTO> findTicketsByDepartureTown(@PathVariable("departure_town") final String departureTown) {
+        return ticketService.findTicketsByDepartureTown(departureTown);
     }
 
+    @Operation(summary = "Просмотр всех билетов по городу прибытия")
     @GetMapping("/arrival_town/{arrival_town}")
-    public List<TicketDTO> findByArrivalTown(@PathVariable("arrival_town") final String arrivalTown) {
-        return ticketService.findByArrivalTown(arrivalTown);
+    public List<TicketDTO> findTicketsByArrivalTown(@PathVariable("arrival_town") final String arrivalTown) {
+        return ticketService.findTicketsByArrivalTown(arrivalTown);
     }
 
+    @Operation(summary = "Просмотр всех билетов по городу отправления и городу прибытия")
     @GetMapping("/departure_town/{departure_town}/arrival_town/{arrival_town}")
-    public List<TicketDTO> findByDepartureTownAndArrivalTown(@PathVariable("departure_town") final String departureTown,
-                                                             @PathVariable("arrival_town") final String arrivalTown) {
-        return ticketService.findByDepartureTownAndArrivalTown(departureTown, arrivalTown);
+    public List<TicketDTO> findTicketsByDepartureTownAndArrivalTown(
+            @PathVariable("departure_town") final String departureTown,
+            @PathVariable("arrival_town") final String arrivalTown) {
+        return ticketService.findTicketsByDepartureTownAndArrivalTown(departureTown, arrivalTown);
     }
 
+    @Operation(summary = "Просмотр всех незабронированных билетов по городу отправления")
     @GetMapping("/unreserved/departure_town/{departure_town}")
-    public List<TicketDTO> findUnreservedByDepartureTown(@PathVariable("departure_town") final String departureTown) {
-        List<TicketDTO> ticketDTOList = ticketService.findByDepartureTown(departureTown);
-        return ticketService.findUnreserved(ticketDTOList);
+    public List<TicketDTO> findUnreservedTicketsByDepartureTown(
+            @PathVariable("departure_town") final String departureTown) {
+        List<TicketDTO> ticketDTOList = ticketService.findTicketsByDepartureTown(departureTown);
+        return ticketService.findUnreservedTicketsFromList(ticketDTOList);
     }
 
+    @Operation(summary = "Просмотр всех незабронированных билетов по городу прибытия")
     @GetMapping("/unreserved/arrival_town/{arrival_town}")
     public List<TicketDTO> findUnreservedByArrivalTown(@PathVariable("arrival_town") final String arrivalTown) {
-        List<TicketDTO> ticketDTOList = ticketService.findByArrivalTown(arrivalTown);
-        return ticketService.findUnreserved(ticketDTOList);
+        List<TicketDTO> ticketDTOList = ticketService.findTicketsByArrivalTown(arrivalTown);
+        return ticketService.findUnreservedTicketsFromList(ticketDTOList);
     }
 
+    @Operation(summary = "Просмотр всех незабронированных билетов по городу отправления и городу прибытия")
     @GetMapping("/unreserved/departure_town/{departure_town}/arrival_town/{arrival_town}")
     public List<TicketDTO> findUnreservedByDepartureTownAndArrivalTown(
             @PathVariable("departure_town") final String departureTown,
             @PathVariable("arrival_town") final String arrivalTown) {
-        List<TicketDTO> ticketDTOList = ticketService.findByDepartureTownAndArrivalTown(departureTown, arrivalTown);
-        return ticketService.findUnreserved(ticketDTOList);
+        List<TicketDTO> ticketDTOList = ticketService.
+                findTicketsByDepartureTownAndArrivalTown(departureTown, arrivalTown);
+        return ticketService.findUnreservedTicketsFromList(ticketDTOList);
     }
 
+    @Operation(summary = "Обновить билет")
     @PutMapping("/update_ticket/flight_id/{flight_id}")
     @AspectAnnotation
     public TicketDTO updateTicket(@Valid @RequestBody final Ticket ticket,
@@ -79,6 +92,7 @@ public class TicketController {
         return ticketService.saveOrUpdateTicket(ticket, flightId);
     }
 
+    @Operation(summary = "Удалить билет")
     @DeleteMapping("/delete_ticket/{ticket_id}")
     @AspectAnnotation
     public void deleteTicket(@PathVariable("ticket_id") final Long ticketId) {

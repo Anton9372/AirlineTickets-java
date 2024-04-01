@@ -19,4 +19,5 @@ public class Airline {
 
     @OneToMany(mappedBy = "airline", fetch = FetchType.EAGER)
     private List<Flight> flights = new ArrayList<>();
+
 }

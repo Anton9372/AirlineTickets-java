@@ -8,6 +8,7 @@ import airline.tickets.model.Airline;
 import airline.tickets.model.Flight;
 import airline.tickets.service.AirlineService;
 import airline.tickets.service.FlightService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -25,46 +26,60 @@ public class AirlineController {
     private final AirlineService airlineService;
     private final FlightService flightService;
 
+    @Operation(summary = "Просмотр всех авиакомпаний")
     @GetMapping
     public List<AirlineDTO> findAllAirlines() {
         return airlineService.findAllAirlines();
     }
 
+    @Operation(summary = "Найти авиакомпанию по имени")
     @GetMapping("/{airline_name}")
     @AspectAnnotation
-    public Optional<AirlineDTO> findByName(@PathVariable("airline_name") final String airlineName) {
-        return airlineService.findByName(airlineName);
+    public Optional<AirlineDTO> findAirlineByName(@PathVariable("airline_name") final String airlineName) {
+        return airlineService.findAirlineByName(airlineName);
     }
 
+    @Operation(summary = "Просмотр всех рейсов авиакомпании")
     @GetMapping("/{airline_name}/flights")
     @AspectAnnotation
-    public List<FlightDTO> findAllFlights(@PathVariable("airline_name") final String airlineName) {
-        return airlineService.findAllFlights(airlineName);
+    public List<FlightDTO> findAllAirlineFlights(@PathVariable("airline_name") final String airlineName) {
+        return airlineService.findAllAirlineFlights(airlineName);
     }
 
+    @Operation(summary = "Добавить авиакомпанию")
     @PostMapping("/save_airline")
     @AspectAnnotation
     public AirlineDTO saveAirline(@Valid @RequestBody final Airline airline) throws BadRequestException {
         return airlineService.saveOrUpdateAirline(airline);
     }
 
+    @Operation(summary = "Добавить рейс для авиакомпании")
     @PostMapping("/{airline_name}/save_flight")
     @AspectAnnotation
-    public FlightDTO saveFlight(@Valid @RequestBody final Flight flight,
+    public FlightDTO saveAirlineFlight(@Valid @RequestBody final Flight flight,
                                 @PathVariable("airline_name") final String airlineName) {
         return flightService.saveOrUpdateFlight(flight, airlineName);
     }
 
+    @Operation(summary = "Изменить авиакомпанию")
     @PutMapping("/update_airline")
     @AspectAnnotation
     public AirlineDTO updateAirline(@Valid @RequestBody final Airline airline) {
         return airlineService.saveOrUpdateAirline(airline);
     }
 
+    @Operation(summary = "Обновить рейс авиакомпании")
     @PutMapping("/{airline_name}/update_airline")
     @AspectAnnotation
-    public FlightDTO updateFlight(@Valid @RequestBody final Flight flight,
+    public FlightDTO updateAirlineFlight(@Valid @RequestBody final Flight flight,
                                   @PathVariable("airline_name") final String airlineName) {
         return flightService.saveOrUpdateFlight(flight, airlineName);
+    }
+
+    @Operation(summary = "Удалить авиакомпанию")
+    @DeleteMapping("/delete_airline/{airline_name}")
+    @AspectAnnotation
+    public void deleteAirline(@PathVariable("airline_name") final String airlineName) {
+        airlineService.deleteAirline(airlineName);
     }
 }
