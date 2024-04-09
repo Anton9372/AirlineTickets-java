@@ -54,20 +54,6 @@ public class FlightService {
     }
 
     @AspectAnnotation
-    public FlightDTO saveOrUpdateFlight(final Flight flight, final String airlineName) throws ResourceNotFoundException,
-            BadRequestException {
-        Airline airline = airlineRepository.findByName(airlineName).
-                orElseThrow(() -> new ResourceNotFoundException(NO_AIRLINE_EXIST + airlineName));
-        if (flight.getDepartureTown() == null || flight.getArrivalTown() == null
-                || flight.getDepartureDateTime() == null) {
-            throw new BadRequestException("departureTown, arrivalTown and departureDateTime must be provided");
-        }
-        flight.setAirline(airline);
-        flightRepository.save(flight);
-        return convertModelToDTO.flightConversion(flight);
-    }
-
-    @AspectAnnotation
     public List<TicketDTO> findAllFlightTickets(final Long flightId) throws ResourceNotFoundException {
         Flight flight = flightRepository.findById(flightId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_FLIGHT_EXIST + flightId));
@@ -81,6 +67,20 @@ public class FlightService {
                 orElseThrow(() -> new ResourceNotFoundException(NO_FLIGHT_EXIST + flightId));
         List<Passenger> passengerList = flight.getPassengers();
         return convertModelToDTO.convertToDTOList(passengerList, convertModelToDTO::passengerConversion);
+    }
+
+    @AspectAnnotation
+    public FlightDTO saveOrUpdateFlight(final Flight flight, final String airlineName) throws ResourceNotFoundException,
+            BadRequestException {
+        Airline airline = airlineRepository.findByName(airlineName).
+                orElseThrow(() -> new ResourceNotFoundException(NO_AIRLINE_EXIST + airlineName));
+        if (flight.getDepartureTown() == null || flight.getArrivalTown() == null
+                || flight.getDepartureDateTime() == null) {
+            throw new BadRequestException("departureTown, arrivalTown and departureDateTime must be provided");
+        }
+        flight.setAirline(airline);
+        flightRepository.save(flight);
+        return convertModelToDTO.flightConversion(flight);
     }
 
     @AspectAnnotation

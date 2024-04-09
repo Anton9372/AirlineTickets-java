@@ -5,6 +5,7 @@ import airline.tickets.dto.FlightDTO;
 import airline.tickets.dto.PassengerDTO;
 import airline.tickets.dto.ReservationDTO;
 import airline.tickets.dto.TicketDTO;
+import airline.tickets.exception.BadRequestException;
 import airline.tickets.model.Airline;
 import airline.tickets.model.Flight;
 import airline.tickets.model.Passenger;
@@ -20,14 +21,22 @@ import java.util.function.Function;
 @AllArgsConstructor
 public class ConvertModelToDTO {
 
-    public AirlineDTO airlineConversion(final Airline airline) {
+    private static final String NOT_VALID_ARGUMENT = "Null object to convert: ";
+
+    public AirlineDTO airlineConversion(final Airline airline) throws BadRequestException {
+        if(airline == null) {
+            throw new BadRequestException(NOT_VALID_ARGUMENT + "airline");
+        }
         AirlineDTO airlineDTO = new AirlineDTO();
         airlineDTO.setId(airline.getId());
         airlineDTO.setName(airline.getName());
         return airlineDTO;
     }
 
-    public FlightDTO flightConversion(final Flight flight) {
+    public FlightDTO flightConversion(final Flight flight) throws BadRequestException {
+        if(flight == null) {
+            throw new BadRequestException(NOT_VALID_ARGUMENT + "flight");
+        }
         FlightDTO flightDTO = new FlightDTO();
         flightDTO.setId(flight.getId());
         flightDTO.setDepartureTown(flight.getDepartureTown());
@@ -37,7 +46,10 @@ public class ConvertModelToDTO {
         return flightDTO;
     }
 
-    public PassengerDTO passengerConversion(final Passenger passenger) {
+    public PassengerDTO passengerConversion(final Passenger passenger) throws BadRequestException {
+        if(passenger == null) {
+            throw new BadRequestException(NOT_VALID_ARGUMENT + "passenger");
+        }
         PassengerDTO passengerDTO = new PassengerDTO();
         passengerDTO.setId(passenger.getId());
         passengerDTO.setName(passenger.getName());
@@ -45,7 +57,10 @@ public class ConvertModelToDTO {
         return passengerDTO;
     }
 
-    public ReservationDTO reservationConversion(final Reservation reservation) {
+    public ReservationDTO reservationConversion(final Reservation reservation) throws BadRequestException {
+        if(reservation == null) {
+            throw new BadRequestException(NOT_VALID_ARGUMENT + "reservation");
+        }
         ReservationDTO reservationDTO = new ReservationDTO();
         reservationDTO.setId(reservation.getId());
 
@@ -57,7 +72,10 @@ public class ConvertModelToDTO {
         return reservationDTO;
     }
 
-    public TicketDTO ticketConversion(final Ticket ticket) {
+    public TicketDTO ticketConversion(final Ticket ticket) throws BadRequestException {
+        if(ticket == null) {
+            throw new BadRequestException(NOT_VALID_ARGUMENT + "ticket");
+        }
         TicketDTO ticketDTO = new TicketDTO();
         ticketDTO.setId(ticket.getId());
         ticketDTO.setPrice(ticket.getPrice());

@@ -32,11 +32,18 @@ public class AirlineService {
         return convertModelToDTO.convertToDTOList(airlineList, convertModelToDTO::airlineConversion);
     }
 
-    @AspectAnnotation
     public Optional<AirlineDTO> findAirlineByName(final String airlineName) throws ResourceNotFoundException {
         Airline airline = airlineRepository.findByName(airlineName).
                 orElseThrow(() -> new ResourceNotFoundException(NO_AIRLINE_EXIST + airlineName));
         return Optional.of(convertModelToDTO.airlineConversion(airline));
+    }
+
+    @AspectAnnotation
+    public List<FlightDTO> findAllAirlineFlights(final String airlineName) throws ResourceNotFoundException {
+        Airline airline = airlineRepository.findByName(airlineName).
+                orElseThrow(() -> new ResourceNotFoundException(NO_AIRLINE_EXIST + airlineName));
+        List<Flight> flightList = airline.getFlights();
+        return convertModelToDTO.convertToDTOList(flightList, convertModelToDTO::flightConversion);
     }
 
     @AspectAnnotation
@@ -46,14 +53,6 @@ public class AirlineService {
         }
         airlineRepository.save(airline);
         return convertModelToDTO.airlineConversion(airline);
-    }
-
-    @AspectAnnotation
-    public List<FlightDTO> findAllAirlineFlights(final String airlineName) throws ResourceNotFoundException {
-        Airline airline = airlineRepository.findByName(airlineName).
-                orElseThrow(() -> new ResourceNotFoundException(NO_AIRLINE_EXIST + airlineName));
-        List<Flight> flightList = airline.getFlights();
-        return convertModelToDTO.convertToDTOList(flightList, convertModelToDTO::flightConversion);
     }
 
     @AspectAnnotation
