@@ -1,7 +1,7 @@
 package airline.tickets.service;
 
 import airline.tickets.aspect.AspectAnnotation;
-import airline.tickets.cache.InMemoryCache;
+
 import airline.tickets.dto.ReservationDTO;
 import airline.tickets.dto.TicketDTO;
 import airline.tickets.exception.BadRequestException;
@@ -14,8 +14,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -28,88 +30,78 @@ public class TicketService {
 
     private final ConvertModelToDTO convertModelToDTO;
 
-    private final InMemoryCache<String, List<TicketDTO>> ticketCache;
-
     private static final String NO_TICKET_EXIST = "No Ticket found with id: ";
     private static final String NO_FLIGHT_EXIST = "No Flight found with id: ";
 
     public List<TicketDTO> findAllTickets() {
-        List<TicketDTO> cachedResult = ticketCache.get("allTickets");
-        if (cachedResult != null) {
-            return cachedResult;
-        }
         List<Ticket> ticketList = ticketRepository.findAll();
-        List<TicketDTO> result = convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
-        ticketCache.put("allTickets", result);
-        return result;
-    }
-
-    @AspectAnnotation
-    public List<TicketDTO> findTicketsByFlightId(final Long flightId) throws ResourceNotFoundException {
-        String cacheKey = "flightId_" + flightId;
-        List<TicketDTO> cachedResult = ticketCache.get(cacheKey);
-        if (cachedResult != null) {
-            return cachedResult;
-        }
-        Flight flight = flightRepository.findById(flightId).
-                orElseThrow(() -> new ResourceNotFoundException(NO_FLIGHT_EXIST + flightId));
-        List<Ticket> ticketList = flight.getTickets();
-        List<TicketDTO> result = convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
-        ticketCache.put(cacheKey, result);
-        return result;
-    }
-
-    private List<TicketDTO> findTicketsByFlightList(final List<Flight> flightList) {
-        List<Ticket> ticketList = new ArrayList<>();
-        for (Flight flight : flightList) {
-            ticketList.addAll(flight.getTickets());
-        }
         return convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
     }
 
-    public List<TicketDTO> findTicketsByDepartureTown(final String departureTown) {
-        String cacheKey = "departureTown_" + departureTown;
-        List<TicketDTO> cachedResult = ticketCache.get(cacheKey);
-        if (cachedResult != null) {
-            return cachedResult;
-        }
-        List<TicketDTO> result = findTicketsByFlightList(flightRepository.findByDepartureTown(departureTown));
-        ticketCache.put(cacheKey, result);
-        return result;
+    private List<TicketDTO> findAllTicketsByFlightList(final List<Flight> flightList) {
+        return flightList.stream()
+                .flatMap(flight -> flight.getTickets().stream())
+                .map(convertModelToDTO::ticketConversion)
+                .collect(Collectors.toList());
     }
 
-    public List<TicketDTO> findTicketsByArrivalTown(final String arrivalTown) {
-        String cacheKey = "arrivalTown_" + arrivalTown;
-        List<TicketDTO> cachedResult = ticketCache.get(cacheKey);
-        if (cachedResult != null) {
-            return cachedResult;
-        }
-        List<TicketDTO> result = findTicketsByFlightList(flightRepository.findByArrivalTown(arrivalTown));
-        ticketCache.put(cacheKey, result);
-        return result;
-    }
-
-    public List<TicketDTO> findTicketsByDepartureTownAndArrivalTown(final String departureTown,
-                                                                    final String arrivalTown) {
-        String cacheKey = "departureTown_" + departureTown + "_arrivalTown_" + arrivalTown;
-        List<TicketDTO> cachedResult = ticketCache.get(cacheKey);
-        if (cachedResult != null) {
-            return cachedResult;
-        }
-        List<TicketDTO> result = findTicketsByFlightList(flightRepository.
-                findByDepartureTownAndArrivalTown(departureTown, arrivalTown));
-        ticketCache.put(cacheKey, result);
-        return result;
-    }
-
-    public List<TicketDTO> findUnreservedTicketsFromList(final List<TicketDTO> ticketDTOList) {
-        List<TicketDTO> unreservedTicketDTOList = new ArrayList<>();
-        for (TicketDTO ticketDTO : ticketDTOList) {
-            if (!ticketDTO.isReserved()) {
-                unreservedTicketDTOList.add(ticketDTO);
+    private List<TicketDTO> findUnreservedTicketsByFlightList(final List<Flight> flightList) {
+        /*List<Ticket> ticketList = new ArrayList<>();
+        for (Flight flight : flightList) {
+            for(Ticket ticket : flight.getTickets()) {
+                if(!ticket.isReserved()) {
+                    ticketList.add(ticket)
+                }
             }
         }
-        return unreservedTicketDTOList;
+        return convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);*/
+        return flightList.stream()
+                .flatMap(flight -> flight.getTickets().stream())
+                .filter(ticket -> !ticket.isReserved())
+                .map(convertModelToDTO::ticketConversion)
+                .collect(Collectors.toList());
+    }
+
+    @AspectAnnotation
+    public List<TicketDTO> findAllTicketsByFlightId(final Long flightId) throws ResourceNotFoundException {
+        Flight flight = flightRepository.findById(flightId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_FLIGHT_EXIST + flightId));
+        return findAllTicketsByFlightList(Collections.singletonList(flight));
+    }
+
+    public List<TicketDTO> findAllTicketsByDepartureTown(final String departureTown) {
+        return findAllTicketsByFlightList(flightRepository.findByDepartureTown(departureTown));
+    }
+
+    public List<TicketDTO> findAllTicketsByArrivalTown(final String arrivalTown) {
+        return findAllTicketsByFlightList(flightRepository.findByArrivalTown(arrivalTown));
+    }
+
+    public List<TicketDTO> findAllTicketsByDepartureTownAndArrivalTown(final String departureTown,
+                                                                    final String arrivalTown) {
+        return findAllTicketsByFlightList(flightRepository.
+                findByDepartureTownAndArrivalTown(departureTown, arrivalTown));
+    }
+
+    @AspectAnnotation
+    public List<TicketDTO> findUnreservedTicketsByFlightId(final Long flightId) throws ResourceNotFoundException {
+        Flight flight = flightRepository.findById(flightId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_FLIGHT_EXIST + flightId));
+        return findUnreservedTicketsByFlightList(Collections.singletonList(flight));
+    }
+
+    public List<TicketDTO> findUnreservedTicketsByDepartureTown(final String departureTown) {
+        return findUnreservedTicketsByFlightList(flightRepository.findByDepartureTown(departureTown));
+    }
+
+    public List<TicketDTO> findUnreservedTicketsByArrivalTown(final String arrivalTown) {
+        return findUnreservedTicketsByFlightList(flightRepository.findByArrivalTown(arrivalTown));
+    }
+
+    public List<TicketDTO> findUnreservedTicketsByDepartureTownAndArrivalTown(final String departureTown,
+                                                                       final String arrivalTown) {
+        return findUnreservedTicketsByFlightList(flightRepository.
+                findByDepartureTownAndArrivalTown(departureTown, arrivalTown));
     }
 
     @AspectAnnotation
@@ -122,7 +114,6 @@ public class TicketService {
         }
         ticket.setFlight(flight);
         ticketRepository.save(ticket);
-        ticketCache.clear();
         return convertModelToDTO.ticketConversion(ticket);
     }
 
@@ -145,7 +136,6 @@ public class TicketService {
             saveOrUpdateTicket(newTicket, flightId);
             ticketList.add(newTicket);
         }
-        ticketCache.clear();
         return convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
     }
 
@@ -161,7 +151,6 @@ public class TicketService {
         List<Ticket> ticketList = flight.getTickets();
         ticketList.remove(ticket);
         flight.setTickets(ticketList);
-        ticketCache.clear();
         ticketRepository.delete(ticket);
     }
 }

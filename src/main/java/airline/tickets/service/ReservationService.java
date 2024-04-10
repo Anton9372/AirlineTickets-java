@@ -38,7 +38,7 @@ public class ReservationService {
     }
 
     @AspectAnnotation
-    public List<ReservationDTO> findReservationByPassengerId(final Long passengerId) throws ResourceNotFoundException {
+    public List<ReservationDTO> findReservationsByPassengerId(final Long passengerId) throws ResourceNotFoundException {
         Passenger passenger = passengerRepository.findById(passengerId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));
         List<Reservation> reservationList = passenger.getReservations();
@@ -49,14 +49,9 @@ public class ReservationService {
     public Optional<ReservationDTO> findReservationByTicketId(final Long ticketId) throws ResourceNotFoundException {
         Ticket ticket = ticketRepository.findById(ticketId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_TICKET_EXIST + ticketId));
-
-        Optional<Reservation> optionalReservation = reservationRepository.findByTicketId(ticket.getId());
-        if (optionalReservation.isPresent()) {
-            Reservation reservation = optionalReservation.get();
-            return Optional.of(convertModelToDTO.reservationConversion(reservation));
-        } else {
-            return Optional.empty();
-        }
+        Reservation reservation = reservationRepository.findByTicketId(ticket.getId()).
+                orElseThrow(() -> new ResourceNotFoundException(NO_RESERVATION_EXIST + "with ticket id:" + ticketId));
+        return Optional.of(convertModelToDTO.reservationConversion(reservation));
     }
 
     @AspectAnnotation

@@ -10,6 +10,8 @@ import airline.tickets.repository.AirlineRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -32,7 +34,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class AirlineServiceTest {
+class AirlineServiceTest {
 
     @Mock
     private ConvertModelToDTO convertModelToDTO;
@@ -49,10 +51,11 @@ public class AirlineServiceTest {
     private static final ConvertModelToDTO notMockConvertModelToDTO = new ConvertModelToDTO();
 
     private static Airline airline;
-
     private static AirlineDTO airlineDTO;
 
     private final String airlineName = "Airline name";
+
+    private static final int NUM_OF_REPEATS = 5;
 
     @BeforeAll
     static void setUp() {
@@ -60,7 +63,7 @@ public class AirlineServiceTest {
         airline.setId(1L);
         airline.setName("Airline name");
         List<Flight> flightList = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < NUM_OF_REPEATS; i++) {
             Flight flight = new Flight();
             flight.setId((long) i);
             flight.setDepartureTown("Departure" + i);
@@ -77,7 +80,7 @@ public class AirlineServiceTest {
     @Test
     void testFindAllAirlines_Valid() {
         List<Airline> airlineList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < NUM_OF_REPEATS; i++) {
             Airline airline = new Airline();
             airline.setId((long) i);
             airline.setName("Airline" + i);
@@ -91,7 +94,7 @@ public class AirlineServiceTest {
         List<AirlineDTO> result = airlineService.findAllAirlines();
 
         assertEquals(10, result.size());
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < NUM_OF_REPEATS; i++) {
             assertEquals(i, result.get(i).getId());
             assertEquals("Airline" + i, result.get(i).getName());
         }
@@ -118,12 +121,6 @@ public class AirlineServiceTest {
     }
 
     @Test
-    void testFindAirlineByName_NoAirlineExists() {
-        when(airlineRepository.findByName(airlineName)).thenReturn(Optional.empty());
-        assertThrows(ResourceNotFoundException.class, () -> airlineService.findAirlineByName(airlineName));
-    }
-
-    @Test
     void testFindAllAirlineFlights_Valid() {
         when(airlineRepository.findByName(airlineName)).thenReturn(Optional.of(airline));
         List<FlightDTO> expectedFlightDTOList = notMockConvertModelToDTO.convertToDTOList(airline.getFlights(),
@@ -137,13 +134,6 @@ public class AirlineServiceTest {
             assertEquals(expectedFlightDTOList.get(i), result.get(i));
         }
     }
-
-    @Test
-    void testFindAllAirlineFlights_NoAirlineExists() {
-        when(airlineRepository.findByName(airlineName)).thenReturn(Optional.empty());
-        assertThrows(ResourceNotFoundException.class, () -> airlineService.findAirlineByName(airlineName));
-    }
-
 
     @Test
     void testSaveOrUpdateAirline_Valid() {
@@ -168,14 +158,29 @@ public class AirlineServiceTest {
 
         assertDoesNotThrow(() -> airlineService.deleteAirline(airlineName));
 
-        verify(flightService, times(5)).deleteFlight(anyLong());
+        verify(flightService, times(NUM_OF_REPEATS)).deleteFlight(anyLong());
         verify(airlineRepository, times(1)).delete(airline);
     }
 
-    @Test
-    void testDeleteAirline_NoAirlineExists() {
+    @ParameterizedTest
+    @ValueSource(strings = {"findAirlineByName", "findAllAirlineFlights", "deleteAirline"})
+    void testNoAirlineExists(String methodName) {
         when(airlineRepository.findByName(airlineName)).thenReturn(Optional.empty());
-        assertThrows(ResourceNotFoundException.class, () -> airlineService.findAirlineByName(airlineName));
+        assertThrows(ResourceNotFoundException.class, () -> {
+            switch (methodName) {
+                case "findAirlineByName": {
+                    airlineService.findAirlineByName(airlineName);
+                    break;
+                }
+                case "findAllAirlineFlights": {
+                    airlineService.findAllAirlineFlights(airlineName);
+                    break;
+                }
+                case "deleteAirline": {
+                    airlineService.deleteAirline(airlineName);
+                    break;
+                }
+            }
+        });
     }
-
 }

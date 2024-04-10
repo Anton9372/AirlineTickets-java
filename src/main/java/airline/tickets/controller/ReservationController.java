@@ -35,7 +35,7 @@ public class ReservationController {
     @GetMapping("/passenger_id/{passenger_id}")
     @AspectAnnotation
     public List<ReservationDTO> findReservationByPassengerId(@PathVariable("passenger_id") final Long passengerId) {
-        return reservationService.findReservationByPassengerId(passengerId);
+        return reservationService.findReservationsByPassengerId(passengerId);
     }
 
     @Operation(summary = "Просмотр бронирования по билету")

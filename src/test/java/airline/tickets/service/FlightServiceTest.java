@@ -37,7 +37,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class FlightServiceTest {
+class FlightServiceTest {
     @Mock
     private ConvertModelToDTO convertModelToDTO;
 
@@ -56,6 +56,8 @@ public class FlightServiceTest {
     private static final ConvertModelToDTO notMockConvertModelToDTO = new ConvertModelToDTO();
 
     private static List<Flight> flightList;
+
+    private static List<FlightDTO> flightDTOList;
     private static Flight flight;
     private static Airline airline;
     private List<Ticket> ticketList;
@@ -65,10 +67,12 @@ public class FlightServiceTest {
     private final String airlineName = "Airline name";
     private final Long flightId = 1L;
 
+    private static final int NUM_OF_REPEATS = 5;
+
     @BeforeEach
     void setTicketList() {
         ticketList = new ArrayList<>();
-        for(int i = 0; i < 5; i++) {
+        for(int i = 0; i < NUM_OF_REPEATS; i++) {
             Ticket ticket = new Ticket();
             ticket.setId((long) i);
             ticket.setPrice(300L);
@@ -92,7 +96,7 @@ public class FlightServiceTest {
         flight.setAirline(airline);
 
         flightList = new ArrayList<>();
-        for(int i = 0; i < 5; i++) {
+        for(int i = 0; i < NUM_OF_REPEATS; i++) {
             Flight flight = new Flight();
             flight.setId((long) i);
             flight.setDepartureTown("Departure" + i);
@@ -101,19 +105,20 @@ public class FlightServiceTest {
             flight.setAirline(airline);
             flightList.add(flight);
         }
+
+        flightDTOList = notMockConvertModelToDTO.convertToDTOList(flightList,
+                notMockConvertModelToDTO::flightConversion);
     }
 
     @Test
     void testFindAllFlights_Valid() {
-        List<FlightDTO> flightDTOList = notMockConvertModelToDTO.convertToDTOList(flightList,
-                notMockConvertModelToDTO::flightConversion);
         when(flightRepository.findAll()).thenReturn(flightList);
         doReturn(flightDTOList).when(convertModelToDTO).convertToDTOList(eq(flightList), any());
 
         List<FlightDTO> result = flightService.findAllFlights();
 
-        assertEquals(5, result.size());
-        for (int i = 0; i < 5; i++) {
+        assertEquals(NUM_OF_REPEATS, result.size());
+        for (int i = 0; i < NUM_OF_REPEATS; i++) {
             assertEquals(i, result.get(i).getId());
             assertEquals("Departure" + i, result.get(i).getDepartureTown());
             assertEquals("Arrival" + i, result.get(i).getArrivalTown());
@@ -131,15 +136,13 @@ public class FlightServiceTest {
 
     @Test
     void testFindAllFlightsByDepartureTown_Valid() {
-        List<FlightDTO> flightDTOList = notMockConvertModelToDTO.convertToDTOList(flightList,
-                notMockConvertModelToDTO::flightConversion);
         when(flightRepository.findByDepartureTown(departureTown)).thenReturn(flightList);
         doReturn(flightDTOList).when(convertModelToDTO).convertToDTOList(eq(flightList), any());
 
         List<FlightDTO> result = flightService.findFlightByDepartureTown(departureTown);
 
         assertEquals(5, result.size());
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < NUM_OF_REPEATS; i++) {
             assertEquals(i, result.get(i).getId());
             assertEquals("Departure" + i, result.get(i).getDepartureTown());
             assertEquals("Arrival" + i, result.get(i).getArrivalTown());
@@ -148,24 +151,22 @@ public class FlightServiceTest {
 
     @Test
     void testFindAllFlightsByDepartureTown_NoFlightsExist() {
-        when(flightRepository.findAll()).thenReturn(new ArrayList<>());
+        when(flightRepository.findByDepartureTown(departureTown)).thenReturn(new ArrayList<>());
 
-        List<FlightDTO> result = flightService.findAllFlights();
+        List<FlightDTO> result = flightService.findFlightByDepartureTown(departureTown);
 
         assertEquals(0, result.size());
     }
 
     @Test
     void testFindAllFlightsByArrivalTown_Valid() {
-        List<FlightDTO> flightDTOList = notMockConvertModelToDTO.convertToDTOList(flightList,
-                notMockConvertModelToDTO::flightConversion);
         when(flightRepository.findByArrivalTown(arrivalTown)).thenReturn(flightList);
         doReturn(flightDTOList).when(convertModelToDTO).convertToDTOList(eq(flightList), any());
 
         List<FlightDTO> result = flightService.findFlightByArrivalTown(arrivalTown);
 
-        assertEquals(5, result.size());
-        for (int i = 0; i < 5; i++) {
+        assertEquals(NUM_OF_REPEATS, result.size());
+        for (int i = 0; i < NUM_OF_REPEATS; i++) {
             assertEquals(i, result.get(i).getId());
             assertEquals("Departure" + i, result.get(i).getDepartureTown());
             assertEquals("Arrival" + i, result.get(i).getArrivalTown());
@@ -174,24 +175,22 @@ public class FlightServiceTest {
 
     @Test
     void testFindAllFlightsByArrivalTown_NoFlightsExist() {
-        when(flightRepository.findAll()).thenReturn(new ArrayList<>());
+        when(flightRepository.findByArrivalTown(arrivalTown)).thenReturn(new ArrayList<>());
 
-        List<FlightDTO> result = flightService.findAllFlights();
+        List<FlightDTO> result = flightService.findFlightByArrivalTown(arrivalTown);
 
         assertEquals(0, result.size());
     }
 
     @Test
     void testFindAllFlightsByDepartureTownAndArrivalTown_Valid() {
-        List<FlightDTO> flightDTOList = notMockConvertModelToDTO.convertToDTOList(flightList,
-                notMockConvertModelToDTO::flightConversion);
         when(flightRepository.findByDepartureTownAndArrivalTown(departureTown, arrivalTown)).thenReturn(flightList);
         doReturn(flightDTOList).when(convertModelToDTO).convertToDTOList(eq(flightList), any());
 
         List<FlightDTO> result = flightService.findFlightByDepartureTownAndArrivalTown(departureTown, arrivalTown);
 
         assertEquals(5, result.size());
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < NUM_OF_REPEATS; i++) {
             assertEquals(i, result.get(i).getId());
             assertEquals("Departure" + i, result.get(i).getDepartureTown());
             assertEquals("Arrival" + i, result.get(i).getArrivalTown());
@@ -200,9 +199,10 @@ public class FlightServiceTest {
 
     @Test
     void testFindAllFlightsByDepartureTownAndArrivalTown_NoFlightsExist() {
-        when(flightRepository.findAll()).thenReturn(new ArrayList<>());
+        when(flightRepository.findByDepartureTownAndArrivalTown(departureTown, arrivalTown)).
+                thenReturn(new ArrayList<>());
 
-        List<FlightDTO> result = flightService.findAllFlights();
+        List<FlightDTO> result = flightService.findFlightByDepartureTownAndArrivalTown(departureTown, arrivalTown);
 
         assertEquals(0, result.size());
     }
@@ -218,7 +218,7 @@ public class FlightServiceTest {
         List<TicketDTO> result = flightService.findAllFlightTickets(flightId);
 
         assertEquals(ticketDTOList.size(), result.size());
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < NUM_OF_REPEATS; i++) {
             assertEquals(i, result.get(i).getId());
             assertEquals(300L, result.get(i).getPrice());
             assertFalse(result.get(i).isReserved());
@@ -234,7 +234,7 @@ public class FlightServiceTest {
     @Test
     void testFindAllFlightPassengers_Valid() {
         List<Passenger> passengerList = new ArrayList<>();
-        for(int i = 0; i < 5; i++) {
+        for(int i = 0; i < NUM_OF_REPEATS; i++) {
             Passenger passenger = new Passenger();
             passenger.setId((long) i);
             passenger.setName("Name" + i);

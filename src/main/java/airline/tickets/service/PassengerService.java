@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -32,18 +33,9 @@ public class PassengerService {
         return convertModelToDTO.convertToDTOList(passengerList, convertModelToDTO::passengerConversion);
     }
 
-    public List<PassengerDTO> findPassengerByName(final String name) {
+    public List<PassengerDTO> findPassengersByName(final String name) {
         List<Passenger> passengerList = passengerRepository.findByName(name);
         return convertModelToDTO.convertToDTOList(passengerList, convertModelToDTO::passengerConversion);
-    }
-
-    @AspectAnnotation
-    public PassengerDTO saveOrUpdatePassenger(final Passenger passenger) throws BadRequestException {
-        if (passenger.getName() == null || passenger.getPassportNumber() == null) {
-            throw new BadRequestException("name and passportNumber must be provided");
-        }
-        passengerRepository.save(passenger);
-        return convertModelToDTO.passengerConversion(passenger);
     }
 
     @AspectAnnotation
@@ -60,6 +52,15 @@ public class PassengerService {
                 orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));
         List<Reservation> reservationList = passenger.getReservations();
         return convertModelToDTO.convertToDTOList(reservationList, convertModelToDTO::reservationConversion);
+    }
+
+    @AspectAnnotation
+    public PassengerDTO saveOrUpdatePassenger(final Passenger passenger) throws BadRequestException {
+        if (passenger.getName() == null || passenger.getPassportNumber() == null) {
+            throw new BadRequestException("name and passportNumber must be provided");
+        }
+        passengerRepository.save(passenger);
+        return convertModelToDTO.passengerConversion(passenger);
     }
 
     @AspectAnnotation

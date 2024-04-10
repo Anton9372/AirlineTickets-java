@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
-public class ConvertModelToDTOTest {
+class ConvertModelToDTOTest {
 
     @InjectMocks
     private ConvertModelToDTO convertModelToDTO;

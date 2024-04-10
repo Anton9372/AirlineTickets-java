@@ -31,7 +31,7 @@ public class PassengerController {
     @Operation(summary = "Просмотр всех пассажиров с именем")
     @GetMapping("/{passenger_name}")
     public List<PassengerDTO> findPassengerByName(@PathVariable("passenger_name") final String passengerName) {
-        return passengerService.findPassengerByName(passengerName);
+        return passengerService.findPassengersByName(passengerName);
     }
 
     @Operation(summary = "Просмотреть все рейсы пассажира")
