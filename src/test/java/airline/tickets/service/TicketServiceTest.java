@@ -35,7 +35,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class TicketServiceTest {
+class TicketServiceTest {
 
     @Mock
     private TicketRepository ticketRepository;
@@ -55,6 +55,7 @@ public class TicketServiceTest {
     private static List<TicketDTO> ticketDTOList;
     private static Flight flight;
     private static Ticket ticket;
+    private Ticket emptyTicket = new Ticket();
     private static TicketDTO ticketDTO;
 
     private final String departureTown = "Departure town";
@@ -279,13 +280,13 @@ public class TicketServiceTest {
     @Test
     void testSaveOrUpdateTicket_NoFlightExists() {
         when(flightRepository.findById(flightId)).thenReturn(Optional.empty());
-        assertThrows(ResourceNotFoundException.class, () -> ticketService.saveOrUpdateTicket(new Ticket(), flightId));
+        assertThrows(ResourceNotFoundException.class, () -> ticketService.saveOrUpdateTicket(emptyTicket, flightId));
     }
 
     @Test
     void testSaveOrUpdateTicket_NotValidTicket() {
         when(flightRepository.findById(flightId)).thenReturn(Optional.of(flight));
-        assertThrows(BadRequestException.class, () -> ticketService.saveOrUpdateTicket(new Ticket(), flightId));
+        assertThrows(BadRequestException.class, () -> ticketService.saveOrUpdateTicket(emptyTicket, flightId));
     }
 
     @Test
@@ -307,14 +308,14 @@ public class TicketServiceTest {
     @Test
     void testSaveNumOfTickets_NoFlightExists() {
         when(flightRepository.findById(flightId)).thenReturn(Optional.empty());
-        assertThrows(ResourceNotFoundException.class, () -> ticketService.saveNumOfTickets(new Ticket(), flightId,
+        assertThrows(ResourceNotFoundException.class, () -> ticketService.saveNumOfTickets(emptyTicket, flightId,
                 NUM_OF_REPEATS));
     }
 
     @Test
     void testSaveNumOfTickets_NotValidTicket() {
         when(flightRepository.findById(flightId)).thenReturn(Optional.of(flight));
-        assertThrows(BadRequestException.class, () -> ticketService.saveNumOfTickets(new Ticket(), flightId,
+        assertThrows(BadRequestException.class, () -> ticketService.saveNumOfTickets(emptyTicket, flightId,
                 NUM_OF_REPEATS));
     }
 

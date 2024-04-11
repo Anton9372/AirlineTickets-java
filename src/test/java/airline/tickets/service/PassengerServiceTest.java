@@ -223,7 +223,8 @@ class PassengerServiceTest {
 
     @Test
     void testSaveOrUpdatePassenger_NotValidObject() {
-        assertThrows(BadRequestException.class, () -> passengerService.saveOrUpdatePassenger(new Passenger()));
+        Passenger passenger = new Passenger();
+        assertThrows(BadRequestException.class, () -> passengerService.saveOrUpdatePassenger(passenger));
     }
 
     @Test

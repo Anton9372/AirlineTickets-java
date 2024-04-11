@@ -165,21 +165,19 @@ class AirlineServiceTest {
     @ValueSource(strings = {"findAirlineByName", "findAllAirlineFlights", "deleteAirline"})
     void testNoAirlineExists(String methodName) {
         when(airlineRepository.findByName(airlineName)).thenReturn(Optional.empty());
-        assertThrows(ResourceNotFoundException.class, () -> {
-            switch (methodName) {
-                case "findAirlineByName": {
-                    airlineService.findAirlineByName(airlineName);
-                    break;
-                }
-                case "findAllAirlineFlights": {
-                    airlineService.findAllAirlineFlights(airlineName);
-                    break;
-                }
-                case "deleteAirline": {
-                    airlineService.deleteAirline(airlineName);
-                    break;
-                }
+        switch (methodName) {
+            case "findAirlineByName": {
+                assertThrows(ResourceNotFoundException.class, () -> airlineService.findAirlineByName(airlineName));
+                break;
             }
-        });
+            case "findAllAirlineFlights": {
+                assertThrows(ResourceNotFoundException.class, () -> airlineService.findAllAirlineFlights(airlineName));
+                break;
+            }
+            case "deleteAirline": {
+                assertThrows(ResourceNotFoundException.class, () -> airlineService.deleteAirline(airlineName));
+                break;
+            }
+        }
     }
 }
