@@ -1,7 +1,6 @@
 package airline.tickets.service;
 
 import airline.tickets.aspect.AspectAnnotation;
-
 import airline.tickets.dto.ReservationDTO;
 import airline.tickets.dto.TicketDTO;
 import airline.tickets.exception.BadRequestException;
@@ -38,23 +37,14 @@ public class TicketService {
         return convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
     }
 
-    private List<TicketDTO> findAllTicketsByFlightList(final List<Flight> flightList) {
+    public List<TicketDTO> findAllTicketsByFlightList(final List<Flight> flightList) {
         return flightList.stream()
                 .flatMap(flight -> flight.getTickets().stream())
                 .map(convertModelToDTO::ticketConversion)
                 .collect(Collectors.toList());
     }
 
-    private List<TicketDTO> findUnreservedTicketsByFlightList(final List<Flight> flightList) {
-        /*List<Ticket> ticketList = new ArrayList<>();
-        for (Flight flight : flightList) {
-            for(Ticket ticket : flight.getTickets()) {
-                if(!ticket.isReserved()) {
-                    ticketList.add(ticket)
-                }
-            }
-        }
-        return convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);*/
+    public List<TicketDTO> findUnreservedTicketsByFlightList(final List<Flight> flightList) {
         return flightList.stream()
                 .flatMap(flight -> flight.getTickets().stream())
                 .filter(ticket -> !ticket.isReserved())
@@ -127,16 +117,16 @@ public class TicketService {
         if (numOfTickets < 1) {
             throw new BadRequestException("Num of tickets must be more than one");
         }
-        List<Ticket> ticketList = new ArrayList<>();
+        List<TicketDTO> ticketDtoList = new ArrayList<>();
         for (int i = 0; i < numOfTickets; i++) {
             Ticket newTicket = new Ticket();
             newTicket.setPrice(ticket.getPrice());
             newTicket.setReserved(ticket.isReserved());
             newTicket.setFlight(flight);
-            saveOrUpdateTicket(newTicket, flightId);
-            ticketList.add(newTicket);
+            TicketDTO ticketDTO = saveOrUpdateTicket(newTicket, flightId);
+            ticketDtoList.add(ticketDTO);
         }
-        return convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
+        return ticketDtoList;
     }
 
     public void deleteTicket(final Long ticketId) throws ResourceNotFoundException {

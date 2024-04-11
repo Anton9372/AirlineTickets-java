@@ -11,7 +11,6 @@ import airline.tickets.repository.FlightRepository;
 import airline.tickets.repository.PassengerRepository;
 import airline.tickets.repository.ReservationRepository;
 import airline.tickets.repository.TicketRepository;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,9 +24,11 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
@@ -36,14 +37,19 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ReservationServiceTest {
+
     @Mock
     private FlightRepository flightRepository;
+
     @Mock
     private ReservationRepository reservationRepository;
+
     @Mock
     private PassengerRepository passengerRepository;
+
     @Mock
     private TicketRepository ticketRepository;
+
     @Mock
     private ConvertModelToDTO convertModelToDTO;
 
@@ -52,36 +58,33 @@ class ReservationServiceTest {
 
     private static final ConvertModelToDTO notMockConvertModelToDTO = new ConvertModelToDTO();
 
-    private static List<Reservation> reservationList;
-    private static List<ReservationDTO> reservationDTOList;
-    private static Passenger passenger;
-    private static Ticket ticket;
-    private static Reservation reservation;
-    private static ReservationDTO reservationDTO;
+    private List<Reservation> reservationList;
+    private List<ReservationDTO> reservationDTOList;
+    private Passenger passenger;
+    private Flight flight;
+    private Ticket ticket;
+    private Reservation reservation;
+    private ReservationDTO reservationDTO;
+    private List<Long> ticketIds;
 
-    private static final Long passengerId = 5L;
-    private static final Long ticketId = 50L;
-    private static final Long reservationId = 500L;
-    private static final int NUM_OF_REPEATS = 5;
+    private final Long passengerId = 5L;
+    private final Long ticketId = 50L;
+    private final Long reservationId = 500L;
+    private final int NUM_OF_REPEATS = 5;
 
     @BeforeEach
-    void set() {
-
-    }
-
-    @BeforeAll
-    static void setUp() {
+    void setUp() {
 
         Airline airline = new Airline();
         airline.setId(10L);
         airline.setName("Airline name");
 
         passenger = new Passenger();
-        passenger.setId(10L);
+        passenger.setId(passengerId);
         passenger.setName("Name");
         passenger.setPassportNumber("ABC");
 
-        Flight flight = new Flight();
+        flight = new Flight();
         flight.setId(1L);
         flight.setDepartureTown("Minsk");
         flight.setArrivalTown("London");
@@ -89,13 +92,13 @@ class ReservationServiceTest {
         flight.setAirline(airline);
 
         ticket = new Ticket();
-        ticket.setId(50L);
+        ticket.setId(ticketId);
         ticket.setPrice(333L);
-        ticket.setReserved(false);
+        ticket.setReserved(true);
         ticket.setFlight(flight);
 
         reservation = new Reservation();
-        reservation.setId(500L);
+        reservation.setId(reservationId);
         reservation.setPassenger(passenger);
         reservation.setTicket(ticket);
 
@@ -110,12 +113,11 @@ class ReservationServiceTest {
             reservationList.add(reservation);
         }
 
-        passenger.setReservations(reservationList);
-
         reservationDTOList = notMockConvertModelToDTO.convertToDTOList(reservationList,
                 notMockConvertModelToDTO::reservationConversion);
-    }
 
+        ticketIds = List.of(1L, 2L, 3L);
+    }
 
     @Test
     void testFindAllReservations_Valid() {
@@ -141,6 +143,7 @@ class ReservationServiceTest {
 
     @Test
     void testFindReservationByPassengerId_Valid() {
+        passenger.setReservations(reservationList);
         when(passengerRepository.findById(passengerId)).thenReturn(Optional.of(passenger));
         doReturn(reservationDTOList).when(convertModelToDTO).convertToDTOList(eq(reservationList), any());
 
@@ -185,38 +188,10 @@ class ReservationServiceTest {
 
     @Test
     void testSaveReservation_Valid() {
-        //todo
-        Airline airline = new Airline();
-        airline.setId(101L);
-        airline.setName("Airline name1");
-
-        Passenger passenger = new Passenger();
-        passenger.setId(101L);
-        passenger.setName("Name1");
-        passenger.setPassportNumber("ABC1");
-
-        Flight flight = new Flight();
-        flight.setId(11L);
-        flight.setDepartureTown("Minsk1");
-        flight.setArrivalTown("London1");
-        flight.setDepartureDateTime(LocalDateTime.of(2024, 4, 1, 0, 0));
-        flight.setAirline(airline);
-
-        Ticket ticket = new Ticket();
-        ticket.setId(501L);
-        ticket.setPrice(333L);
-        ticket.setReserved(true);
-        ticket.setFlight(flight);
-
-        Reservation reservation = new Reservation();
-        //reservation.setId(500L);
-        reservation.setPassenger(passenger);
-        reservation.setTicket(ticket);
-        ReservationDTO reservationDTO1 = notMockConvertModelToDTO.reservationConversion(reservation);
-
+        reservation.setId(null);
         when(passengerRepository.findById(passengerId)).thenReturn(Optional.of(passenger));
         when(ticketRepository.findById(ticketId)).thenReturn(Optional.of(ticket));
-        when(convertModelToDTO.reservationConversion(reservation)).thenReturn(reservationDTO1);
+        when(convertModelToDTO.reservationConversion(reservation)).thenReturn(reservationDTO);
 
         ReservationDTO result = reservationService.saveReservation(passengerId, ticketId);
 
@@ -240,18 +215,51 @@ class ReservationServiceTest {
     }
 
     @Test
-    void testSaveBulkReservations_NoPassengerExists() {
+    void testSaveBulkReservations_Valid() {
+        when(passengerRepository.findById(passengerId)).thenReturn(Optional.of(passenger));
 
+        List<Ticket> ticketList = new ArrayList<>();
+        for (Long ticketId : ticketIds) {
+            Ticket ticket = new Ticket();
+            ticket.setFlight(flight);
+            ticketList.add(ticket);
+            when(ticketRepository.findById(ticketId)).thenReturn(Optional.of(ticket));
+        }
+
+        when(convertModelToDTO.reservationConversion(any())).thenReturn(new ReservationDTO());
+
+        List<ReservationDTO> result = reservationService.saveBulkReservations(passengerId, ticketIds);
+
+        assertEquals(ticketList.size(), result.size());
+        verify(ticketRepository, times(ticketIds.size())).save(any());
+        verify(reservationRepository, times(ticketIds.size())).save(any());
+        verify(flightRepository, times(ticketIds.size())).save(any());
+    }
+
+    @Test
+    void testSaveBulkReservations_NoPassengerExists() {
+        when(passengerRepository.findById(passengerId)).thenReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> reservationService.saveBulkReservations(passengerId, ticketIds));
     }
 
     @Test
     void testSaveBulkReservations_NoTicketExists() {
-
+        when(passengerRepository.findById(passengerId)).thenReturn(Optional.of(passenger));
+        when(ticketRepository.findById(anyLong())).thenReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> reservationService.saveBulkReservations(passengerId, ticketIds));
     }
 
     @Test
     void testDeleteReservation_Valid() {
+        when(reservationRepository.findById(reservationId)).thenReturn(Optional.of(reservation));
 
+        reservationService.deleteReservation(reservationId);
+
+        assertFalse(reservation.getTicket().isReserved());
+        verify(ticketRepository, times(1)).save(ticket);
+        verify(passengerRepository, times(1)).save(passenger);
+        verify(flightRepository, times(1)).save(flight);
+        verify(reservationRepository, times(1)).delete(reservation);
     }
 
     @Test

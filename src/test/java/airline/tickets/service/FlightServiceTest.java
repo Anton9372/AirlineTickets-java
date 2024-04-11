@@ -56,10 +56,10 @@ class FlightServiceTest {
     private static final ConvertModelToDTO notMockConvertModelToDTO = new ConvertModelToDTO();
 
     private static List<Flight> flightList;
-
     private static List<FlightDTO> flightDTOList;
     private static Flight flight;
     private static Airline airline;
+
     private List<Ticket> ticketList;
 
     private final String departureTown = "Departure Town";

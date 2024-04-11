@@ -59,6 +59,12 @@ public class TicketController {
         return ticketService.findAllTicketsByDepartureTownAndArrivalTown(departureTown, arrivalTown);
     }
 
+    @Operation(summary = "Просмотр всех незабронированных билетов рейса")
+    @GetMapping("/unreserved/flight_id/{flight_id}")
+    public List<TicketDTO> findUnreservedTicketsByFlightId(@PathVariable("flight_id") final Long flightId) {
+        return ticketService.findUnreservedTicketsByFlightId(flightId);
+    }
+
     @Operation(summary = "Просмотр всех незабронированных билетов по городу отправления")
     @GetMapping("/unreserved/departure_town/{departure_town}")
     public List<TicketDTO> findUnreservedTicketsByDepartureTown(

@@ -73,7 +73,6 @@ class AirlineServiceTest {
             flightList.add(flight);
         }
         airline.setFlights(flightList);
-
         airlineDTO = notMockConvertModelToDTO.airlineConversion(airline);
     }
 
@@ -93,7 +92,7 @@ class AirlineServiceTest {
 
         List<AirlineDTO> result = airlineService.findAllAirlines();
 
-        assertEquals(10, result.size());
+        assertEquals(NUM_OF_REPEATS, result.size());
         for (int i = 0; i < NUM_OF_REPEATS; i++) {
             assertEquals(i, result.get(i).getId());
             assertEquals("Airline" + i, result.get(i).getName());

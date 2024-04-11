@@ -10,8 +10,6 @@ import airline.tickets.model.Flight;
 import airline.tickets.model.Passenger;
 import airline.tickets.model.Reservation;
 import airline.tickets.model.Ticket;
-import airline.tickets.repository.AirlineRepository;
-import airline.tickets.repository.FlightRepository;
 import airline.tickets.repository.PassengerRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,6 +35,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class PassengerServiceTest {
+
     @Mock
     private ConvertModelToDTO convertModelToDTO;
 
@@ -53,9 +52,10 @@ class PassengerServiceTest {
 
     private static Passenger passenger;
     private static List<Flight> flightList;
-    private List<Reservation> reservationList;
     private static List<Passenger> passengerList;
     private static List<PassengerDTO> passengerDTOList;
+
+    private List<Reservation> reservationList;
 
     private static final String passengerName = "Passenger name";
     private static final Long passengerId = 1L;
