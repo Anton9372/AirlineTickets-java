@@ -55,7 +55,7 @@ class TicketServiceTest {
     private static List<TicketDTO> ticketDTOList;
     private static Flight flight;
     private static Ticket ticket;
-    private Ticket emptyTicket = new Ticket();
+    private final Ticket emptyTicket = new Ticket();
     private static TicketDTO ticketDTO;
 
     private final String departureTown = "Departure town";
@@ -154,7 +154,8 @@ class TicketServiceTest {
 
     @Test
     void testFindUnreservedTicketsByFlightList_NoUnreservedTicketsExist() {
-        List<TicketDTO> result = ticketService.findUnreservedTicketsByFlightList(Collections.singletonList(new Flight()));
+        List<TicketDTO> result = ticketService.
+                findUnreservedTicketsByFlightList(Collections.singletonList(new Flight()));
 
         assertEquals(0, result.size());
     }
@@ -326,7 +327,7 @@ class TicketServiceTest {
     }
 
     @Test
-    void testDeleteTicket_Unreserved() {
+    void testDeleteTicket_IsNotReserved() {
         when(ticketRepository.findById(ticketId)).thenReturn(Optional.of(ticket));
 
         ticketService.deleteTicket(ticketId);
@@ -336,7 +337,7 @@ class TicketServiceTest {
     }
 
     @Test
-    void testDeleteTicket_Reserved() {
+    void testDeleteTicket_IsReserved() {
         ticket.setReserved(true);
         ReservationDTO reservationDTO = new ReservationDTO();
         reservationDTO.setId(10L);

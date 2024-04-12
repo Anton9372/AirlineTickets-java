@@ -83,7 +83,7 @@ public class ReservationService {
     }
 
     @LoggingAnnotation
-    public List<ReservationDTO> saveBulkReservations(Long passengerId, List<Long> ticketIds)
+    public List<ReservationDTO> saveBulkReservations(final Long passengerId, final List<Long> ticketIds)
             throws ResourceNotFoundException {
         return ticketIds.stream()
                 .map(ticketId -> saveReservation(passengerId, ticketId))

@@ -43,7 +43,7 @@ public class TicketService {
         return flightList.stream()
                 .flatMap(flight -> flight.getTickets().stream())
                 .map(convertModelToDTO::ticketConversion)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public List<TicketDTO> findUnreservedTicketsByFlightList(final List<Flight> flightList) {
@@ -51,7 +51,7 @@ public class TicketService {
                 .flatMap(flight -> flight.getTickets().stream())
                 .filter(ticket -> !ticket.isReserved())
                 .map(convertModelToDTO::ticketConversion)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @LoggingAnnotation

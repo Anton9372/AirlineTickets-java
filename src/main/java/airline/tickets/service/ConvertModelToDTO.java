@@ -24,7 +24,7 @@ public class ConvertModelToDTO {
     private static final String NOT_VALID_ARGUMENT = "Null object to convert: ";
 
     public AirlineDTO airlineConversion(final Airline airline) throws BadRequestException {
-        if(airline == null) {
+        if (airline == null) {
             throw new BadRequestException(NOT_VALID_ARGUMENT + "airline");
         }
         AirlineDTO airlineDTO = new AirlineDTO();
@@ -34,7 +34,7 @@ public class ConvertModelToDTO {
     }
 
     public FlightDTO flightConversion(final Flight flight) throws BadRequestException {
-        if(flight == null) {
+        if (flight == null) {
             throw new BadRequestException(NOT_VALID_ARGUMENT + "flight");
         }
         FlightDTO flightDTO = new FlightDTO();
@@ -47,7 +47,7 @@ public class ConvertModelToDTO {
     }
 
     public PassengerDTO passengerConversion(final Passenger passenger) throws BadRequestException {
-        if(passenger == null) {
+        if (passenger == null) {
             throw new BadRequestException(NOT_VALID_ARGUMENT + "passenger");
         }
         PassengerDTO passengerDTO = new PassengerDTO();
@@ -58,7 +58,7 @@ public class ConvertModelToDTO {
     }
 
     public ReservationDTO reservationConversion(final Reservation reservation) throws BadRequestException {
-        if(reservation == null) {
+        if (reservation == null) {
             throw new BadRequestException(NOT_VALID_ARGUMENT + "reservation");
         }
         ReservationDTO reservationDTO = new ReservationDTO();
@@ -73,7 +73,7 @@ public class ConvertModelToDTO {
     }
 
     public TicketDTO ticketConversion(final Ticket ticket) throws BadRequestException {
-        if(ticket == null) {
+        if (ticket == null) {
             throw new BadRequestException(NOT_VALID_ARGUMENT + "ticket");
         }
         TicketDTO ticketDTO = new TicketDTO();

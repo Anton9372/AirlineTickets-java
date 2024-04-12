@@ -283,10 +283,28 @@ class FlightServiceTest {
     }
 
     @Test
-    void testSaveOrUpdateFlight_NotValidObject() {
-        Flight flight = new Flight();
+    void testSaveOrUpdateFlight_NotValidDepartureTown() {
+        flight.setDepartureTown(null);
         when(airlineRepository.findByName(airlineName)).thenReturn(Optional.of(airline));
         assertThrows(BadRequestException.class, () -> flightService.saveOrUpdateFlight(flight, airlineName));
+        flight.setDepartureTown(departureTown);
+    }
+
+    @Test
+    void testSaveOrUpdateFlight_NotValidArrivalTown() {
+        flight.setArrivalTown(null);
+        when(airlineRepository.findByName(airlineName)).thenReturn(Optional.of(airline));
+        assertThrows(BadRequestException.class, () -> flightService.saveOrUpdateFlight(flight, airlineName));
+        flight.setArrivalTown(arrivalTown);
+    }
+
+    @Test
+    void testSaveOrUpdateFlight_NotValidDepartureDateTime() {
+        flight.setDepartureDateTime(null);
+        when(airlineRepository.findByName(airlineName)).thenReturn(Optional.of(airline));
+        assertThrows(BadRequestException.class, () -> flightService.saveOrUpdateFlight(flight, airlineName));
+        flight.setDepartureTown(departureTown);
+        flight.setDepartureDateTime(LocalDateTime.of(2024, 4, 1, 0, 0));
     }
 
     @Test

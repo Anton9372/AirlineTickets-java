@@ -158,7 +158,8 @@ class ReservationServiceTest {
     @Test
     void testFindReservationsByPassengerId_NoPassengerExists() {
         when(passengerRepository.findById(passengerId)).thenReturn(Optional.empty());
-        assertThrows(ResourceNotFoundException.class, () -> reservationService.findReservationsByPassengerId(passengerId));
+        assertThrows(ResourceNotFoundException.class, () -> reservationService.
+                findReservationsByPassengerId(passengerId));
     }
 
     @Test
@@ -239,14 +240,16 @@ class ReservationServiceTest {
     @Test
     void testSaveBulkReservations_NoPassengerExists() {
         when(passengerRepository.findById(passengerId)).thenReturn(Optional.empty());
-        assertThrows(ResourceNotFoundException.class, () -> reservationService.saveBulkReservations(passengerId, ticketIds));
+        assertThrows(ResourceNotFoundException.class, () -> reservationService.
+                saveBulkReservations(passengerId, ticketIds));
     }
 
     @Test
     void testSaveBulkReservations_NoTicketExists() {
         when(passengerRepository.findById(passengerId)).thenReturn(Optional.of(passenger));
         when(ticketRepository.findById(anyLong())).thenReturn(Optional.empty());
-        assertThrows(ResourceNotFoundException.class, () -> reservationService.saveBulkReservations(passengerId, ticketIds));
+        assertThrows(ResourceNotFoundException.class, () -> reservationService.
+                saveBulkReservations(passengerId, ticketIds));
     }
 
     @Test

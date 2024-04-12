@@ -222,9 +222,17 @@ class PassengerServiceTest {
     }
 
     @Test
-    void testSaveOrUpdatePassenger_NotValidObject() {
-        Passenger passenger = new Passenger();
+    void testSaveOrUpdatePassenger_NotValidName() {
+        passenger.setName(null);
         assertThrows(BadRequestException.class, () -> passengerService.saveOrUpdatePassenger(passenger));
+        passenger.setName(passengerName);
+    }
+
+    @Test
+    void testSaveOrUpdatePassenger_NotValidPassportNumber() {
+        passenger.setPassportNumber(null);
+        assertThrows(BadRequestException.class, () -> passengerService.saveOrUpdatePassenger(passenger));
+        passenger.setPassportNumber("Passport number");
     }
 
     @Test

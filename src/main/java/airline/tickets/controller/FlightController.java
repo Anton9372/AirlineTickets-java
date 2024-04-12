@@ -44,8 +44,9 @@ public class FlightController {
 
     @Operation(summary = "Просмотр всех рейсов по городу отправления и городу прибытия")
     @GetMapping("/departure_town/{departure_town}/arrival_town/{arrival_town}")
-    public List<FlightDTO> findByDepartureTownAndArrivalTown(@PathVariable("departure_town") final String departureTown,
-                                                             @PathVariable("arrival_town") final String arrivalTown) {
+    public List<FlightDTO> findByFlightDepartureTownAndArrivalTown(
+            @PathVariable("departure_town") final String departureTown,
+            @PathVariable("arrival_town") final String arrivalTown) {
         return flightService.findFlightByDepartureTownAndArrivalTown(departureTown, arrivalTown);
     }
 
