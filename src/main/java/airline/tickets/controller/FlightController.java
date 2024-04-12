@@ -1,6 +1,6 @@
 package airline.tickets.controller;
 
-import airline.tickets.aspect.AspectAnnotation;
+import airline.tickets.aspect.LoggingAnnotation;
 import airline.tickets.dto.FlightDTO;
 import airline.tickets.dto.PassengerDTO;
 import airline.tickets.dto.TicketDTO;
@@ -51,21 +51,21 @@ public class FlightController {
 
     @Operation(summary = "Просмотр всех билетов рейса")
     @GetMapping("/{flight_id}/tickets")
-    @AspectAnnotation
+    @LoggingAnnotation
     public List<TicketDTO> findAllFlightTickets(@PathVariable("flight_id") final Long flightId) {
         return flightService.findAllFlightTickets(flightId);
     }
 
     @Operation(summary = "Просмотр всех пассажиров рейса")
     @GetMapping("/{flight_id}/passengers")
-    @AspectAnnotation
+    @LoggingAnnotation
     public List<PassengerDTO> findAllFlightPassengers(@PathVariable("flight_id") final Long flightId) {
         return flightService.findAllFlightPassengers(flightId);
     }
 
     @Operation(summary = "Добавить билеты на рейс")
     @PostMapping("/save_tickets/{flight_id}/{num}")
-    @AspectAnnotation
+    @LoggingAnnotation
     public List<TicketDTO> saveTickets(@Valid @RequestBody final Ticket ticket,
                                        @PathVariable("flight_id") final Long flightId,
                                        @PathVariable("num") final int numOfTickets) {
@@ -74,7 +74,7 @@ public class FlightController {
 
     @Operation(summary = "Удалить рейс")
     @DeleteMapping("/delete_flight/{flight_id}")
-    @AspectAnnotation
+    @LoggingAnnotation
     public void deleteFlight(@PathVariable("flight_id") final Long flightId) {
         flightService.deleteFlight(flightId);
     }

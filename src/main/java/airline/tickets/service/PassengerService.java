@@ -1,6 +1,7 @@
 package airline.tickets.service;
 
-import airline.tickets.aspect.AspectAnnotation;
+import airline.tickets.aspect.LoggingAnnotation;
+import airline.tickets.aspect.RequestCounterAnnotation;
 import airline.tickets.dto.FlightDTO;
 import airline.tickets.dto.PassengerDTO;
 import airline.tickets.dto.ReservationDTO;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -28,6 +28,7 @@ public class PassengerService {
 
     private static final String NO_PASSENGER_EXIST = "No Passenger found with id: ";
 
+    @RequestCounterAnnotation
     public List<PassengerDTO> findAllPassengers() {
         List<Passenger> passengerList = passengerRepository.findAll();
         return convertModelToDTO.convertToDTOList(passengerList, convertModelToDTO::passengerConversion);
@@ -38,7 +39,7 @@ public class PassengerService {
         return convertModelToDTO.convertToDTOList(passengerList, convertModelToDTO::passengerConversion);
     }
 
-    @AspectAnnotation
+    @LoggingAnnotation
     public List<FlightDTO> findAllPassengerFlights(final Long passengerId) throws ResourceNotFoundException {
         Passenger passenger = passengerRepository.findById(passengerId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));
@@ -46,7 +47,7 @@ public class PassengerService {
         return convertModelToDTO.convertToDTOList(flightList, convertModelToDTO::flightConversion);
     }
 
-    @AspectAnnotation
+    @LoggingAnnotation
     public List<ReservationDTO> findAllPassengerReservations(final Long passengerId) throws ResourceNotFoundException {
         Passenger passenger = passengerRepository.findById(passengerId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));
@@ -54,7 +55,7 @@ public class PassengerService {
         return convertModelToDTO.convertToDTOList(reservationList, convertModelToDTO::reservationConversion);
     }
 
-    @AspectAnnotation
+    @LoggingAnnotation
     public PassengerDTO saveOrUpdatePassenger(final Passenger passenger) throws BadRequestException {
         if (passenger.getName() == null || passenger.getPassportNumber() == null) {
             throw new BadRequestException("name and passportNumber must be provided");
@@ -63,7 +64,7 @@ public class PassengerService {
         return convertModelToDTO.passengerConversion(passenger);
     }
 
-    @AspectAnnotation
+    @LoggingAnnotation
     public void deletePassenger(final Long passengerId) throws ResourceNotFoundException {
         Passenger passenger = passengerRepository.findById(passengerId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));

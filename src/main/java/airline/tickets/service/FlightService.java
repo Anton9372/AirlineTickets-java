@@ -1,6 +1,7 @@
 package airline.tickets.service;
 
-import airline.tickets.aspect.AspectAnnotation;
+import airline.tickets.aspect.LoggingAnnotation;
+import airline.tickets.aspect.RequestCounterAnnotation;
 import airline.tickets.dto.FlightDTO;
 import airline.tickets.dto.PassengerDTO;
 import airline.tickets.dto.TicketDTO;
@@ -32,6 +33,7 @@ public class FlightService {
     private static final String NO_AIRLINE_EXIST = "No Airline found with name: ";
     private static final String NO_FLIGHT_EXIST = "No Flight found with id: ";
 
+    @RequestCounterAnnotation
     public List<FlightDTO> findAllFlights() {
         List<Flight> flightList = flightRepository.findAll();
         return convertModelToDTO.convertToDTOList(flightList, convertModelToDTO::flightConversion);
@@ -53,7 +55,7 @@ public class FlightService {
         return convertModelToDTO.convertToDTOList(flightList, convertModelToDTO::flightConversion);
     }
 
-    @AspectAnnotation
+    @LoggingAnnotation
     public List<TicketDTO> findAllFlightTickets(final Long flightId) throws ResourceNotFoundException {
         Flight flight = flightRepository.findById(flightId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_FLIGHT_EXIST + flightId));
@@ -61,7 +63,7 @@ public class FlightService {
         return convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
     }
 
-    @AspectAnnotation
+    @LoggingAnnotation
     public List<PassengerDTO> findAllFlightPassengers(final Long flightId) throws ResourceNotFoundException {
         Flight flight = flightRepository.findById(flightId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_FLIGHT_EXIST + flightId));
@@ -69,7 +71,7 @@ public class FlightService {
         return convertModelToDTO.convertToDTOList(passengerList, convertModelToDTO::passengerConversion);
     }
 
-    @AspectAnnotation
+    @LoggingAnnotation
     public FlightDTO saveOrUpdateFlight(final Flight flight, final String airlineName) throws ResourceNotFoundException,
             BadRequestException {
         Airline airline = airlineRepository.findByName(airlineName).
@@ -83,7 +85,7 @@ public class FlightService {
         return convertModelToDTO.flightConversion(flight);
     }
 
-    @AspectAnnotation
+    @LoggingAnnotation
     public void deleteFlight(final Long flightId) throws ResourceNotFoundException {
         Flight flight = flightRepository.findById(flightId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_FLIGHT_EXIST + flightId));

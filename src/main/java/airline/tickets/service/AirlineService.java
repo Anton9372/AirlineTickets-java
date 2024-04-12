@@ -1,6 +1,7 @@
 package airline.tickets.service;
 
-import airline.tickets.aspect.AspectAnnotation;
+import airline.tickets.aspect.LoggingAnnotation;
+import airline.tickets.aspect.RequestCounterAnnotation;
 import airline.tickets.dto.AirlineDTO;
 import airline.tickets.dto.FlightDTO;
 import airline.tickets.exception.BadRequestException;
@@ -27,6 +28,7 @@ public class AirlineService {
 
     private static final String NO_AIRLINE_EXIST = "No Airline found with name: ";
 
+    @RequestCounterAnnotation
     public List<AirlineDTO> findAllAirlines() {
         List<Airline> airlineList = airlineRepository.findAll();
         return convertModelToDTO.convertToDTOList(airlineList, convertModelToDTO::airlineConversion);
@@ -38,7 +40,6 @@ public class AirlineService {
         return Optional.of(convertModelToDTO.airlineConversion(airline));
     }
 
-    @AspectAnnotation
     public List<FlightDTO> findAllAirlineFlights(final String airlineName) throws ResourceNotFoundException {
         Airline airline = airlineRepository.findByName(airlineName).
                 orElseThrow(() -> new ResourceNotFoundException(NO_AIRLINE_EXIST + airlineName));
@@ -46,7 +47,7 @@ public class AirlineService {
         return convertModelToDTO.convertToDTOList(flightList, convertModelToDTO::flightConversion);
     }
 
-    @AspectAnnotation
+    @LoggingAnnotation
     public AirlineDTO saveOrUpdateAirline(final Airline airline) throws BadRequestException {
         if (airline.getName() == null) {
             throw new BadRequestException("No name provided");
@@ -55,7 +56,7 @@ public class AirlineService {
         return convertModelToDTO.airlineConversion(airline);
     }
 
-    @AspectAnnotation
+    @LoggingAnnotation
     public void deleteAirline(final String airlineName) throws ResourceNotFoundException {
         Airline airline = airlineRepository.findByName(airlineName).
                 orElseThrow(() -> new ResourceNotFoundException(NO_AIRLINE_EXIST + airlineName));

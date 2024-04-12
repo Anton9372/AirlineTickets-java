@@ -19,7 +19,7 @@ public final class LoggingAspect {
     public void allMethods() {
     }
 
-    @Pointcut("@annotation(AspectAnnotation)")
+    @Pointcut("@annotation(airline.tickets.aspect.LoggingAnnotation)")
     public void methodsWithAspectAnnotation() {
 
     }

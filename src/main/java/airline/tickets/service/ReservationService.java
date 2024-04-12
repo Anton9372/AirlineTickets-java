@@ -1,6 +1,7 @@
 package airline.tickets.service;
 
-import airline.tickets.aspect.AspectAnnotation;
+import airline.tickets.aspect.LoggingAnnotation;
+import airline.tickets.aspect.RequestCounterAnnotation;
 import airline.tickets.dto.ReservationDTO;
 import airline.tickets.exception.ResourceNotFoundException;
 import airline.tickets.model.Flight;
@@ -32,12 +33,13 @@ public class ReservationService {
     private static final String NO_TICKET_EXIST = "No Ticket found with id: ";
     private static final String NO_RESERVATION_EXIST = "No Reservation found with id: ";
 
+    @RequestCounterAnnotation
     public List<ReservationDTO> findAllReservations() {
         List<Reservation> reservationList = reservationRepository.findAll();
         return convertModelToDTO.convertToDTOList(reservationList, convertModelToDTO::reservationConversion);
     }
 
-    @AspectAnnotation
+    @LoggingAnnotation
     public List<ReservationDTO> findReservationsByPassengerId(final Long passengerId) throws ResourceNotFoundException {
         Passenger passenger = passengerRepository.findById(passengerId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));
@@ -45,7 +47,7 @@ public class ReservationService {
         return convertModelToDTO.convertToDTOList(reservationList, convertModelToDTO::reservationConversion);
     }
 
-    @AspectAnnotation
+    @LoggingAnnotation
     public Optional<ReservationDTO> findReservationByTicketId(final Long ticketId) throws ResourceNotFoundException {
         Ticket ticket = ticketRepository.findById(ticketId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_TICKET_EXIST + ticketId));
@@ -54,7 +56,7 @@ public class ReservationService {
         return Optional.of(convertModelToDTO.reservationConversion(reservation));
     }
 
-    @AspectAnnotation
+    @LoggingAnnotation
     public ReservationDTO saveReservation(final Long passengerId, final Long ticketId)
             throws ResourceNotFoundException {
         Passenger passenger = passengerRepository.findById(passengerId).
@@ -80,7 +82,7 @@ public class ReservationService {
         return convertModelToDTO.reservationConversion(reservation);
     }
 
-    @AspectAnnotation
+    @LoggingAnnotation
     public List<ReservationDTO> saveBulkReservations(Long passengerId, List<Long> ticketIds)
             throws ResourceNotFoundException {
         return ticketIds.stream()
@@ -88,7 +90,7 @@ public class ReservationService {
                 .toList();
     }
 
-    @AspectAnnotation
+    @LoggingAnnotation
     public void deleteReservation(final Long reservationId) throws ResourceNotFoundException {
         Reservation reservation = reservationRepository.findById(reservationId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_RESERVATION_EXIST + reservationId));

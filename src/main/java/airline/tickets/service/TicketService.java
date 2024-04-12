@@ -1,6 +1,7 @@
 package airline.tickets.service;
 
-import airline.tickets.aspect.AspectAnnotation;
+import airline.tickets.aspect.LoggingAnnotation;
+import airline.tickets.aspect.RequestCounterAnnotation;
 import airline.tickets.dto.ReservationDTO;
 import airline.tickets.dto.TicketDTO;
 import airline.tickets.exception.BadRequestException;
@@ -32,6 +33,7 @@ public class TicketService {
     private static final String NO_TICKET_EXIST = "No Ticket found with id: ";
     private static final String NO_FLIGHT_EXIST = "No Flight found with id: ";
 
+    @RequestCounterAnnotation
     public List<TicketDTO> findAllTickets() {
         List<Ticket> ticketList = ticketRepository.findAll();
         return convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
@@ -52,7 +54,7 @@ public class TicketService {
                 .collect(Collectors.toList());
     }
 
-    @AspectAnnotation
+    @LoggingAnnotation
     public List<TicketDTO> findAllTicketsByFlightId(final Long flightId) throws ResourceNotFoundException {
         Flight flight = flightRepository.findById(flightId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_FLIGHT_EXIST + flightId));
@@ -73,7 +75,7 @@ public class TicketService {
                 findByDepartureTownAndArrivalTown(departureTown, arrivalTown));
     }
 
-    @AspectAnnotation
+    @LoggingAnnotation
     public List<TicketDTO> findUnreservedTicketsByFlightId(final Long flightId) throws ResourceNotFoundException {
         Flight flight = flightRepository.findById(flightId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_FLIGHT_EXIST + flightId));
@@ -94,7 +96,7 @@ public class TicketService {
                 findByDepartureTownAndArrivalTown(departureTown, arrivalTown));
     }
 
-    @AspectAnnotation
+    @LoggingAnnotation
     public TicketDTO saveOrUpdateTicket(final Ticket ticket, final Long flightId)
             throws ResourceNotFoundException, BadRequestException {
         Flight flight = flightRepository.findById(flightId).
@@ -107,6 +109,7 @@ public class TicketService {
         return convertModelToDTO.ticketConversion(ticket);
     }
 
+    @LoggingAnnotation
     public List<TicketDTO> saveNumOfTickets(final Ticket ticket, final Long flightId, final int numOfTickets)
             throws ResourceNotFoundException, BadRequestException {
         Flight flight = flightRepository.findById(flightId).
@@ -129,6 +132,7 @@ public class TicketService {
         return ticketDtoList;
     }
 
+    @LoggingAnnotation
     public void deleteTicket(final Long ticketId) throws ResourceNotFoundException {
         Ticket ticket = ticketRepository.findById(ticketId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_TICKET_EXIST + ticketId));

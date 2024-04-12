@@ -1,6 +1,6 @@
 package airline.tickets.controller;
 
-import airline.tickets.aspect.AspectAnnotation;
+import airline.tickets.aspect.LoggingAnnotation;
 import airline.tickets.dto.ReservationDTO;
 import airline.tickets.service.ReservationService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,21 +33,21 @@ public class ReservationController {
 
     @Operation(summary = "Просмотр всех бронирований пассажира")
     @GetMapping("/passenger_id/{passenger_id}")
-    @AspectAnnotation
+    @LoggingAnnotation
     public List<ReservationDTO> findReservationByPassengerId(@PathVariable("passenger_id") final Long passengerId) {
         return reservationService.findReservationsByPassengerId(passengerId);
     }
 
     @Operation(summary = "Просмотр бронирования по билету")
     @GetMapping("/ticket_id/{ticket_id}")
-    @AspectAnnotation
+    @LoggingAnnotation
     public Optional<ReservationDTO> findReservationByTicketId(@PathVariable("ticket_id") final Long ticketId) {
         return reservationService.findReservationByTicketId(ticketId);
     }
 
     @Operation(summary = "Забронировать билет")
     @PostMapping("/booking/ticket_id/{ticket_id}/passenger_id/{passenger_id}")
-    @AspectAnnotation
+    @LoggingAnnotation
     public ReservationDTO bookTicket(@PathVariable("ticket_id") final Long ticketId,
                                      @PathVariable("passenger_id") final Long passengerId) {
         return reservationService.saveReservation(passengerId, ticketId);
@@ -55,7 +55,7 @@ public class ReservationController {
 
     @Operation(summary = "Забронировать несколько билетов")
     @PostMapping("/booking/bulk/passenger_id/{passenger_id}")
-    @AspectAnnotation
+    @LoggingAnnotation
     public List<ReservationDTO> bookBulkTickets(@PathVariable("passenger_id") final Long passengerId,
                                                 @RequestBody final List<Long> ticketIds) {
         return reservationService.saveBulkReservations(passengerId, ticketIds);
@@ -63,7 +63,7 @@ public class ReservationController {
 
     @Operation(summary = "Отменить бронирование билета")
     @DeleteMapping("/cancel_booking/ticket_id/{ticket_id}")
-    @AspectAnnotation
+    @LoggingAnnotation
     public void cancelTicketBooking(@PathVariable("ticket_id") final Long ticketId) {
         Optional<ReservationDTO> optionalReservation = reservationService.findReservationByTicketId(ticketId);
         if (optionalReservation.isPresent()) {

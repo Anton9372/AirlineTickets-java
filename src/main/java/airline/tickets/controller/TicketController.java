@@ -1,6 +1,6 @@
 package airline.tickets.controller;
 
-import airline.tickets.aspect.AspectAnnotation;
+import airline.tickets.aspect.LoggingAnnotation;
 import airline.tickets.dto.TicketDTO;
 import airline.tickets.model.Ticket;
 import airline.tickets.service.TicketService;
@@ -34,7 +34,7 @@ public class TicketController {
 
     @Operation(summary = "Просмотр всех билетов рейса")
     @GetMapping("/flight_id/{flight_id}")
-    @AspectAnnotation
+    @LoggingAnnotation
     public List<TicketDTO> findTicketsByFlightId(@PathVariable("flight_id") final Long flightId) {
         return ticketService.findAllTicketsByFlightId(flightId);
     }
@@ -88,7 +88,7 @@ public class TicketController {
 
     @Operation(summary = "Обновить билет")
     @PutMapping("/update_ticket/flight_id/{flight_id}")
-    @AspectAnnotation
+    @LoggingAnnotation
     public TicketDTO updateTicket(@Valid @RequestBody final Ticket ticket,
                                   @PathVariable("flight_id") final Long flightId) {
         return ticketService.saveOrUpdateTicket(ticket, flightId);
@@ -96,7 +96,7 @@ public class TicketController {
 
     @Operation(summary = "Удалить билет")
     @DeleteMapping("/delete_ticket/{ticket_id}")
-    @AspectAnnotation
+    @LoggingAnnotation
     public void deleteTicket(@PathVariable("ticket_id") final Long ticketId) {
         ticketService.deleteTicket(ticketId);
     }
