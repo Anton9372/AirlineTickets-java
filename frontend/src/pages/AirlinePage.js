@@ -1,26 +1,32 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import { Link } from 'react-router-dom';
-import { FindAllAirlines, GetAirlineByName, AddAirline, UpdateAirline, DeleteAirline } from '../components/controller/AirlineController';
+import { FindAllAirlines, GetAirlineByNameAndProcessIt, AddAirline} from '../components/controller/AirlineController';
 import MenuAppBar from "../components/MenuAppBar";
 
-export function AirlinePage () {
-    return(
+const leftComponentStyle = {
+    width: '50%',
+    paddingLeft:'50px',
+    paddingRight:'15px'
+}
+
+const rightComponentStyle = {
+    width: '50%',
+    paddingLeft:'15px',
+    paddingRight:'50px'
+}
+
+export function AirlinePage() {
+    return (
         <div className='App'>
             <MenuAppBar showHomeButton={true} title="Airlines" />
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '20vh' }}>
-                <div style={{textAlign:'center'}}>
-                    <h1>airline page<br/></h1>
+            <div style={{ display: 'flex', width: '100%' }}>
+                <div style={leftComponentStyle}>
+                    <FindAllAirlines />
+                </div>
+                <div style={rightComponentStyle}>
+                    <AddAirline />
+                    <GetAirlineByNameAndProcessIt />
                 </div>
             </div>
-            <FindAllAirlines />
-            <GetAirlineByName />
-            <AddAirline />
-            <UpdateAirline />
-            <DeleteAirline />
         </div>
     );
 }

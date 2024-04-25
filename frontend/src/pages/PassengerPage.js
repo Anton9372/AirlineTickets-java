@@ -12,7 +12,7 @@ export function PassengerPage () {
             <MenuAppBar showHomeButton={true} title="Passengers" />
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '20vh' }}>
                 <div style={{textAlign:'center'}}>
-                    <h1>passenger page<br/></h1>
+                    <h1>andrei loh pidr<br/></h1>
                 </div>
             </div>
         </div>
