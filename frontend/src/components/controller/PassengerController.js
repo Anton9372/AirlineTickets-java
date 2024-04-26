@@ -37,48 +37,49 @@ const buttonStyle = {
     margin: "20px"
 }
 
-export function FindAllAirlines() {
-    const [airlines, setAirlines] = React.useState([]);
+export function FindAllPassengers() {
+    const [passengers, setPassengers] = React.useState([]);
     const [emptyList, setEmptyList] = React.useState(false);
 
-    const refreshAirlineList = () => {
-        console.log("Refresh airline list");
+    const refreshPassengerList = () => {
+        console.log("Refresh passenger list");
         setEmptyList(false);
-        fetch("http://localhost:8080/api/v1/airlines", {
+        fetch("http://localhost:8080/api/v1/passengers", {
             method: "GET"
         })
             .then(response => response.json())
             .then(result => {
                 if (result.length === 0) {
-                    console.log("Empty airline list");
+                    console.log("Empty passenger list");
                     setEmptyList(true);
                 }
-                setAirlines(result);
+                setPassengers(result);
             })
     };
 
     return (
         <Paper elevation={3} style={paperStyle}>
-            <h1 style={headerStyle}>All airlines</h1>
-            {airlines.map(airline => (
+            <h1 style={headerStyle}>All passengers</h1>
+            {passengers.map(passenger => (
                 <div>
                     <Paper elevation={6} style={elementStyle}>
-                        <div>Id: {airline.id}</div>
-                        <div>Name: {airline.name}</div>
+                        <div>Id: {passenger.id}</div>
+                        <div>Name: {passenger.name}</div>
+                        <div>Passport number: {passenger.passportNumber}</div>
                     </Paper>
                 </div>
             ))}
             {emptyList && (
-                <h1 style={errorStyle}>No airlines found</h1>
+                <h1 style={errorStyle}>No passengers found</h1>
             )}
-            <Button variant="outlined" style={buttonStyle} onClick={refreshAirlineList}>
-                View all airlines
+            <Button variant="outlined" style={buttonStyle} onClick={refreshPassengerList}>
+                View all passengers
             </Button>
         </Paper>
     )
 }
 
-export function GetAirlineByNameAndProcessIt() {
+export function GetPassengerByIdAndProcessIt() {
     const [airlineName, setAirlineName] = React.useState("");
     const [newAirlineName, setNewAirlineName] = React.useState("");
     const [airline, setAirline] = React.useState(null);
@@ -104,16 +105,16 @@ export function GetAirlineByNameAndProcessIt() {
                     })
                 }
             })
-                .then(result => {
-                    setAirline(result);
-                    setAirlineNotFound(false);
-                    setShowSelectButton(true);
-                })
-                .catch(error => {
-                    console.error("Error finding airline:", error);
-                    setAirline(null);
-                    setAirlineNotFound(true);
-                });
+            .then(result => {
+                setAirline(result);
+                setAirlineNotFound(false);
+                setShowSelectButton(true);
+            })
+            .catch(error => {
+                console.error("Error finding airline:", error);
+                setAirline(null);
+                setAirlineNotFound(true);
+            });
     };
 
     const handleUpdate = () => {
@@ -231,44 +232,52 @@ export function GetAirlineByNameAndProcessIt() {
     );
 }
 
-export function AddAirline() {
+export function AddPassenger() {
     const [name, setName] = React.useState("")
-    const [notValidName, setNotValidName] = React.useState(false);
+    const [passportNumber, setPassportNumber] = React.useState("")
+    const [errorMessage, setErrorMessage] = React.useState("");
+    const [showErrorMessage, setShowErrorMessage] = React.useState(false);
 
     const handleSaveButton = () => {
-        console.log("Add airline")
-        setNotValidName(false);
-        const newAirline = {name}
-        console.log(newAirline)
-        fetch("http://localhost:8080/api/v1/airlines/save_airline",{
+        console.log("Add passenger");
+        setShowErrorMessage(false);
+        const newPassenger = {name, passportNumber}
+        console.log(newPassenger);
+        fetch("http://localhost:8080/api/v1/passengers/save_passenger",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
-            body:JSON.stringify(newAirline)
+            body:JSON.stringify(newPassenger)
         })
             .then(response => {
                 if (response.ok) {
-                    console.log("New airline added");
+                    console.log("New passenger added");
                 } else {
                     return response.json().then(errorResponse => {
                         throw new Error(errorResponse.error);
                     })
                 }
             })
-        .catch(error => {
-            console.log("Error add airline", error);
-            setNotValidName(true);
-        });
+            .catch(error => {
+                console.log("Error add passenger", error);
+                setShowErrorMessage(true);
+                setErrorMessage("Name and Passport number should be valid");
+            });
     };
 
     return (
         <Paper elevation={3} style={paperStyle}>
-            <h1 style={headerStyle}>Create new airline</h1>
+            <h1 style={headerStyle}>Create new passenger</h1>
             <TextField name="outlined" label="Name" variant="outlined"
                        value={name}
                        onChange={(e) => setName(e.target.value)}
             />
-            {notValidName && (
-                <h1 style={errorStyle}>Not valid name</h1>
+            <h1></h1>
+            <TextField name="outlined" label="Passport number" variant="outlined"
+                       value={passportNumber}
+                       onChange={(e) => setPassportNumber(e.target.value)}
+            />
+            {showErrorMessage && (
+                <h1 style={errorStyle}>{errorMessage}</h1>
             )}
             <h1></h1>
             <Button variant="outlined" style={buttonStyle} onClick={handleSaveButton}>
@@ -278,17 +287,17 @@ export function AddAirline() {
     )
 }
 
-export function FindAllAirlineFlights() {
-    const [airlineName, setAirlineName] = React.useState("");
-    const [flights, setFlights] = React.useState([]);
-    const [errorMessage, setErrorMessage] = React.useState("");
+export function FindAllPassengerReservations() {
+    const [passengerId, setPassengerId] = React.useState("");
+    const [reservations, setReservations] = React.useState([]);
     const [showErrorMessage, setShowErrorMessage] = React.useState(false);
+    const [errorMessage, setErrorMessage] = React.useState("");
 
-    const refreshFlightList = (name) => {
-        console.log("Get flight list from airline:", name);
-        setFlights([]);
+    const refreshReservationList = () => {
+        console.log("Get reservation list from passenger with id:", passengerId);
+        setReservations([]);
         setShowErrorMessage(false);
-        fetch("http://localhost:8080/api/v1/airlines/" + name + "/flights", {
+        fetch("http://localhost:8080/api/v1/passengers/" + passengerId + "/reservations", {
             method: "GET"
         })
             .then(response => {
@@ -304,44 +313,53 @@ export function FindAllAirlineFlights() {
             })
             .then(result => {
                 if (result.length === 0) {
-                    setErrorMessage("No flights found");
+                    setErrorMessage("No reservations found");
                     setShowErrorMessage(true);
                 }
-                setFlights(result);
-                console.log("Success get flight list");
+                setReservations(result);
+                console.log("Success get reservation list");
             })
             .catch(error => {
-                setErrorMessage("No airline found");
+                setErrorMessage("No passenger found");
                 setShowErrorMessage(true);
-                console.error("Error get flight list:", error);
+                console.error("Error get reservation list:", error);
             });
 
     };
 
     return (
         <Paper elevation={3} style={paperStyle}>
-            <h1 style={headerStyle}>Airline flights</h1>
-            <TextField name="outlined" label="Name" variant="outlined"
-                       value={airlineName}
-                       onChange={(e) => setAirlineName(e.target.value)}
+            <h1 style={headerStyle}>Passenger's reservations</h1>
+            <TextField name="outlined" label="Passeger Id" variant="outlined"
+                       value={passengerId}
+                       onChange={(e) => setPassengerId(e.target.value)}
             />
             <h1></h1>
-            {flights.map(flight => (
+            {reservations.map(reservation => (
                 <div>
                     <Paper elevation={6} style={elementStyle}>
-                        <div>Id: {flight.id}</div>
-                        <div>Departure town: {flight.departureTown}</div>
-                        <div>Arrival town: {flight.arrivalTown}</div>
-                        <div>Departure date-time: {flight.departureDateTime}</div>
-                        <div>Airline name: {flight.airlineName}</div>
+                        <div>Reservation id: {reservation.id}</div>
+                        <br/>
+                        <div>Passenger id: {reservation.passenger.id}</div>
+                        <div>Passenger name: {reservation.passenger.name}</div>
+                        <div>Passenger passport number: {reservation.passenger.passportNumber}</div>
+                        <br/>
+                        <div>Ticket id: {reservation.ticket.id}</div>
+                        <div>Ticket price: {reservation.ticket.price}</div>
+                        <br/>
+                        <div>Flight id: {reservation.ticket.flight.id}</div>
+                        <div>Flight departure town: {reservation.ticket.flight.departureTown}</div>
+                        <div>Flight arrival town: {reservation.ticket.flight.arrivalTown}</div>
+                        <div>Flight departure date-time: {reservation.ticket.flight.departureDateTime}</div>
+                        <div>Flight airline name: {reservation.ticket.flight.airlineName}</div>
                     </Paper>
                 </div>
             ))}
             {showErrorMessage && (
                 <h1 style={errorStyle}>{errorMessage}</h1>
             )}
-            <Button variant="outlined" style={buttonStyle} onClick={() => refreshFlightList(airlineName)}>
-                View airline flights
+            <Button variant="outlined" style={buttonStyle} onClick={() => refreshReservationList()}>
+                View passenger's reservations
             </Button>
         </Paper>
     )

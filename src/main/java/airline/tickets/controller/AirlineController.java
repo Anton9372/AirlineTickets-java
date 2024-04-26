@@ -5,9 +5,7 @@ import airline.tickets.dto.AirlineDTO;
 import airline.tickets.dto.FlightDTO;
 import airline.tickets.exception.BadRequestException;
 import airline.tickets.model.Airline;
-import airline.tickets.model.Flight;
 import airline.tickets.service.AirlineService;
-import airline.tickets.service.FlightService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -24,7 +22,6 @@ import java.util.Optional;
 public class AirlineController {
 
     private final AirlineService airlineService;
-    private final FlightService flightService;
 
     @Operation(summary = "Просмотр всех авиакомпаний")
     @GetMapping
@@ -53,27 +50,11 @@ public class AirlineController {
         return airlineService.saveOrUpdateAirline(airline);
     }
 
-    @Operation(summary = "Добавить рейс для авиакомпании")
-    @PostMapping("/{airline_name}/save_flight")
-    @LoggingAnnotation
-    public FlightDTO saveAirlineFlight(@Valid @RequestBody final Flight flight,
-                                @PathVariable("airline_name") final String airlineName) {
-        return flightService.saveOrUpdateFlight(flight, airlineName);
-    }
-
     @Operation(summary = "Изменить авиакомпанию")
     @PutMapping("/update_airline")
     @LoggingAnnotation
     public AirlineDTO updateAirline(@Valid @RequestBody final Airline airline) {
         return airlineService.saveOrUpdateAirline(airline);
-    }
-
-    @Operation(summary = "Обновить рейс авиакомпании")
-    @PutMapping("/{airline_name}/update_airline")
-    @LoggingAnnotation
-    public FlightDTO updateAirlineFlight(@Valid @RequestBody final Flight flight,
-                                  @PathVariable("airline_name") final String airlineName) {
-        return flightService.saveOrUpdateFlight(flight, airlineName);
     }
 
     @Operation(summary = "Удалить авиакомпанию")

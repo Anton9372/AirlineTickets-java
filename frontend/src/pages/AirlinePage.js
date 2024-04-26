@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { FindAllAirlines, GetAirlineByNameAndProcessIt, AddAirline} from '../components/controller/AirlineController';
 import MenuAppBar from "../components/MenuAppBar";
+import { FindAllAirlines, GetAirlineByNameAndProcessIt, AddAirline, FindAllAirlineFlights} from '../components/controller/AirlineController';
 
 const leftComponentStyle = {
     width: '50%',
@@ -21,6 +21,7 @@ export function AirlinePage() {
             <div style={{ display: 'flex', width: '100%' }}>
                 <div style={leftComponentStyle}>
                     <FindAllAirlines />
+                    <FindAllAirlineFlights />
                 </div>
                 <div style={rightComponentStyle}>
                     <AddAirline />

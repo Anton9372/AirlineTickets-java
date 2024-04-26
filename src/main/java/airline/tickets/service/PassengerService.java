@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -33,6 +34,8 @@ public class PassengerService {
         List<Passenger> passengerList = passengerRepository.findAll();
         return convertModelToDTO.convertToDTOList(passengerList, convertModelToDTO::passengerConversion);
     }
+
+//    public Optional<PassengerDTO> findPassengerById
 
     public List<PassengerDTO> findPassengersByName(final String name) {
         List<Passenger> passengerList = passengerRepository.findByName(name);

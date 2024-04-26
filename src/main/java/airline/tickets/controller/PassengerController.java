@@ -34,13 +34,6 @@ public class PassengerController {
         return passengerService.findPassengersByName(passengerName);
     }
 
-    @Operation(summary = "Просмотреть все рейсы пассажира")
-    @GetMapping("/{passenger_id}/flights")
-    @LoggingAnnotation
-    public List<FlightDTO> findAllPassengerFlights(@PathVariable("passenger_id") final Long passengerId) {
-        return passengerService.findAllPassengerFlights(passengerId);
-    }
-
     @Operation(summary = "Просмотреть все бронирования пассажира")
     @GetMapping("/{passenger_id}/reservations")
     @LoggingAnnotation
