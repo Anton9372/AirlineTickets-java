@@ -1,6 +1,9 @@
 import * as React from 'react';
 import MenuAppBar from "../components/MenuAppBar";
-import { FindAllAirlines, GetAirlineByNameAndProcessIt, AddAirline, FindAllAirlineFlights} from '../components/controller/AirlineController';
+import { FindAllAirlines,
+    GetAirlineByNameAndProcessIt,
+    AddAirline,
+    FindAllAirlineFlights} from '../components/controller/AirlineController';
 
 const leftComponentStyle = {
     width: '50%',

@@ -186,7 +186,8 @@ export function GetAirlineByNameAndProcessIt() {
                                onChange={(e) => setNewAirlineName(e.target.value)}
                     />
                     <h1></h1>
-                    <Button variant="outlined" style={buttonStyle} onClick={() => update(airline.id, newAirlineName)}>
+                    <Button variant="outlined" style={buttonStyle} onClick={() => update(airline.id,
+                        newAirlineName)}>
                         Save
                     </Button>
                 </>
@@ -209,7 +210,8 @@ export function GetAirlineByNameAndProcessIt() {
                             <Button variant="outlined" style={buttonStyle} onClick={() => handleUpdate()}>
                                 Update
                             </Button>
-                            <Button variant="outlined" style={buttonStyle} onClick={() => handleDelete(airline.name)}>
+                            <Button variant="outlined" style={buttonStyle} onClick={() =>
+                                handleDelete(airline.name)}>
                                 Delete
                             </Button>
                         </>

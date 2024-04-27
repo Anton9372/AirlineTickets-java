@@ -1,18 +1,44 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import { Link } from 'react-router-dom';
 import MenuAppBar from "../components/MenuAppBar";
+import {FindTickets,
+    AddTickets,
+    GetTicketByIdAndProcessIt,
+    CancelBookTicket,
+    BookTicket} from "../components/controller/TicketController";
+
+const leftComponentStyle = {
+    width: '30%',
+    paddingLeft:'50px',
+    paddingRight:'15px'
+}
+
+const centerComponentStyle = {
+    width: '40%',
+    paddingLeft:'15px',
+    paddingRight:'15px'
+}
+
+const rightComponentStyle = {
+    width: '30%',
+    paddingLeft:'15px',
+    paddingRight:'50px'
+}
 
 export function TicketPage () {
     return(
         <div className='App'>
-            <MenuAppBar showHomeButton={true} title="Tickets" />
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '20vh' }}>
-                <div style={{textAlign:'center'}}>
-                    <h1>ticket page<br/></h1>
+            <MenuAppBar showHomeButton={true} title="Tickets"/>
+            <div style={{display: 'flex', width: '100%'}}>
+                <div style={leftComponentStyle}>
+                    <BookTicket />
+                    <CancelBookTicket />
+                </div>
+                <div style={centerComponentStyle}>
+                    <FindTickets/>
+                </div>
+                <div style={rightComponentStyle}>
+                    <AddTickets />
+                    <GetTicketByIdAndProcessIt />
                 </div>
             </div>
         </div>

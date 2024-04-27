@@ -1,7 +1,6 @@
 package airline.tickets.controller;
 
 import airline.tickets.aspect.LoggingAnnotation;
-import airline.tickets.dto.FlightDTO;
 import airline.tickets.dto.PassengerDTO;
 import airline.tickets.dto.ReservationDTO;
 import airline.tickets.model.Passenger;
@@ -13,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Tag(name = "PassengerController")
 @RestController
@@ -28,10 +28,10 @@ public class PassengerController {
         return passengerService.findAllPassengers();
     }
 
-    @Operation(summary = "Просмотр всех пассажиров с именем")
-    @GetMapping("/{passenger_name}")
-    public List<PassengerDTO> findPassengerByName(@PathVariable("passenger_name") final String passengerName) {
-        return passengerService.findPassengersByName(passengerName);
+    @Operation(summary = "Найти пассажира по id")
+    @GetMapping("/{passenger_id}")
+    public Optional<PassengerDTO> findPassengerById(@PathVariable("passenger_id") final Long passengerId) {
+        return passengerService.findPassengerById(passengerId);
     }
 
     @Operation(summary = "Просмотреть все бронирования пассажира")

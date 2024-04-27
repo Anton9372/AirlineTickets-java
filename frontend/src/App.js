@@ -8,7 +8,6 @@ import {AirlinePage} from "./pages/AirlinePage";
 import {FlightPage} from "./pages/FlightPage";
 import {MainPage} from "./pages/MainPage";
 import {PassengerPage} from "./pages/PassengerPage";
-import {ReservationPage} from "./pages/ReservationPage";
 import {TicketPage} from "./pages/TicketPage";
 
 export default function App() {
@@ -19,7 +18,6 @@ export default function App() {
                 <Route path="airlines" element={<AirlinePage />}/>
                 <Route path="flights" element={<FlightPage />}/>
                 <Route path="passengers" element={<PassengerPage />}/>
-                <Route path="reservations" element={<ReservationPage />}/>
                 <Route path="tickets" element={<TicketPage />}/>
             </Routes>
         </BrowserRouter>

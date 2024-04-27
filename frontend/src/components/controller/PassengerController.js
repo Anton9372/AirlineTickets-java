@@ -80,24 +80,25 @@ export function FindAllPassengers() {
 }
 
 export function GetPassengerByIdAndProcessIt() {
-    const [airlineName, setAirlineName] = React.useState("");
-    const [newAirlineName, setNewAirlineName] = React.useState("");
-    const [airline, setAirline] = React.useState(null);
+    const [passengerId, setPassengerId] = React.useState("");
+    const [newPassengerName, setNewPassengerName] = React.useState("");
+    const [newPassengerPassport, setNewPassengerPassport] = React.useState("");
+    const [passenger, setPassenger] = React.useState(null);
     const [showSelectButton, setShowSelectButton] = React.useState(false);
     const [showDeleteAndUpdateButtons, setShowDeleteAndUpdateButtons] = React.useState(false);
     const [showUpdateField, setShowUpdateField] = React.useState(false);
-    const [airlineNotFound, setAirlineNotFound] = React.useState(false);
-    const [notValidName, setNotValidName] = React.useState(false);
+    const [errorMessage, setErrorMessage] = React.useState("");
+    const [showErrorMessage, setShowErrorMessage] = React.useState(false);
 
     const handleFind = (name) => {
-        console.log("Find airline by name");
-        setNotValidName(false);
-        fetch(("http://localhost:8080/api/v1/airlines/" + name), {
+        console.log("Find passenger by id");
+        setShowErrorMessage(false);
+        fetch(("http://localhost:8080/api/v1/passengers/" + passengerId), {
             method: "GET"
         })
             .then(response => {
                 if (response.ok) {
-                    console.log("Airline get success");
+                    console.log("Passenger get success");
                     return response.json();
                 } else {
                     return response.json().then(errorResponse => {
@@ -106,14 +107,14 @@ export function GetPassengerByIdAndProcessIt() {
                 }
             })
             .then(result => {
-                setAirline(result);
-                setAirlineNotFound(false);
+                setPassenger(result);
                 setShowSelectButton(true);
             })
             .catch(error => {
-                console.error("Error finding airline:", error);
-                setAirline(null);
-                setAirlineNotFound(true);
+                console.error("Error finding passenger:", error);
+                setPassenger(null);
+                setErrorMessage("Passenger not found")
+                setShowErrorMessage(true);
             });
     };
 
@@ -122,14 +123,14 @@ export function GetPassengerByIdAndProcessIt() {
         setShowUpdateField(true);
     };
 
-    const handleDelete = (name) => {
-        console.log("Delete airline:", airline);
-        fetch(`http://localhost:8080/api/v1/airlines/delete_airline/` + name, {
+    const handleDelete = (id) => {
+        console.log("Delete passenger:", passenger);
+        fetch(`http://localhost:8080/api/v1/passengers/delete_passenger/` + id, {
             method: "DELETE"
         })
             .then(response => {
                 if (response.ok) {
-                    console.log("Airline deleted successfully");
+                    console.log("Passenger deleted successfully");
                 } else {
                     return response.json().then(errorResponse => {
                         throw new Error(errorResponse.error);
@@ -137,22 +138,22 @@ export function GetPassengerByIdAndProcessIt() {
                 }
             })
             .catch(error => {
-                console.error("Error deleting airline:", error);
+                console.error("Error deleting Passenger:", error);
             });
         setShowDeleteAndUpdateButtons(false);
     };
 
-    const update = (id, name) => {
-        const updatedAirline = { id, name };
-        console.log("Update airline:", updatedAirline);
-        fetch(`http://localhost:8080/api/v1/airlines/update_airline`, {
+    const update = (id, name, passportNumber) => {
+        const updatedPassenger = { id, name, passportNumber };
+        console.log("Update passenger:", updatedPassenger);
+        fetch(`http://localhost:8080/api/v1/passengers/update_passenger`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(updatedAirline)
+            body: JSON.stringify(updatedPassenger)
         })
             .then(response => {
                 if (response.ok) {
-                    console.log("Airline update success");
+                    console.log("Passenger update success");
                 } else {
                     return response.json().then(errorResponse => {
                         throw new Error(errorResponse.error);
@@ -160,43 +161,51 @@ export function GetPassengerByIdAndProcessIt() {
                 }
             })
             .catch(error => {
-                console.error("Error updating airline:", error);
-                setNotValidName(true);
+                console.error("Error updating passenger:", error);
+                setErrorMessage("Name and Passport number should be valid");
+                setShowErrorMessage(true);
             });
         setShowUpdateField(false);
     }
 
     const handleSelect = () => {
-        console.log("Airline selected:", airline);
+        console.log("Passenger selected:", passenger);
         setShowDeleteAndUpdateButtons(true);
         setShowSelectButton(false);
     };
 
     return (
         <Paper elevation={3} style={paperStyle}>
-            <h1 style={headerStyle}>Find airline</h1>
-            <TextField name="outlined" label="Name" variant="outlined"
-                       value={airlineName}
-                       onChange={(e) => setAirlineName(e.target.value)}
+            <h1 style={headerStyle}>Find passenger</h1>
+            <TextField name="outlined" label="Passenger id" variant="outlined"
+                       value={passengerId}
+                       onChange={(e) => setPassengerId(e.target.value)}
             />
             {showUpdateField && (
                 <>
                     <h1></h1>
                     <TextField name="outlined" label="New name" variant="outlined" style={{marginTop: "20px"}}
-                               value={newAirlineName}
-                               onChange={(e) => setNewAirlineName(e.target.value)}
+                               value={newPassengerName}
+                               onChange={(e) => setNewPassengerName(e.target.value)}
                     />
                     <h1></h1>
-                    <Button variant="outlined" style={buttonStyle} onClick={() => update(airline.id, newAirlineName)}>
+                    <TextField name="outlined" label="New passport number" variant="outlined" style={{marginTop: "20px"}}
+                               value={newPassengerPassport}
+                               onChange={(e) => setNewPassengerPassport(e.target.value)}
+                    />
+                    <h1></h1>
+                    <Button variant="outlined" style={buttonStyle} onClick={() => update(passenger.id,
+                        newPassengerName, newPassengerPassport)}>
                         Save
                     </Button>
                 </>
             )}
-            {airline && (
+            {passenger && (
                 <>
                     <Paper elevation={6} style={elementStyle}>
-                        Id: {airline.id} <br/>
-                        Name: {airline.name} <br/>
+                        Id: {passenger.id} <br/>
+                        Name: {passenger.name} <br/>
+                        Passport number: {passenger.passportNumber} <br/>
                     </Paper>
                     {showSelectButton && (
                         <>
@@ -210,21 +219,19 @@ export function GetPassengerByIdAndProcessIt() {
                             <Button variant="outlined" style={buttonStyle} onClick={() => handleUpdate()}>
                                 Update
                             </Button>
-                            <Button variant="outlined" style={buttonStyle} onClick={() => handleDelete(airline.name)}>
+                            <Button variant="outlined" style={buttonStyle} onClick={() =>
+                                handleDelete(passenger.id)}>
                                 Delete
                             </Button>
                         </>
                     )}
                 </>
             )}
-            {airlineNotFound && (
-                <h1 style={errorStyle}>Airline not found</h1>
-            )}
-            {notValidName && (
-                <h1 style={errorStyle}>Not valid name</h1>
+            {showErrorMessage && (
+                <h1 style={errorStyle}>{errorMessage}</h1>
             )}
             <h1></h1>
-            <Button variant="outlined" style={buttonStyle} onClick={() => handleFind(airlineName)}>
+            <Button variant="outlined" style={buttonStyle} onClick={() => handleFind(passengerId)}>
                 FIND
             </Button>
         </Paper>

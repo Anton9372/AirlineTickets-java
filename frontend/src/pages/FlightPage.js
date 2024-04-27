@@ -1,18 +1,44 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import { Link } from 'react-router-dom';
 import MenuAppBar from "../components/MenuAppBar";
+import {FindFlights,
+    AddFlight,
+    FindAllFlightPassengers,
+    FindAllFlightTickets,
+    GetFlightByIdAndProcessIt} from "../components/controller/FlightController";
+
+const leftComponentStyle = {
+    width: '30%',
+    paddingLeft:'50px',
+    paddingRight:'15px'
+}
+
+const centerComponentStyle = {
+    width: '40%',
+    paddingLeft:'15px',
+    paddingRight:'15px'
+}
+
+const rightComponentStyle = {
+    width: '30%',
+    paddingLeft:'15px',
+    paddingRight:'50px'
+}
 
 export function FlightPage () {
     return(
         <div className='App'>
-            <MenuAppBar showHomeButton={true} title="Flights" />
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '20vh' }}>
-                <div style={{textAlign:'center'}}>
-                    <h1>flight page<br/></h1>
+            <MenuAppBar showHomeButton={true} title="Flights"/>
+            <div style={{display: 'flex', width: '100%'}}>
+                <div style={leftComponentStyle}>
+                    <FindAllFlightPassengers />
+                    <FindAllFlightTickets />
+                </div>
+                <div style={centerComponentStyle}>
+                    <FindFlights />
+                </div>
+                <div style={rightComponentStyle}>
+                    <AddFlight />
+                    <GetFlightByIdAndProcessIt />
                 </div>
             </div>
         </div>

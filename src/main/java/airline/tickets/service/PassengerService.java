@@ -35,7 +35,11 @@ public class PassengerService {
         return convertModelToDTO.convertToDTOList(passengerList, convertModelToDTO::passengerConversion);
     }
 
-//    public Optional<PassengerDTO> findPassengerById
+    public Optional<PassengerDTO> findPassengerById(final Long passengerId) throws ResourceNotFoundException {
+        Passenger passenger = passengerRepository.findById(passengerId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));
+        return Optional.of(convertModelToDTO.passengerConversion(passenger));
+    }
 
     public List<PassengerDTO> findPassengersByName(final String name) {
         List<Passenger> passengerList = passengerRepository.findByName(name);

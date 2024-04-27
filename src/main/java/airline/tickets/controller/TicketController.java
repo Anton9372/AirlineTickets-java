@@ -11,12 +11,14 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @Tag(name = "TicketController")
 @RestController
@@ -32,6 +34,11 @@ public class TicketController {
         return ticketService.findAllTickets();
     }
 
+    @Operation(summary = "Найти билет по Id")
+    @GetMapping("/{ticket_id}")
+    public Optional<TicketDTO> findTicketById(@PathVariable("ticket_id") final Long ticketId) {
+        return ticketService.findTicketById(ticketId);
+    }
     @Operation(summary = "Просмотр всех билетов рейса")
     @GetMapping("/flight_id/{flight_id}")
     @LoggingAnnotation
@@ -59,6 +66,12 @@ public class TicketController {
         return ticketService.findAllTicketsByDepartureTownAndArrivalTown(departureTown, arrivalTown);
     }
 
+    @Operation(summary = "Просмотр всех незабронированных билетов")
+    @GetMapping("/unreserved")
+    public List<TicketDTO> findAllUnreservedTickets() {
+        return ticketService.findAllUnreservedTickets();
+    }
+
     @Operation(summary = "Просмотр всех незабронированных билетов рейса")
     @GetMapping("/unreserved/flight_id/{flight_id}")
     public List<TicketDTO> findUnreservedTicketsByFlightId(@PathVariable("flight_id") final Long flightId) {
@@ -84,6 +97,15 @@ public class TicketController {
             @PathVariable("departure_town") final String departureTown,
             @PathVariable("arrival_town") final String arrivalTown) {
         return ticketService.findUnreservedTicketsByDepartureTownAndArrivalTown(departureTown, arrivalTown);
+    }
+
+    @Operation(summary = "Добавить билеты на рейс")
+    @PostMapping("/save_tickets/{flight_id}/{num}")
+    @LoggingAnnotation
+    public List<TicketDTO> saveTickets(@Valid @RequestBody final Ticket ticket,
+                                       @PathVariable("flight_id") final Long flightId,
+                                       @PathVariable("num") final int numOfTickets) {
+        return ticketService.saveNumOfTickets(ticket, flightId, numOfTickets);
     }
 
     @Operation(summary = "Обновить билет")

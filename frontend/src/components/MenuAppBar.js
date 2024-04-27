@@ -42,7 +42,8 @@ export default function MenuAppBar({ showHomeButton, title }) {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: 'center' }}>
                         {title}
                     </Typography>
-                    {showHomeButton && (<Button color="inherit" component={Link} to="/" style={{ textTransform: 'none' }}>Home</Button>)}
+                    {showHomeButton && (<Button color="inherit" component={Link} to="/"
+                                                style={{ textTransform: 'none' }}>Home</Button>)}
                 </Toolbar>
             </AppBar>
             <Menu
@@ -50,11 +51,12 @@ export default function MenuAppBar({ showHomeButton, title }) {
                 open={Boolean(anchorEl)}
                 onClose={handleMenuClose}
             >
-                {showHomeButton && (<MenuItem onClick={handleMenuClose}><Link to="/" style={linkStyle}>Home</Link></MenuItem>)}
+                {showHomeButton && (<MenuItem onClick={handleMenuClose}><Link to="/"
+                                                                              style={linkStyle}>Home</Link></MenuItem>)}
                 <MenuItem onClick={handleMenuClose}><Link to="/airlines" style={linkStyle}>Airlines</Link></MenuItem>
                 <MenuItem onClick={handleMenuClose}><Link to="/flights" style={linkStyle}>Flights</Link></MenuItem>
-                <MenuItem onClick={handleMenuClose}><Link to="/passengers" style={linkStyle}>Passengers</Link></MenuItem>
-                <MenuItem onClick={handleMenuClose}><Link to="/reservations" style={linkStyle}>Reservations</Link></MenuItem>
+                <MenuItem onClick={handleMenuClose}><Link to="/passengers"
+                                                          style={linkStyle}>Passengers</Link></MenuItem>
                 <MenuItem onClick={handleMenuClose}><Link to="/tickets" style={linkStyle}>Tickets</Link></MenuItem>
             </Menu>
         </Box>

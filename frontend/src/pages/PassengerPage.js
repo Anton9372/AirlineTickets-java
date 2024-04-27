@@ -1,6 +1,9 @@
 import * as React from 'react';
 import MenuAppBar from "../components/MenuAppBar";
-import {FindAllPassengers, AddPassenger, FindAllPassengerReservations} from "../components/controller/PassengerController";
+import {FindAllPassengers,
+    AddPassenger,
+    FindAllPassengerReservations,
+    GetPassengerByIdAndProcessIt} from "../components/controller/PassengerController";
 
 const leftComponentStyle = {
     width: '50%',
@@ -24,7 +27,7 @@ export function PassengerPage () {
                 </div>
                 <div style={rightComponentStyle}>
                     <AddPassenger />
-                    {/*<GetAirlineByNameAndProcessIt/>*/}
+                    <GetPassengerByIdAndProcessIt />
                 </div>
             </div>
         </div>

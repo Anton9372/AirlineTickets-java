@@ -4,9 +4,8 @@ import airline.tickets.aspect.LoggingAnnotation;
 import airline.tickets.dto.FlightDTO;
 import airline.tickets.dto.PassengerDTO;
 import airline.tickets.dto.TicketDTO;
-import airline.tickets.model.Ticket;
+import airline.tickets.model.Flight;
 import airline.tickets.service.FlightService;
-import airline.tickets.service.TicketService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -14,6 +13,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Tag(name = "FlightController")
 @RestController
@@ -22,12 +22,17 @@ import java.util.List;
 public class FlightController {
 
     private final FlightService flightService;
-    private final TicketService ticketService;
 
     @Operation(summary = "Просмотр всех рейсов")
     @GetMapping
     public List<FlightDTO> findAllFlights() {
         return flightService.findAllFlights();
+    }
+
+    @Operation(summary = "Поиск рейса по Id")
+    @GetMapping("/{flight_id}")
+    public Optional<FlightDTO> findFlightById(@PathVariable("flight_id") final Long flightId) {
+        return flightService.findFlightById(flightId);
     }
 
     @Operation(summary = "Просмотр всех рейсов по городу отправления")
@@ -64,13 +69,20 @@ public class FlightController {
         return flightService.findAllFlightPassengers(flightId);
     }
 
-    @Operation(summary = "Добавить билеты на рейс")
-    @PostMapping("/save_tickets/{flight_id}/{num}")
+    @Operation(summary = "Добавить рейс")
+    @PostMapping("/save_flight/{airline_name}")
     @LoggingAnnotation
-    public List<TicketDTO> saveTickets(@Valid @RequestBody final Ticket ticket,
-                                       @PathVariable("flight_id") final Long flightId,
-                                       @PathVariable("num") final int numOfTickets) {
-        return ticketService.saveNumOfTickets(ticket, flightId, numOfTickets);
+    public FlightDTO saveFlight(@Valid @RequestBody final Flight flight,
+                                @PathVariable("airline_name") final String airlineName) {
+        return flightService.saveOrUpdateFlight(flight, airlineName);
+    }
+
+    @Operation(summary = "Изменить рейс")
+    @PutMapping("/update_flight/{airline_name}")
+    @LoggingAnnotation
+    public FlightDTO updateFlight(@Valid @RequestBody final Flight flight,
+                                     @PathVariable("airline_name") final String airlineName) {
+        return flightService.saveOrUpdateFlight(flight, airlineName);
     }
 
     @Operation(summary = "Удалить рейс")

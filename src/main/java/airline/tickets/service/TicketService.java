@@ -32,12 +32,6 @@ public class TicketService {
     private static final String NO_TICKET_EXIST = "No Ticket found with id: ";
     private static final String NO_FLIGHT_EXIST = "No Flight found with id: ";
 
-    @RequestCounterAnnotation
-    public List<TicketDTO> findAllTickets() {
-        List<Ticket> ticketList = ticketRepository.findAll();
-        return convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
-    }
-
     public List<TicketDTO> findAllTicketsByFlightList(final List<Flight> flightList) {
         return flightList.stream()
                 .flatMap(flight -> flight.getTickets().stream())
@@ -51,6 +45,18 @@ public class TicketService {
                 .filter(ticket -> !ticket.isReserved())
                 .map(convertModelToDTO::ticketConversion)
                 .toList();
+    }
+
+    @RequestCounterAnnotation
+    public List<TicketDTO> findAllTickets() {
+        List<Ticket> ticketList = ticketRepository.findAll();
+        return convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
+    }
+    @LoggingAnnotation
+    public Optional<TicketDTO> findTicketById(final Long ticketId) throws ResourceNotFoundException {
+        Ticket ticket = ticketRepository.findById(ticketId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_TICKET_EXIST + ticketId));
+        return Optional.of(convertModelToDTO.ticketConversion(ticket));
     }
 
     @LoggingAnnotation
@@ -72,6 +78,10 @@ public class TicketService {
                                                                     final String arrivalTown) {
         return findAllTicketsByFlightList(flightRepository.
                 findByDepartureTownAndArrivalTown(departureTown, arrivalTown));
+    }
+
+    public List<TicketDTO> findAllUnreservedTickets() {
+        return findUnreservedTicketsByFlightList(flightRepository.findAll());
     }
 
     @LoggingAnnotation

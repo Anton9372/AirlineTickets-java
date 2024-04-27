@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -37,6 +38,12 @@ public class FlightService {
     public List<FlightDTO> findAllFlights() {
         List<Flight> flightList = flightRepository.findAll();
         return convertModelToDTO.convertToDTOList(flightList, convertModelToDTO::flightConversion);
+    }
+
+    public Optional<FlightDTO> findFlightById(final Long flightId) throws ResourceNotFoundException {
+        Flight flight = flightRepository.findById(flightId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_FLIGHT_EXIST + flightId));
+        return Optional.of(convertModelToDTO.flightConversion(flight));
     }
 
     public List<FlightDTO> findFlightByDepartureTown(final String departureTown) {
