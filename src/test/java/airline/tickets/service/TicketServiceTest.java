@@ -1,5 +1,6 @@
 package airline.tickets.service;
 
+import airline.tickets.dto.PassengerDTO;
 import airline.tickets.dto.ReservationDTO;
 import airline.tickets.dto.TicketDTO;
 import airline.tickets.exception.BadRequestException;
@@ -25,6 +26,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
@@ -122,6 +124,23 @@ class TicketServiceTest {
         List<TicketDTO> result = ticketService.findAllTickets();
 
         assertEquals(0, result.size());
+    }
+
+    @Test
+    void testFindTicketById_Valid() {
+        when(ticketRepository.findById(ticketId)).thenReturn(Optional.of(ticket));
+        when(convertModelToDTO.ticketConversion(ticket)).thenReturn(ticketDTO);
+
+        Optional<TicketDTO> optionalResult = ticketService.findTicketById(ticketId);
+        assertTrue(optionalResult.isPresent());
+        TicketDTO result = optionalResult.get();
+        assertEquals(ticketDTO.getId(), result.getId());
+    }
+
+    @Test
+    void testFindTicketById_NoTicketExists() {
+        when(ticketRepository.findById(ticketId)).thenReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> ticketService.findTicketById(ticketId));
     }
 
     @Test

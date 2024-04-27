@@ -25,6 +25,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
@@ -136,6 +137,24 @@ class PassengerServiceTest {
         List<PassengerDTO> result = passengerService.findAllPassengers();
 
         assertEquals(0, result.size());
+    }
+
+    @Test
+    void testFindPassengerById_Valid() {
+        when(passengerRepository.findById(passengerId)).thenReturn(Optional.of(passenger));
+        PassengerDTO passengerDTO = notMockConvertModelToDTO.passengerConversion(passenger);
+        when(convertModelToDTO.passengerConversion(passenger)).thenReturn(passengerDTO);
+
+        Optional<PassengerDTO> optionalResult = passengerService.findPassengerById(passengerId);
+        assertTrue(optionalResult.isPresent());
+        PassengerDTO result = optionalResult.get();
+        assertEquals(passengerDTO.getId(), result.getId());
+    }
+
+    @Test
+    void testFindPassengerById_NoPassengerExists() {
+        when(passengerRepository.findById(passengerId)).thenReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> passengerService.findPassengerById(passengerId));
     }
 
     @Test

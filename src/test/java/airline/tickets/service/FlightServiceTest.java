@@ -28,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
@@ -132,6 +133,24 @@ class FlightServiceTest {
         List<FlightDTO> result = flightService.findAllFlights();
 
         assertEquals(0, result.size());
+    }
+
+    @Test
+    void testFindFlightById_Valid() {
+        when(flightRepository.findById(flightId)).thenReturn(Optional.of(flight));
+        FlightDTO flightDTO = notMockConvertModelToDTO.flightConversion(flight);
+        when(convertModelToDTO.flightConversion(flight)).thenReturn(flightDTO);
+
+        Optional<FlightDTO> optionalResult = flightService.findFlightById(flightId);
+        assertTrue(optionalResult.isPresent());
+        FlightDTO result = optionalResult.get();
+        assertEquals(flightDTO.getId(), result.getId());
+    }
+
+    @Test
+    void testFindFlightById_NoFlightExists() {
+        when(flightRepository.findById(flightId)).thenReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> flightService.findFlightById(flightId));
     }
 
     @Test
