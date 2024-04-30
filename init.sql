@@ -5,9 +5,9 @@ CREATE TABLE Airline (
 
 CREATE TABLE Flight (
                         id SERIAL PRIMARY KEY,
-                        departureTown VARCHAR(255) NOT NULL,
-                        arrivalTown VARCHAR(255) NOT NULL,
-                        departureDateTime TIMESTAMP NOT NULL,
+                        departure_town VARCHAR(255) NOT NULL,
+                        arrival_town VARCHAR(255) NOT NULL,
+                        departure_date_time TIMESTAMP NOT NULL,
                         airline_id BIGINT,
                         FOREIGN KEY (airline_id) REFERENCES Airline(id)
 );
@@ -15,7 +15,7 @@ CREATE TABLE Flight (
 CREATE TABLE Ticket (
                         id SERIAL PRIMARY KEY,
                         price BIGINT NOT NULL,
-                        isReserved BOOLEAN NOT NULL,
+                        is_reserved BOOLEAN NOT NULL,
                         flight_id BIGINT,
                         FOREIGN KEY (flight_id) REFERENCES Flight(id)
 );
@@ -23,7 +23,7 @@ CREATE TABLE Ticket (
 CREATE TABLE Passenger (
                            id SERIAL PRIMARY KEY,
                            name VARCHAR(255) NOT NULL,
-                           passportNumber VARCHAR(255) NOT NULL
+                           passport_number VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Reservation (
