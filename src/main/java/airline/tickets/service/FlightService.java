@@ -31,7 +31,7 @@ public class FlightService {
 
     private final ConvertModelToDTO convertModelToDTO;
 
-    private static final String NO_AIRLINE_EXIST = "No Airline found with name: ";
+    private static final String NO_AIRLINE_EXIST = "No Airline found with id: ";
     private static final String NO_FLIGHT_EXIST = "No Flight found with id: ";
 
     @RequestCounterAnnotation
@@ -79,10 +79,10 @@ public class FlightService {
     }
 
     @LoggingAnnotation
-    public FlightDTO saveOrUpdateFlight(final Flight flight, final String airlineName) throws ResourceNotFoundException,
+    public FlightDTO saveOrUpdateFlight(final Flight flight, final Long airlineId) throws ResourceNotFoundException,
             BadRequestException {
-        Airline airline = airlineRepository.findByName(airlineName).
-                orElseThrow(() -> new ResourceNotFoundException(NO_AIRLINE_EXIST + airlineName));
+        Airline airline = airlineRepository.findById(airlineId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_AIRLINE_EXIST + airlineId));
         if (flight.getDepartureTown() == null || flight.getArrivalTown() == null
                 || flight.getDepartureDateTime() == null) {
             throw new BadRequestException("departureTown, arrivalTown and departureDateTime must be provided");

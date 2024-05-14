@@ -66,6 +66,7 @@ class FlightServiceTest {
     private final String departureTown = "Departure Town";
     private final String arrivalTown = "Arrival Town";
     private final String airlineName = "Airline name";
+    private static final Long airlineId = 10L;
     private final Long flightId = 1L;
 
     private static final int NUM_OF_REPEATS = 5;
@@ -86,7 +87,7 @@ class FlightServiceTest {
     @BeforeAll
     static void setUp() {
         airline = new Airline();
-        airline.setId(10L);
+        airline.setId(airlineId);
         airline.setName("Airline name");
 
         flight = new Flight();
@@ -284,12 +285,12 @@ class FlightServiceTest {
 
     @Test
     void testSaveOrUpdateFlight_Valid() {
-        when(airlineRepository.findByName(airlineName)).thenReturn(Optional.of(airline));
+        when(airlineRepository.findById(airlineId)).thenReturn(Optional.of(airline));
         when(flightRepository.save(flight)).thenReturn(flight);
         FlightDTO flightDTO = notMockConvertModelToDTO.flightConversion(flight);
         when(convertModelToDTO.flightConversion(flight)).thenReturn(flightDTO);
 
-        FlightDTO result = flightService.saveOrUpdateFlight(flight, airlineName);
+        FlightDTO result = flightService.saveOrUpdateFlight(flight, airlineId);
 
         verify(flightRepository, times(1)).save(flight);
         assertEquals(flightDTO, result);
@@ -297,31 +298,31 @@ class FlightServiceTest {
 
     @Test
     void testSaveOrUpdateFlight_NoAirlineExists() {
-        when(airlineRepository.findByName(airlineName)).thenReturn(Optional.empty());
-        assertThrows(ResourceNotFoundException.class, () -> flightService.saveOrUpdateFlight(flight, airlineName));
+        when(airlineRepository.findById(airlineId)).thenReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> flightService.saveOrUpdateFlight(flight, airlineId));
     }
 
     @Test
     void testSaveOrUpdateFlight_NotValidDepartureTown() {
         flight.setDepartureTown(null);
-        when(airlineRepository.findByName(airlineName)).thenReturn(Optional.of(airline));
-        assertThrows(BadRequestException.class, () -> flightService.saveOrUpdateFlight(flight, airlineName));
+        when(airlineRepository.findById(airlineId)).thenReturn(Optional.of(airline));
+        assertThrows(BadRequestException.class, () -> flightService.saveOrUpdateFlight(flight, airlineId));
         flight.setDepartureTown(departureTown);
     }
 
     @Test
     void testSaveOrUpdateFlight_NotValidArrivalTown() {
         flight.setArrivalTown(null);
-        when(airlineRepository.findByName(airlineName)).thenReturn(Optional.of(airline));
-        assertThrows(BadRequestException.class, () -> flightService.saveOrUpdateFlight(flight, airlineName));
+        when(airlineRepository.findById(airlineId)).thenReturn(Optional.of(airline));
+        assertThrows(BadRequestException.class, () -> flightService.saveOrUpdateFlight(flight, airlineId));
         flight.setArrivalTown(arrivalTown);
     }
 
     @Test
     void testSaveOrUpdateFlight_NotValidDepartureDateTime() {
         flight.setDepartureDateTime(null);
-        when(airlineRepository.findByName(airlineName)).thenReturn(Optional.of(airline));
-        assertThrows(BadRequestException.class, () -> flightService.saveOrUpdateFlight(flight, airlineName));
+        when(airlineRepository.findById(airlineId)).thenReturn(Optional.of(airline));
+        assertThrows(BadRequestException.class, () -> flightService.saveOrUpdateFlight(flight, airlineId));
         flight.setDepartureTown(departureTown);
         flight.setDepartureDateTime(LocalDateTime.of(2024, 4, 1, 0, 0));
     }

@@ -34,6 +34,12 @@ public class PassengerController {
         return passengerService.findPassengerById(passengerId);
     }
 
+    @Operation(summary = "Поиск пассажиров по имени")
+    @GetMapping("/name/{passenger_name}")
+    public List<PassengerDTO> findPassengersByName(@PathVariable("passenger_name") final String passengerName) {
+        return passengerService.findPassengersByName(passengerName);
+    }
+
     @Operation(summary = "Просмотреть все бронирования пассажира")
     @GetMapping("/{passenger_id}/reservations")
     @LoggingAnnotation

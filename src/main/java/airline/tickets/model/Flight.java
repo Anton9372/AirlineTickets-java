@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Data
 @Entity
 public class Flight {
@@ -35,4 +34,10 @@ public class Flight {
     @JoinTable(name = "flight_history", joinColumns = @JoinColumn(name = "flight_id"),
             inverseJoinColumns = @JoinColumn(name = "passenger_id"))
     private List<Passenger> passengers = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "id=" + id + ", " + "departureTown=" + departureTown + ", " + "arrivalTown=" + arrivalTown + ", " +
+                "departureDateTime=" + departureDateTime;
+    }
 }

@@ -10,5 +10,5 @@ public class FlightDTO {
     private String departureTown;
     private String arrivalTown;
     private LocalDateTime departureDateTime;
-    private String airlineName;
+    private AirlineDTO airline;
 }

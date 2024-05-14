@@ -3,6 +3,7 @@ package airline.tickets.service;
 import airline.tickets.aspect.LoggingAnnotation;
 import airline.tickets.aspect.RequestCounterAnnotation;
 import airline.tickets.dto.ReservationDTO;
+import airline.tickets.exception.BadRequestException;
 import airline.tickets.exception.ResourceNotFoundException;
 import airline.tickets.model.Flight;
 import airline.tickets.model.Passenger;
@@ -32,6 +33,7 @@ public class ReservationService {
     private static final String NO_PASSENGER_EXIST = "No Passenger found with id: ";
     private static final String NO_TICKET_EXIST = "No Ticket found with id: ";
     private static final String NO_RESERVATION_EXIST = "No Reservation found with id: ";
+    private static final String TICKET_ALREADY_BOOKED = "The ticket was already booked ";
 
     @RequestCounterAnnotation
     public List<ReservationDTO> findAllReservations() {
@@ -58,11 +60,14 @@ public class ReservationService {
 
     @LoggingAnnotation
     public ReservationDTO saveReservation(final Long passengerId, final Long ticketId)
-            throws ResourceNotFoundException {
+            throws ResourceNotFoundException, BadRequestException {
         Passenger passenger = passengerRepository.findById(passengerId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));
         Ticket ticket = ticketRepository.findById(ticketId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_TICKET_EXIST + ticketId));
+        if(ticket.isReserved()) {
+            throw new BadRequestException(TICKET_ALREADY_BOOKED + "Ticket id: " + ticketId);
+        }
 
         Flight flight = ticket.getFlight();
 

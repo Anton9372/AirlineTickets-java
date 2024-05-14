@@ -89,7 +89,8 @@ class ConvertModelToDTOTest {
         assertEquals(flight.getDepartureTown(), flightDTO.getDepartureTown());
         assertEquals(flight.getArrivalTown(), flightDTO.getArrivalTown());
         assertEquals(flight.getDepartureDateTime(), flightDTO.getDepartureDateTime());
-        assertEquals(airline.getName(), flightDTO.getAirlineName());
+        assertEquals(airline.getId(), flightDTO.getAirline().getId());
+        assertEquals(airline.getName(), flightDTO.getAirline().getName());
     }
 
     @Test

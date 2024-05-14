@@ -19,4 +19,9 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "flight_id")
     private Flight flight;
+
+    @Override
+    public String toString() {
+        return "id=" + id + ", " + "price=" + price + ", " + "isReserved=" + isReserved;
+    }
 }

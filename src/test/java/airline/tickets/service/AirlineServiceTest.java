@@ -53,15 +53,16 @@ class AirlineServiceTest {
     private static Airline airline;
     private static AirlineDTO airlineDTO;
 
-    private final String airlineName = "Airline name";
+    private static final Long airlineId = 1L;
+    private static final String airlineName = "Airline name";
 
     private static final int NUM_OF_REPEATS = 5;
 
     @BeforeAll
     static void setUp() {
         airline = new Airline();
-        airline.setId(1L);
-        airline.setName("Airline name");
+        airline.setId(airlineId);
+        airline.setName(airlineName);
         List<Flight> flightList = new ArrayList<>();
         for (int i = 0; i < NUM_OF_REPEATS; i++) {
             Flight flight = new Flight();
@@ -109,24 +110,48 @@ class AirlineServiceTest {
     }
 
     @Test
-    void testFindAirlineByName_Valid() {
-        when(airlineRepository.findByName(airlineName)).thenReturn(Optional.of(airline));
+    void testFindAirlineById_Valid() {
+        when(airlineRepository.findById(airlineId)).thenReturn(Optional.of(airline));
         when(convertModelToDTO.airlineConversion(airline)).thenReturn(airlineDTO);
 
-        Optional<AirlineDTO> result = airlineService.findAirlineByName(airlineName);
+        Optional<AirlineDTO> result = airlineService.findAirlineById(airlineId);
 
         assertTrue(result.isPresent());
         assertEquals(airlineDTO, result.get());
     }
 
     @Test
+    void testFindAirlinesByName_Valid() {
+        List<Airline> airlineList = List.of(airline);
+        List<AirlineDTO> airlineDTOList = notMockConvertModelToDTO.convertToDTOList(airlineList,
+                notMockConvertModelToDTO::airlineConversion);
+        when(airlineRepository.findByName(airlineName)).thenReturn(airlineList);
+        doReturn(airlineDTOList).when(convertModelToDTO).convertToDTOList(eq(airlineList), any());
+
+        List<AirlineDTO> result = airlineService.findAirlinesByName(airlineName);
+
+        assertEquals(1, result.size());
+        assertEquals(airlineDTO, result.get(0));
+    }
+
+    @Test
+    void testFindAirlinesByName_NoAirlinesExist() {
+        when(airlineRepository.findByName(airlineName)).thenReturn(new ArrayList<>());
+
+        List<AirlineDTO> result = airlineService.findAirlinesByName(airlineName);
+
+        assertEquals(0, result.size());
+    }
+
+
+    @Test
     void testFindAllAirlineFlights_Valid() {
-        when(airlineRepository.findByName(airlineName)).thenReturn(Optional.of(airline));
+        when(airlineRepository.findById(airlineId)).thenReturn(Optional.of(airline));
         List<FlightDTO> expectedFlightDTOList = notMockConvertModelToDTO.convertToDTOList(airline.getFlights(),
                 notMockConvertModelToDTO::flightConversion);
         doReturn(expectedFlightDTOList).when(convertModelToDTO).convertToDTOList(eq(airline.getFlights()), any());
 
-        List<FlightDTO> result = airlineService.findAllAirlineFlights(airlineName);
+        List<FlightDTO> result = airlineService.findAllAirlineFlights(airlineId);
 
         assertEquals(expectedFlightDTOList.size(), result.size());
         for (int i = 0; i < expectedFlightDTOList.size(); i++) {
@@ -153,9 +178,9 @@ class AirlineServiceTest {
 
     @Test
     void testDeleteAirline_Valid() {
-        when(airlineRepository.findByName(airlineName)).thenReturn(Optional.of(airline));
+        when(airlineRepository.findById(airlineId)).thenReturn(Optional.of(airline));
 
-        assertDoesNotThrow(() -> airlineService.deleteAirline(airlineName));
+        assertDoesNotThrow(() -> airlineService.deleteAirline(airlineId));
 
         verify(flightService, times(NUM_OF_REPEATS)).deleteFlight(anyLong());
         verify(airlineRepository, times(1)).delete(airline);
@@ -164,18 +189,18 @@ class AirlineServiceTest {
     @ParameterizedTest
     @ValueSource(strings = {"findAirlineByName", "findAllAirlineFlights", "deleteAirline"})
     void testNoAirlineExists(String methodName) {
-        when(airlineRepository.findByName(airlineName)).thenReturn(Optional.empty());
+        when(airlineRepository.findById(airlineId)).thenReturn(Optional.empty());
         switch (methodName) {
             case "findAirlineByName": {
-                assertThrows(ResourceNotFoundException.class, () -> airlineService.findAirlineByName(airlineName));
+                assertThrows(ResourceNotFoundException.class, () -> airlineService.findAirlineById(airlineId));
                 break;
             }
             case "findAllAirlineFlights": {
-                assertThrows(ResourceNotFoundException.class, () -> airlineService.findAllAirlineFlights(airlineName));
+                assertThrows(ResourceNotFoundException.class, () -> airlineService.findAllAirlineFlights(airlineId));
                 break;
             }
             case "deleteAirline": {
-                assertThrows(ResourceNotFoundException.class, () -> airlineService.deleteAirline(airlineName));
+                assertThrows(ResourceNotFoundException.class, () -> airlineService.deleteAirline(airlineId));
                 break;
             }
         }

@@ -29,18 +29,25 @@ public class AirlineController {
         return airlineService.findAllAirlines();
     }
 
-    @Operation(summary = "Найти авиакомпанию по имени")
-    @GetMapping("/{airline_name}")
+    @Operation(summary = "Найти авиакомпанию по id")
+    @GetMapping("/{airline_id}")
     @LoggingAnnotation
-    public Optional<AirlineDTO> findAirlineByName(@PathVariable("airline_name") final String airlineName) {
-        return airlineService.findAirlineByName(airlineName);
+    public Optional<AirlineDTO> findAirlineById(@PathVariable("airline_id") final Long airlineId) {
+        return airlineService.findAirlineById(airlineId);
+    }
+
+    @Operation(summary = "Найти авиакомпании по имени")
+    @GetMapping("/name/{airline_name}")
+    @LoggingAnnotation
+    public List<AirlineDTO> findAirlineByName(@PathVariable("airline_name") final String airlineName) {
+        return airlineService.findAirlinesByName(airlineName);
     }
 
     @Operation(summary = "Просмотр всех рейсов авиакомпании")
-    @GetMapping("/{airline_name}/flights")
+    @GetMapping("/{airline_id}/flights")
     @LoggingAnnotation
-    public List<FlightDTO> findAllAirlineFlights(@PathVariable("airline_name") final String airlineName) {
-        return airlineService.findAllAirlineFlights(airlineName);
+    public List<FlightDTO> findAllAirlineFlights(@PathVariable("airline_id") final Long airlineId) {
+        return airlineService.findAllAirlineFlights(airlineId);
     }
 
     @Operation(summary = "Добавить авиакомпанию")
@@ -58,9 +65,9 @@ public class AirlineController {
     }
 
     @Operation(summary = "Удалить авиакомпанию")
-    @DeleteMapping("/delete_airline/{airline_name}")
+    @DeleteMapping("/delete_airline/{airline_id}")
     @LoggingAnnotation
-    public void deleteAirline(@PathVariable("airline_name") final String airlineName) {
-        airlineService.deleteAirline(airlineName);
+    public void deleteAirline(@PathVariable("airline_id") final Long airlineId) {
+        airlineService.deleteAirline(airlineId);
     }
 }

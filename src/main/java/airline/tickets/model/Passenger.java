@@ -26,4 +26,9 @@ public class Passenger {
 
     @OneToMany(mappedBy = "passenger", fetch = FetchType.EAGER)
     private List<Reservation> reservations = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "id=" + id + ", " + "name=" + name + ", " + "passportNumber" + passportNumber;
+    }
 }

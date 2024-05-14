@@ -42,7 +42,9 @@ public class ConvertModelToDTO {
         flightDTO.setDepartureTown(flight.getDepartureTown());
         flightDTO.setArrivalTown(flight.getArrivalTown());
         flightDTO.setDepartureDateTime(flight.getDepartureDateTime());
-        flightDTO.setAirlineName(flight.getAirline().getName());
+
+        AirlineDTO airlineDTO = airlineConversion(flight.getAirline());
+        flightDTO.setAirline(airlineDTO);
         return flightDTO;
     }
 

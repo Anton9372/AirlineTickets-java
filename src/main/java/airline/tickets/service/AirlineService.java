@@ -25,8 +25,7 @@ public class AirlineService {
     private final FlightService flightService;
 
     private final ConvertModelToDTO convertModelToDTO;
-
-    private static final String NO_AIRLINE_EXIST = "No Airline found with name: ";
+    private static final String NO_AIRLINE_EXIST = "No Airline found with id: ";
 
     @RequestCounterAnnotation
     public List<AirlineDTO> findAllAirlines() {
@@ -34,15 +33,20 @@ public class AirlineService {
         return convertModelToDTO.convertToDTOList(airlineList, convertModelToDTO::airlineConversion);
     }
 
-    public Optional<AirlineDTO> findAirlineByName(final String airlineName) throws ResourceNotFoundException {
-        Airline airline = airlineRepository.findByName(airlineName).
-                orElseThrow(() -> new ResourceNotFoundException(NO_AIRLINE_EXIST + airlineName));
+    public Optional<AirlineDTO> findAirlineById(final Long airlineId) throws ResourceNotFoundException {
+        Airline airline = airlineRepository.findById(airlineId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_AIRLINE_EXIST + airlineId));
         return Optional.of(convertModelToDTO.airlineConversion(airline));
     }
 
-    public List<FlightDTO> findAllAirlineFlights(final String airlineName) throws ResourceNotFoundException {
-        Airline airline = airlineRepository.findByName(airlineName).
-                orElseThrow(() -> new ResourceNotFoundException(NO_AIRLINE_EXIST + airlineName));
+    public List<AirlineDTO> findAirlinesByName(final String airlineName) {
+        List<Airline> airlineList = airlineRepository.findByName(airlineName);
+        return convertModelToDTO.convertToDTOList(airlineList, convertModelToDTO::airlineConversion);
+    }
+
+    public List<FlightDTO> findAllAirlineFlights(final Long airlineId) throws ResourceNotFoundException {
+        Airline airline = airlineRepository.findById(airlineId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_AIRLINE_EXIST + airlineId));
         List<Flight> flightList = airline.getFlights();
         return convertModelToDTO.convertToDTOList(flightList, convertModelToDTO::flightConversion);
     }
@@ -50,16 +54,16 @@ public class AirlineService {
     @LoggingAnnotation
     public AirlineDTO saveOrUpdateAirline(final Airline airline) throws BadRequestException {
         if (airline.getName() == null) {
-            throw new BadRequestException("No name provided");
+            throw new BadRequestException("No airlineName provided");
         }
         airlineRepository.save(airline);
         return convertModelToDTO.airlineConversion(airline);
     }
 
     @LoggingAnnotation
-    public void deleteAirline(final String airlineName) throws ResourceNotFoundException {
-        Airline airline = airlineRepository.findByName(airlineName).
-                orElseThrow(() -> new ResourceNotFoundException(NO_AIRLINE_EXIST + airlineName));
+    public void deleteAirline(final Long airlineId) throws ResourceNotFoundException {
+        Airline airline = airlineRepository.findById(airlineId).
+                orElseThrow(() -> new ResourceNotFoundException(NO_AIRLINE_EXIST + airlineId));
 
         List<Flight> flightList = airline.getFlights();
         Iterator<Flight> iterator = flightList.iterator();

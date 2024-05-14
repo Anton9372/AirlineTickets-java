@@ -1,6 +1,7 @@
 package airline.tickets.service;
 
 import airline.tickets.dto.ReservationDTO;
+import airline.tickets.exception.BadRequestException;
 import airline.tickets.exception.ResourceNotFoundException;
 import airline.tickets.model.Airline;
 import airline.tickets.model.Flight;
@@ -94,7 +95,7 @@ class ReservationServiceTest {
         ticket = new Ticket();
         ticket.setId(ticketId);
         ticket.setPrice(333L);
-        ticket.setReserved(true);
+        ticket.setReserved(false);
         ticket.setFlight(flight);
 
         reservation = new Reservation();
@@ -199,7 +200,7 @@ class ReservationServiceTest {
         verify(ticketRepository, times(1)).save(ticket);
         verify(reservationRepository, times(1)).save(reservation);
         verify(flightRepository, times(1)).save(ticket.getFlight());
-        assertTrue(result.getTicket().isReserved());
+        assertTrue(ticket.isReserved());
     }
 
     @Test
@@ -213,6 +214,14 @@ class ReservationServiceTest {
         when(passengerRepository.findById(passengerId)).thenReturn(Optional.of(passenger));
         when(ticketRepository.findById(ticketId)).thenReturn(Optional.empty());
         assertThrows(ResourceNotFoundException.class, () -> reservationService.saveReservation(passengerId, ticketId));
+    }
+
+    @Test
+    void testSaveReservation_TicketAlreadyBooked() {
+        ticket.setReserved(true);
+        when(passengerRepository.findById(passengerId)).thenReturn(Optional.of(passenger));
+        when(ticketRepository.findById(ticketId)).thenReturn(Optional.of(ticket));
+        assertThrows(BadRequestException.class, () -> reservationService.saveReservation(passengerId, ticketId));
     }
 
     @Test

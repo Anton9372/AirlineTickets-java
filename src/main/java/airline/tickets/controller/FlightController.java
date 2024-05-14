@@ -29,7 +29,7 @@ public class FlightController {
         return flightService.findAllFlights();
     }
 
-    @Operation(summary = "Поиск рейса по Id")
+    @Operation(summary = "Поиск рейса по id")
     @GetMapping("/{flight_id}")
     public Optional<FlightDTO> findFlightById(@PathVariable("flight_id") final Long flightId) {
         return flightService.findFlightById(flightId);
@@ -70,19 +70,19 @@ public class FlightController {
     }
 
     @Operation(summary = "Добавить рейс")
-    @PostMapping("/save_flight/{airline_name}")
+    @PostMapping("/save_flight/{airline_id}")
     @LoggingAnnotation
     public FlightDTO saveFlight(@Valid @RequestBody final Flight flight,
-                                @PathVariable("airline_name") final String airlineName) {
-        return flightService.saveOrUpdateFlight(flight, airlineName);
+                                @PathVariable("airline_id") final Long airlineId) {
+        return flightService.saveOrUpdateFlight(flight, airlineId);
     }
 
     @Operation(summary = "Изменить рейс")
-    @PutMapping("/update_flight/{airline_name}")
+    @PutMapping("/update_flight/{airline_id}")
     @LoggingAnnotation
     public FlightDTO updateFlight(@Valid @RequestBody final Flight flight,
-                                     @PathVariable("airline_name") final String airlineName) {
-        return flightService.saveOrUpdateFlight(flight, airlineName);
+                                     @PathVariable("airline_id") final Long airlineId) {
+        return flightService.saveOrUpdateFlight(flight, airlineId);
     }
 
     @Operation(summary = "Удалить рейс")
