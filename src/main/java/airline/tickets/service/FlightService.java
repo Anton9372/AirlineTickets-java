@@ -14,6 +14,9 @@ import airline.tickets.model.Ticket;
 import airline.tickets.repository.AirlineRepository;
 import airline.tickets.repository.FlightRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
@@ -35,11 +38,13 @@ public class FlightService {
     private static final String NO_FLIGHT_EXIST = "No Flight found with id: ";
 
     @RequestCounterAnnotation
+    @Cacheable(value = "flights")
     public List<FlightDTO> findAllFlights() {
         List<Flight> flightList = flightRepository.findAll();
         return convertModelToDTO.convertToDTOList(flightList, convertModelToDTO::flightConversion);
     }
 
+    @LoggingAnnotation
     public Optional<FlightDTO> findFlightById(final Long flightId) throws ResourceNotFoundException {
         Flight flight = flightRepository.findById(flightId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_FLIGHT_EXIST + flightId));
@@ -79,6 +84,7 @@ public class FlightService {
     }
 
     @LoggingAnnotation
+    @CacheEvict(value = {"flights", "tickets", "reservations"}, allEntries = true)
     public FlightDTO saveOrUpdateFlight(final Flight flight, final Long airlineId) throws ResourceNotFoundException,
             BadRequestException {
         Airline airline = airlineRepository.findById(airlineId).
@@ -93,6 +99,7 @@ public class FlightService {
     }
 
     @LoggingAnnotation
+    @CacheEvict(value = {"flights", "tickets", "reservations"}, allEntries = true)
     public void deleteFlight(final Long flightId) throws ResourceNotFoundException {
         Flight flight = flightRepository.findById(flightId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_FLIGHT_EXIST + flightId));

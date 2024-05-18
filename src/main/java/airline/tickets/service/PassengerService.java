@@ -12,6 +12,9 @@ import airline.tickets.model.Passenger;
 import airline.tickets.model.Reservation;
 import airline.tickets.repository.PassengerRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
@@ -31,11 +34,13 @@ public class PassengerService {
     private static final String NO_PASSENGER_EXIST = "No Passenger found with id: ";
 
     @RequestCounterAnnotation
+    @Cacheable(value = "passengers")
     public List<PassengerDTO> findAllPassengers() {
         List<Passenger> passengerList = passengerRepository.findAll();
         return convertModelToDTO.convertToDTOList(passengerList, convertModelToDTO::passengerConversion);
     }
 
+    @LoggingAnnotation
     public Optional<PassengerDTO> findPassengerById(final Long passengerId) throws ResourceNotFoundException {
         Passenger passenger = passengerRepository.findById(passengerId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));
@@ -64,6 +69,7 @@ public class PassengerService {
     }
 
     @LoggingAnnotation
+    @CacheEvict(value = {"passengers", "reservations"}, allEntries = true)
     public PassengerDTO saveOrUpdatePassenger(final Passenger passenger) throws BadRequestException {
         if (passenger.getName() == null || passenger.getPassportNumber() == null) {
             throw new BadRequestException("name and passportNumber must be provided");
@@ -73,6 +79,7 @@ public class PassengerService {
     }
 
     @LoggingAnnotation
+    @CacheEvict(value = {"passengers", "reservations"}, allEntries = true)
     public void deletePassenger(final Long passengerId) throws ResourceNotFoundException {
         Passenger passenger = passengerRepository.findById(passengerId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_PASSENGER_EXIST + passengerId));

@@ -18,8 +18,10 @@ public class Flight {
 
     @NotBlank
     private String departureTown;
+
     @NotBlank
     private String arrivalTown;
+
     @NotNull
     private LocalDateTime departureDateTime;
 

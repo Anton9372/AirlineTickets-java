@@ -14,6 +14,9 @@ import airline.tickets.repository.PassengerRepository;
 import airline.tickets.repository.ReservationRepository;
 import airline.tickets.repository.TicketRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,6 +39,7 @@ public class ReservationService {
     private static final String TICKET_ALREADY_BOOKED = "The ticket was already booked ";
 
     @RequestCounterAnnotation
+    @Cacheable(value = "reservations")
     public List<ReservationDTO> findAllReservations() {
         List<Reservation> reservationList = reservationRepository.findAll();
         return convertModelToDTO.convertToDTOList(reservationList, convertModelToDTO::reservationConversion);
@@ -59,6 +63,7 @@ public class ReservationService {
     }
 
     @LoggingAnnotation
+    @CacheEvict(value = {"reservations", "tickets"}, allEntries = true)
     public ReservationDTO saveReservation(final Long passengerId, final Long ticketId)
             throws ResourceNotFoundException, BadRequestException {
         Passenger passenger = passengerRepository.findById(passengerId).
@@ -96,6 +101,7 @@ public class ReservationService {
     }
 
     @LoggingAnnotation
+    @CacheEvict(value = {"reservations", "tickets"}, allEntries = true)
     public void deleteReservation(final Long reservationId) throws ResourceNotFoundException {
         Reservation reservation = reservationRepository.findById(reservationId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_RESERVATION_EXIST + reservationId));

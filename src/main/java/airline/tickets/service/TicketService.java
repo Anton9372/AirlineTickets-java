@@ -11,6 +11,9 @@ import airline.tickets.model.Ticket;
 import airline.tickets.repository.FlightRepository;
 import airline.tickets.repository.TicketRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -48,6 +51,7 @@ public class TicketService {
     }
 
     @RequestCounterAnnotation
+    @Cacheable(value = "tickets")
     public List<TicketDTO> findAllTickets() {
         List<Ticket> ticketList = ticketRepository.findAll();
         return convertModelToDTO.convertToDTOList(ticketList, convertModelToDTO::ticketConversion);
@@ -106,6 +110,7 @@ public class TicketService {
     }
 
     @LoggingAnnotation
+    @CacheEvict(value = "tickets", allEntries = true)
     public TicketDTO saveOrUpdateTicket(final Ticket ticket, final Long flightId)
             throws ResourceNotFoundException, BadRequestException {
         Flight flight = flightRepository.findById(flightId).
@@ -142,6 +147,7 @@ public class TicketService {
     }
 
     @LoggingAnnotation
+    @CacheEvict(value = "tickets", allEntries = true)
     public void deleteTicket(final Long ticketId) throws ResourceNotFoundException {
         Ticket ticket = ticketRepository.findById(ticketId).
                 orElseThrow(() -> new ResourceNotFoundException(NO_TICKET_EXIST + ticketId));
