@@ -1,15 +1,29 @@
-# AirlineTickets Java Application
+# AirlineTickets
 
-Это приложение представляет собой простой сервис для бронирования авиабилетов, разработанный на Java с использованием Spring Boot Framework.
+This application represents a simple service for searching and booking airline tickets using the following technologies:
+ - Java 17
+ - Spring Web
+ - Spring Data Jpa
+ - PostgreSQL
+ - AOP
+ - Redis
+ - Docker
 
-## Описание
+## Description
 
-Приложение позволяет управлять базой авиабилетов, включая добавление новых билетов, редактирование существующих, поиск и удаление неактуальных билетов
+The application allows managing a database of airline tickets, including adding new tickets, editing existing ones, searching, and removing outdated tickets.
 
-## Запуск
+## Code Quality 
+SonarCloud was used to check the code quality.
+You can find the project overview [here](https://sonarcloud.io/project/overview?id=Anton9372_AirlineTickets-java).
 
-**Подключение к базе данных:** Для полной функциональности проекта необходимо подключиться к базе данных PostgreSQL. Укажите параметры подключения в файле `application.properties`, а именно: хост, логин, пароль и имя базы данных.
+## Database Schema
+![img.png](img.png)
 
-**Запуск приложения:** После настройки подключения к базе данных, запустите приложение. Рекомендуется использовать средство сборки Maven для сборки и запуска проекта.
+## Deployed
 
-**Использование веб-интерфейса:** После успешного запуска приложения откройте веб-браузер и перейдите по адресу `http://localhost:8080/api/v1/tickets`, чтобы получить список всех авиабилетов в формате JSON.
+https://airlinetickets-java.onrender.com
+
+
+
+
